@@ -1,7 +1,12 @@
 <nav class="navbar">
-    <h3> {{title}} </h3>
+    <h2> {{title}} </h2>
 
     <ul *ngIf="menu.length < 5">
         <li *ngFor="let option of menu"> {{option}} </li>
     </ul>
+
+    <div (click)="toggleSidebar()">
+        <i class="fa fa-2x fa-bars"></i>
+    </div>
 </nav>
+<app-sidebar class="sidebar" [ngClass]="displayed? ['displaying'] : ['hidding']" (closed)="toggleSidebar()" [menu]="menu"></app-sidebar>

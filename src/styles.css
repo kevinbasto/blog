@@ -5,6 +5,7 @@
     --bg-quartary: #ccc;
     --tx-primary: #000;
     --tx-seconadary: #fff;
+    --ts-time : 700ms
 }
 
 .light{
@@ -30,4 +31,5 @@ body{
     color: var(--tx-primary);
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }

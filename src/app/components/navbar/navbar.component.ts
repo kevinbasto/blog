@@ -18,8 +18,13 @@ export class NavbarComponent implements OnInit {
     "Japonesas",
     "coreanas"
   ];
+  public displayed : boolean = false;
 
   ngOnInit(): void {
+  }
+
+  toggleSidebar(){
+    this.displayed = !this.displayed;
   }
 
 }

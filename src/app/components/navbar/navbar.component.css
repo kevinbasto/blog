@@ -3,9 +3,10 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--bg-secondary);
+    overflow: hidden;
 }
 
-.navbar h3{
+.navbar h2{
     padding-left: 1em;
 }
 
@@ -19,4 +20,40 @@
 
 .navbar ul li{
     margin: 1em;
+}
+
+.navbar div{
+    padding: 1em;
+}
+
+.navbar div svg{
+    color: var(--tx-primary);
+}
+
+.navbar div svg:hover{
+    cursor: pointer;
+}
+
+.sidebar{
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    transition: var(--ts-time) ease-in-out;
+    background-color: var(--bg-terciary);
+}
+
+.displaying{
+    display: inline;
+}
+
+.hidding{
+    right: -30vw;
+}
+
+@media only screen and (min-width: 600px){
+    .sidebar{
+        width: 30vw;
+        height: 100vh;
+    }
 }

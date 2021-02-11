@@ -1,0 +1,12 @@
+.header{
+    background-color: var(--bg-quartary);
+}
+
+.close{
+    padding: 1em;
+}
+
+.close svg{
+    cursor: pointer;
+    color: var(--tx-primary)
+}
