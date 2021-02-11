@@ -5,7 +5,9 @@
     --bg-quartary: #ccc;
     --tx-primary: #000;
     --tx-seconadary: #fff;
-    --ts-time : 700ms
+    --ts-time : 700ms;
+    --sctrack: #666;
+    --scbar: #000;
 }
 
 .light{

@@ -24,9 +24,9 @@
     left: 0;
     top: 0;
     transition: var(--ts-time) ease-in-out;
-    background-color: var(--bg-terciary);
+    background-color: var(--bg-secondary);
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -34,11 +34,11 @@
 }
 
 .sidebar::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
+    background: var(--sctrack);
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: var(--bg-terciary);
+    background: var(--scbar);
 }
 
 
