@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
   // constructor
   constructor() { }
 
+  @Input() title : any;
   @Input() menu : any;
   @Output() closed = new EventEmitter<boolean>();
 

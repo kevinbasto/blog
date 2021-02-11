@@ -1,25 +1,9 @@
 .navbar{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     background-color: var(--bg-secondary);
     overflow: hidden;
-}
-
-.navbar h2{
-    padding-left: 1em;
-}
-
-.navbar ul{
-    list-style-type: none;
-    display: flex;
-    justify-content: space-evenly;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar ul li{
-    margin: 1em;
 }
 
 .navbar div{
@@ -35,25 +19,55 @@
 }
 
 .sidebar{
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    right: 0;
+    left: 0;
     top: 0;
     transition: var(--ts-time) ease-in-out;
     background-color: var(--bg-terciary);
+    height: 100vh;
+    overflow-y: scroll;
 }
+
+.sidebar::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--bg-terciary);
+}
+
 
 .displaying{
     display: inline;
 }
 
-.hidding{
-    right: -30vw;
-}
 
-@media only screen and (min-width: 600px){
+
+/* small screens */
+@media only screen and (max-width: 600px){
     .sidebar{
-        width: 30vw;
-        height: 100vh;
+        width: 90vw;
+        overflow-y: scroll;
+    }
+
+    .hidding{
+        left: -90vw;
     }
 }
+
+/* big screens */
+@media only screen and (min-width: 600px){
+    .sidebar{
+        width: 15vw;
+    }
+
+    .hidding{
+        left: -15vw;
+    }
+}
+

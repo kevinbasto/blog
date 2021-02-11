@@ -1,8 +1,11 @@
 <header class="header">
+    <h2>{{title}}</h2>
     <div class="close" (click)="alternate()">
         <i class="fa fa-2x fa-times"></i>
     </div>
 </header>
-<ul *ngIf="menu != undefined">
-    <li *ngFor="let option of menu"> {{option}} </li>
-</ul>
+<div class="menu_container">
+    <ul *ngIf="menu != undefined">
+        <li *ngFor="let option of menu"> {{option}} </li>
+    </ul>
+</div>
