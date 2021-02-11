@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  // constructor
   constructor() { }
+
+  public title : string = "Funadas no fansub";
+  public menu : Array<string> = [
+    "Inicio",
+    "Originales",
+    "Chinas",
+    "Japonesas",
+    "coreanas"
+  ];
 
   ngOnInit(): void {
   }

@@ -1,1 +1,7 @@
-<p>navbar works!</p>
+<nav class="navbar">
+    <h3> {{title}} </h3>
+
+    <ul *ngIf="menu.length < 5">
+        <li *ngFor="let option of menu"> {{option}} </li>
+    </ul>
+</nav>

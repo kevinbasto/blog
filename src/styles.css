@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+    --bg-primary: #fff;
+    --bg-secondary: #eee;
+    --bg-terciary: #ddd;
+    --bg-quartary: #ccc;
+    --tx-primary: #000;
+    --tx-seconadary: #fff;
+}
+
+.light{
+    --bg-primary: #fff;
+    --bg-secondary: #eee;
+    --bg-terciary: #ddd;
+    --bg-quartary: #ccc;
+    --tx-primary: #000;
+    --tx-seconadary: #fff;
+}
+
+.dark{
+    --bg-primary: #333;
+    --bg-secondary: #444;
+    --bg-terciary: #555;
+    --bg-quartary: #666;
+    --tx-primary: #fff;
+    --tx-seconadary: #000;
+}
+
+body{
+    background-color: var(--bg-primary);
+    color: var(--tx-primary);
+    margin: 0;
+    padding: 0;
+}
