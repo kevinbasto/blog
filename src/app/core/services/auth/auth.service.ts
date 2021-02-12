@@ -36,10 +36,19 @@ export class AuthService {
 
 
   constructor(
-    private afauth: AngularFireAuth,
-    private af: AngularFirestore,
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
     private router: Router
-  ) { }
+  ) { 
+    this.user$ = this.afAuth.authState.pipe(switchMap(user => {
+			if (user) {
+				return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
+			} else {
+				return of(null);
+			}
+		}));
+
+  }
 
     parseError(error: Error) : string{
       return this.errorCode[error.code] ? this.errorCode[error.code] : "Ha ocurrido un error no identificado, por favor intentelo nuevamente mas tarde";
@@ -47,7 +56,7 @@ export class AuthService {
 
   async login(email : string, password: string) {
     try{
-      return await this.afauth.signInWithEmailAndPassword(email, password);
+      return await this.afAuth.signInWithEmailAndPassword(email, password);
     }
     catch(exception){
       throw exception;
@@ -56,7 +65,7 @@ export class AuthService {
 
   async signout() {
     try{
-      await this.afauth.signOut();
+      await this.afAuth.signOut();
       return this.router.navigate(['/auth/login']);
     }
     catch(exception){
