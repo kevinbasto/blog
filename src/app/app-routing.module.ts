@@ -7,6 +7,11 @@ import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
+  {
     path: 'auth',
     component: AuthComponent,
     children: [
@@ -15,6 +20,10 @@ const routes: Routes = [
         loadChildren: './auth/auth.module#AuthModule'
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: "auth"
   }
 ];
 
