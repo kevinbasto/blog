@@ -1,13 +1,23 @@
-<div class="card">
-    <div class="card-header">
-        <h3>Funadas no fansub</h3>
+<div class="card login_container">
+    <div class="card_header">
+        <h2>Funadas no fansub</h2>
     </div>
-    <form [formGroup]="loginForm">
-        <div class="card-body">
-
-        </div>
-        <div class="card-footer">
-            
+    <form [formGroup]="loginForm" (submit)="submit()">
+        <div class="card_body">
+            <div class="form_group">
+                <span class="form_label">Correo Electrónico</span>
+                <input type="email" formControlName="email">
+            </div>
+            <div class="form_group">
+                <span class="form_label">Contraseña</span>
+                <input type="password" formControlName="password">
+            </div>
+            <div>
+                <span>¿No tienes una cuenta? <a class="reference">Crear una cuenta</a></span>
+            </div>
+        </div>    
+        <div class="card_footer">
+            <button class="button_primary" type="submit">Iniciar sesión</button>
         </div>
     </form>
 </div>
