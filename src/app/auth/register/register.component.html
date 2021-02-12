@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="card_footer">
-            <button type="submit" class="button_primary">Registrarse</button>
+            <button type="submit" class="button_primary" [disabled]="!(registerForm.valid && verifyPassword())">Registrarse</button>
         </div>    
     </form>
 </div>
