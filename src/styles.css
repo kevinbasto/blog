@@ -133,3 +133,7 @@ body{
 .hidden{
     display: none;
 }
+
+.error_container{
+    max-width: 100%;
+}

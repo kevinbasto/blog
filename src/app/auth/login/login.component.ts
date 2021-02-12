@@ -18,8 +18,10 @@ export class LoginComponent implements OnInit {
   public loginForm : FormGroup = this.fb.group({
     email: ["", [Validators.required, Validators.email]],
     password: ["", [Validators.required, Validators.minLength(6)]]
-  })
+  });
+  public showMessage: boolean = false;
   public Message : string;
+  
 
   ngOnInit(): void {
   }
@@ -35,6 +37,10 @@ export class LoginComponent implements OnInit {
     .catch(error => {
       let message = this.auth.parseError(error);
       this.Message = message;
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 5000);
     })
   }
 
