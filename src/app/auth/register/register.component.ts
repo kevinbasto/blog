@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
   }
 
   verifyPassword(){
-    console.log((this.registerForm.get("password")?.value == this.registerForm.get("verifyPassword")?.value) && (this.registerForm.get("password")?.touched || this.registerForm.get("verifyPassword")?.touched));
     let test =  (this.registerForm.get("password")?.value == this.registerForm.get("verifyPassword")?.value) && (this.registerForm.get("password")?.touched || this.registerForm.get("verifyPassword")?.touched);
     return test;
   }
