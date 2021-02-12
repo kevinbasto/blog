@@ -19,11 +19,15 @@ export class RegisterComponent implements OnInit {
     email : ["", [Validators.required, Validators.email]],
     password: ["", [Validators.required, Validators.minLength(6)]],
     verifyPassword: ["", [Validators.required, Validators.minLength(6)]],
-    terms: ["", [Validators.required]]
+    terms: [false, [Validators.required]]
   });
 
   ngOnInit(): void {
 
+  }
+
+  verifyPassword(){
+    return this.registerForm.get("password")?.value == this.registerForm.get("verifyPassword")?.value;
   }
 
   register(){
