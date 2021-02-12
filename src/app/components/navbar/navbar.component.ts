@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+// client and admin menu import
+import { MenuOption } from '../../core/menu.option';
+import { ClientMenu } from '../../core/client.menu';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,14 +15,8 @@ export class NavbarComponent implements OnInit {
   constructor() { }
 
   public title : string = "Funadas no fansub";
-  public menu : Array<string> = [
-    "Inicio",
-    "Originales",
-    "Chinas",
-    "Japonesas",
-    "coreanas",
-  ];
-  public displayed : boolean = false;
+  public menu : Array<MenuOption> = ClientMenu;
+  public displayed : boolean = true;
 
   ngOnInit(): void {
   }
