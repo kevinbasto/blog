@@ -40,3 +40,8 @@ body{
     font-size: var(--fnt-size);
     font-family: var(--fnt-family);
 }
+
+.card{
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+}
