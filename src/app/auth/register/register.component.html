@@ -24,10 +24,10 @@
             </div>
             <div class="form_group">
                 <label class="form_label">Confirmar contraseña:</label>
-                <input type="password" formControlName="verifyPassword"  minlength="6" [ngClass]="checkError('verifyPassword', 'required') || checkError('password', 'minlength') || verifyPassword()? ['error_field']: ['']">
+                <input type="password" formControlName="verifyPassword"  minlength="6" [ngClass]="checkError('verifyPassword', 'required') || checkError('password', 'minlength') || (!verifyPassword() && registerForm.get('verifyPassword').touched)? ['error_field']: ['']">
                 <span class="error" [ngClass]="checkError('verifyPassword', 'required')? [''] : ['hidden'] ">¡Introduce una contraseña!</span>
                 <span class="error" [ngClass]="checkError('verifyPassword', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
-                <span class="error" [ngClass]="verifyPassword()? [''] : ['hidden'] ">¡Las contraseñas no coinciden!</span>
+                <span class="error" [ngClass]="!verifyPassword() && registerForm.get('verifyPassword').touched? [''] : ['hidden'] ">¡Las contraseñas no coinciden!</span>
             </div>
             <div>
                 <input type="checkbox" formControlName="terms">
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="card_footer">
-            <button type="submit" class="button_primary" [disabled]="!(registerForm.valid && verifyPassword())">Registrarse</button>
-        </div>    
+            <button type="submit" class="button_primary" [disabled]="!(registerForm.valid && verifyPassword()) || registerForm.get('terms').value == false">Registrarse</button>
+        </div>
     </form>
 </div>

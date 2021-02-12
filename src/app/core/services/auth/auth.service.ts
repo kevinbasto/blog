@@ -9,7 +9,7 @@ import { switchMap } from 'rxjs/operators';
 
 interface Error {
   a?: any;
-  code : string;
+  code: string;
   message?: string;
 }
 
@@ -39,36 +39,53 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router
-  ) { 
+  ) {
     this.user$ = this.afAuth.authState.pipe(switchMap(user => {
-			if (user) {
-				return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
-			} else {
-				return of(null);
-			}
-		}));
+      if (user) {
+        return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
+      } else {
+        return of(null);
+      }
+    }));
 
   }
 
-    parseError(error: Error) : string{
-      return this.errorCode[error.code] ? this.errorCode[error.code] : "Ha ocurrido un error no identificado, por favor intentelo nuevamente mas tarde";
-    }
+  parseError(error: Error): string {
+    return this.errorCode[error.code] ? this.errorCode[error.code] : "Ha ocurrido un error no identificado, por favor intentelo nuevamente mas tarde";
+  }
 
-  async login(email : string, password: string) {
+  async register(username : string, email : string, password : string, terms: boolean){
     try{
+      return await this.afAuth.createUserWithEmailAndPassword(email, password)
+      .then(register => {
+        this.afs.collection('users').doc(register.user?.uid).set({
+          username: username,
+          email: email,
+          role: "reader",
+          level: 1
+        });
+      });
+    }
+    catch(error){
+      throw error;
+    }
+  }
+
+  async login(email: string, password: string) {
+    try {
       return await this.afAuth.signInWithEmailAndPassword(email, password);
     }
-    catch(exception){
+    catch (exception) {
       throw exception;
     }
   }
 
   async signout() {
-    try{
+    try {
       await this.afAuth.signOut();
       return this.router.navigate(['/auth/login']);
     }
-    catch(exception){
+    catch (exception) {
       throw exception;
     }
   }
