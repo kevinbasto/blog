@@ -1,0 +1,56 @@
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+
+// rxjs tools used
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  private errorCode: any = {
+    "auth/invalid-password": "La contraseña proporcionada debe ser de al menos 6 caracteres.",
+    "auth/email-already-exists": "La cuenta de correo proporcionada ya se encuentra en uso por otra cuenta.",
+    "auth/email-already-in-use": "La cuenta de correo proporcionada ya se encuentra en uso.",
+    "auth/invalid-email": "Proporcione una cuenta de correo válida",
+    "auth/user-not-found": "No existe una cuenta de usuario con el correo electrónico proporcionado",
+    "auth/wrong-password": "La contraseña proporcionada es incorrecta",
+    "auth/too-many-requests": "Demasiados intentos de inicio de sesión fallidos. Por favor, inténtelo de nuevo más tarde.",
+    "auth/argument-error": "Información inválida por favor verifiquela nuevamente",
+    "auth/invalid-action-code": "Acción denegada asegurese de estar utilizando un link de activación vigente, si el error persiste solicite de nuevo el correo de activación",
+    "auth/user-disabled": "La cuenta de usuario se encuentra deshabilitada",
+    "auth/phone-number-already-exists": "El teléfono proporcionado ya se encuentra en uso por otro usuario.",
+    "auth/network-request-failed": "No se ha podido establecer comunicación con el servidor, revise su conexión a internet"
+  };
+  public user$: Observable<any>;
+
+
+  constructor(
+    private afauth: AngularFireAuth,
+    private af: AngularFirestore,
+    private router: Router
+  ) { }
+
+  async login(email : string, password: string) {
+    try{
+      return await this.afauth.signInWithEmailAndPassword(email, password);
+    }
+    catch(exception){
+      throw exception;
+    }
+  }
+
+  async signout() {
+    try{
+      await this.afauth.signOut();
+      return this.router.navigate(['/auth/login']);
+    }
+    catch(exception){
+      throw exception;
+    }
+  }
+}
