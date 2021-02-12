@@ -62,7 +62,8 @@ export class AuthService {
           username: username,
           email: email,
           role: "reader",
-          level: 1
+          level: 1,
+          banned: false
         });
       });
     }
