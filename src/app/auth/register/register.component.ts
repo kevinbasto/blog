@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   public registerForm : FormGroup = this.fb.group({
-    username: ["", [Validators.required]],
+    username: ["", [Validators.required, Validators.minLength(2)]],
     email : ["", [Validators.required, Validators.email]],
     password: ["", [Validators.required, Validators.minLength(6)]],
     verifyPassword: ["", [Validators.required, Validators.minLength(6)]],
@@ -29,6 +29,10 @@ export class RegisterComponent implements OnInit {
   verifyPassword(){
     let test =  (this.registerForm.get("password")?.value == this.registerForm.get("verifyPassword")?.value) && (this.registerForm.get("password")?.touched || this.registerForm.get("verifyPassword")?.touched);
     return test;
+  }
+
+  checkError(field : string, type : string){
+    return this.registerForm.get(field)?.hasError(type) && this.registerForm.get(field)?.touched;
   }
 
   register(){
