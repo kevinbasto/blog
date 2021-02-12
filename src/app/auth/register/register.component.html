@@ -38,7 +38,12 @@
             </div>
         </div>
         <div class="card_footer">
-            <button type="submit" class="button_primary" [disabled]="!(registerForm.valid && verifyPassword()) || registerForm.get('terms').value == false">Registrarse</button>
+            <button type="submit" class="button_primary" [disabled]="!(registerForm.valid && verifyPassword()) || registerForm.get('terms').value == false  || loading">
+                <div *ngIf="loading">
+                    <i class="fas fa-spin fa-circle-notch"></i>
+                </div>
+                <span *ngIf="!loading">Registrarse</span>
+            </button>
         </div>
     </form>
 </div>

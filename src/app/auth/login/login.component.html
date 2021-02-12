@@ -24,7 +24,14 @@
             </div>
         </div>    
         <div class="card_footer">
-            <button class="button_primary" type="submit" [disabled]="!loginForm.valid">Iniciar sesión</button>
+            <button class="button_primary" type="submit" [disabled]="!loginForm.valid || loading">
+                <div *ngIf="loading">
+                    <i class="fas fa-spin fa-circle-notch"></i>
+                </div>
+                <span *ngIf="!loading">
+                    Iniciar sesión
+                </span>
+            </button>
         </div>
     </form>
 </div>

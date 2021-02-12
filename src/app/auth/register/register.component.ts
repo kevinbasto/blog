@@ -25,12 +25,14 @@ export class RegisterComponent implements OnInit {
   });
   public Message : string = "";
   public showMessage : boolean = false;
+  public loading : boolean = false;
 
   ngOnInit(): void {
 
   }
 
   register(){
+    
     let fields = ["username", "email", "password"];
     let request : any = {};
 

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   });
   public showMessage: boolean = false;
   public Message : string;
-  
+  public loading : boolean = false;
 
   ngOnInit(): void {
   }

@@ -71,6 +71,10 @@ body{
 
 }
 
+.card_footer > .button_primary{
+    width: 20%;
+}
+
 .form_group{
     display: flex;
     flex-direction: column;
