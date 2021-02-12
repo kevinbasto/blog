@@ -1,1 +1,32 @@
-<p>register works!</p>
+<div class="card register_container">
+    <div class="card_header">
+        <h2>Registrate a funadas no fansub</h2>
+    </div>
+    <form [formGroup]="registerForm" (submit)="register()">
+        <div class="card_body">
+            <div class="form_group">
+                <span class="form_label">Nombre de usuario:</span>
+                <input type="text" formControlName="username">
+            </div>
+            <div class="form_group">
+                <span class="form_label">Correo Electrónico:</span>
+                <input type="email" formControlName="email">
+            </div>
+            <div class="form_group">
+                <span class="form_label">Contraseña:</span>
+                <input type="password" formControlName="password">
+            </div>
+            <div class="form_group">
+                <span class="form_label">Confirmar contraseña:</span>
+                <input type="password" formControlName="verifyPassword">
+            </div>
+            <div>
+                <input type="checkbox" formControlName="terms">
+                <label>Acepto los términos y condiciones</label>
+            </div>
+        </div>
+        <div class="card_footer">
+            <button type="submit" class="button_primary">Registrarse</button>
+        </div>    
+    </form>
+</div>
