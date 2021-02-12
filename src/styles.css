@@ -4,10 +4,13 @@
     --bg-terciary: #ddd;
     --bg-quartary: #ccc;
     --tx-primary: #000;
-    --tx-seconadary: #fff;
+    --tx-secondary: #fff;
+    --tx-hover: #333;
     --ts-time : 700ms;
     --sctrack: #666;
     --scbar: #000;
+    --fnt-size: 16px;
+    --fnt-family: Helvetica;
 }
 
 .light{
@@ -34,4 +37,6 @@ body{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    font-size: var(--fnt-size);
+    font-family: var(--fnt-family);
 }

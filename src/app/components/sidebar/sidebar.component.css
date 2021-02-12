@@ -18,3 +18,31 @@
     cursor: pointer;
     color: var(--tx-primary)
 }
+
+.menu_container ul{
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.menu_container ul li{
+    font-weight: bold;
+    margin: 1em;
+    font-size: 1.3rem;
+}
+
+.menu_container ul li:hover{
+    cursor: pointer;
+}
+
+.menu_container ul li a{
+    text-decoration: none;
+    color: var(--tx-primary);
+    transition: var(--ts-time);
+}
+
+.menu_container ul li a:hover{
+    color: var(--tx-hover);
+}
