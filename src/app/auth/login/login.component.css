@@ -9,9 +9,16 @@
     }
 }
 
-@media only screen and (min-width:600px){
+@media only screen and (min-width:600px) and (max-width:1200px){
     .login_container{
         width: 60vw;
+        margin: auto;
+    }
+}
+
+@media only screen and (min-width:1200px){
+    .login_container{
+        width: 40vw;
         margin: auto;
     }
 }
