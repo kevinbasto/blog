@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class LoginComponent implements OnInit {
   // constructor
   constructor(
     private fb : FormBuilder,
+    private router: Router,
     private auth: AuthService
   ) { }
 
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
     
     this.auth.login(email, password)
     .then(res => {
-      console.log(res);
+      this.router.navigate(['client/inicio'])
     })
     .catch(error => {
       let message = this.auth.parseError(error);
