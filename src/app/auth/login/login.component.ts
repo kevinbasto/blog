@@ -24,4 +24,12 @@ export class LoginComponent implements OnInit {
   submit(){
     console.log(this.loginForm.value);
   }
+
+  checkError(field : string, type : string){
+    return this.loginForm.get(field)?.hasError(type) && this.loginForm.get(field)?.touched;
+  }
+
+  checkLength(){
+    return this.loginForm.get("password")?.hasError("minlength");
+  }
 }

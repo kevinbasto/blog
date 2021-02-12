@@ -12,6 +12,7 @@
     --fnt-size: 16px;
     --fnt-family: Helvetica;
     --link-primary: #007bff;
+    --tx-error: #dc3545;
 }
 
 .light{
@@ -83,13 +84,17 @@ body{
     border-radius: 5px;
 }
 
+.form_group span{
+    transition: var(--ts-time);
+}
+
 .button_primary{
     height: 3em;
     font-weight: bold;
     border-radius: 5px;
     background: var(--bg-quartary);
     border: 1px solid var(--bg-terciary);
-    transition: var(--ts-time);
+    transition: var(--ts-time) ease-out;
 }
 
 .button_primary:hover{
@@ -97,7 +102,19 @@ body{
     cursor: pointer;
 }
 
+.button_primary:disabled{
+    pointer-events: none;
+}
+
 .reference{
     text-decoration: none;
     color: var(--link-primary);
+}
+
+.error{
+    color: var(--tx-error);
+}
+
+.hidden{
+    display: none;
 }
