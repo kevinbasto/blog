@@ -26,17 +26,16 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  verifyPassword(){
-    let test =  (this.registerForm.get("password")?.value == this.registerForm.get("verifyPassword")?.value) && (this.registerForm.get("password")?.touched || this.registerForm.get("verifyPassword")?.touched);
-    return test;
+  register(){
+    
   }
 
   checkError(field : string, type : string){
     return this.registerForm.get(field)?.hasError(type) && this.registerForm.get(field)?.touched;
   }
 
-  register(){
-    console.log(this.registerForm.value);
+  verifyPassword(){
+    let test =  (this.registerForm.get("password")?.value == this.registerForm.get("verifyPassword")?.value) && (this.registerForm.get("password")?.touched || this.registerForm.get("verifyPassword")?.touched);
+    return test;
   }
-
 }
