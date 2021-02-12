@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
   public title : string = "Funadas no fansub";
   public menu : Array<MenuOption> = ClientMenu;
-  public displayed : boolean = true;
+  public displayed : boolean = false;
 
   ngOnInit(): void {
   }
