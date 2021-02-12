@@ -2,7 +2,7 @@
     <div class="card_header">
         <h2>Funadas no fansub</h2>
     </div>
-    <form [formGroup]="loginForm" (submit)="submit()">
+    <form [formGroup]="loginForm" (submit)="login()">
         <div class="card_body">
             <div class="form_group">
                 <span class="form_label">Correo Electrónico</span>
@@ -12,12 +12,12 @@
             </div>
             <div class="form_group">
                 <span class="form_label">Contraseña</span>
-                <input type="password" formControlName="password" minlength="8" [ngClass]="checkError('password', 'required') || checkError('password', 'minlength')? ['error_field']: ['']" >
+                <input type="password" formControlName="password" minlength="6" [ngClass]="checkError('password', 'required') || checkError('password', 'minlength')? ['error_field']: ['']" >
                 <span class="error" [ngClass]="checkError('password', 'required')? [''] : ['hidden'] ">¡Introduce la contraseña para continuar!</span>
                 <span class="error" [ngClass]="checkError('password', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
             </div>
             <div>
-                <span>¿No tienes una cuenta? <a class="reference">Crear una cuenta</a></span>
+                <span>¿No tienes una cuenta? <a [routerLink]="['/auth/register']" class="reference">Crear una cuenta</a></span>
             </div>
             <div>
                 <span class="error" *ngIf="Message">{{Message}}</span>

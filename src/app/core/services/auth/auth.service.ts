@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+interface Error {
+  a?: any;
+  code : string;
+  message?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +40,10 @@ export class AuthService {
     private af: AngularFirestore,
     private router: Router
   ) { }
+
+    parseError(error: Error) : string{
+      return this.errorCode[error.code] ? this.errorCode[error.code] : "Ha ocurrido un error no identificado, por favor intentelo nuevamente mas tarde";
+    }
 
   async login(email : string, password: string) {
     try{
