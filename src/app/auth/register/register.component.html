@@ -5,20 +5,29 @@
     <form [formGroup]="registerForm" (submit)="register()">
         <div class="card_body">
             <div class="form_group">
-                <span class="form_label">Nombre de usuario:</span>
-                <input type="text" formControlName="username">
+                <label class="form_label">Nombre de usuario:</label>
+                <input type="text" formControlName="username" minlength="2" [ngClass]="checkError('username', 'required') || checkError('username', 'minlength')? ['error_field'] : [''] ">
+                <span class="error" [ngClass]="checkError('username', 'required')? [''] : ['hidden'] ">¡Introduce un nombre de usuario!</span>
+                <span class="error" [ngClass]="checkError('username', 'minlength')? [''] : ['hidden'] ">¡El nombre de usuario es muy corto!</span>
             </div>
             <div class="form_group">
-                <span class="form_label">Correo Electrónico:</span>
-                <input type="email" formControlName="email">
+                <label class="form_label">Correo Electrónico:</label>
+                <input type="email" formControlName="email" [ngClass]="checkError('email', 'required') || checkError('email', 'email')? ['error_field'] : [''] ">
+                <span class="error" [ngClass]="checkError('email', 'required')? [''] : ['hidden'] ">¡Introduce tu correo para continuar!</span>
+                <span class="error" [ngClass]="checkError('email', 'email')? [''] : ['hidden'] ">¡Introduce un correo válido para continuar!</span>
             </div>
             <div class="form_group">
-                <span class="form_label">Contraseña:</span>
-                <input type="password" formControlName="password">
+                <label class="form_label">Contraseña:</label>
+                <input type="password" formControlName="password" minlength="6" [ngClass]="checkError('password', 'required') || checkError('password', 'minlength')? ['error_field']: ['']" >
+                <span class="error" [ngClass]="checkError('password', 'required')? [''] : ['hidden'] ">¡Introduce una contraseña!</span>
+                <span class="error" [ngClass]="checkError('password', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
             </div>
             <div class="form_group">
-                <span class="form_label">Confirmar contraseña:</span>
-                <input type="password" formControlName="verifyPassword">
+                <label class="form_label">Confirmar contraseña:</label>
+                <input type="password" formControlName="verifyPassword"  minlength="6" [ngClass]="checkError('verifyPassword', 'required') || checkError('password', 'minlength') || verifyPassword()? ['error_field']: ['']">
+                <span class="error" [ngClass]="checkError('verifyPassword', 'required')? [''] : ['hidden'] ">¡Introduce una contraseña!</span>
+                <span class="error" [ngClass]="checkError('verifyPassword', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
+                <span class="error" [ngClass]="verifyPassword()? [''] : ['hidden'] ">¡Las contraseñas no coinciden!</span>
             </div>
             <div>
                 <input type="checkbox" formControlName="terms">
