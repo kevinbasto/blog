@@ -7,7 +7,7 @@
 <div class="menu_container">
     <ul *ngIf="menu != undefined">
         <li *ngFor="let option of menu">
-            <a href="" class="nav-link">
+            <a [routerLink]="[option.url]" class="nav-link">
                 <i class="fas {{option.icon}}"></i>
                 {{option.title}}
             </a>
