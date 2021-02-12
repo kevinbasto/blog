@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private auth: AuthService
   ) { }
 
@@ -21,13 +23,33 @@ export class RegisterComponent implements OnInit {
     verifyPassword: ["", [Validators.required, Validators.minLength(6)]],
     terms: ["", [Validators.required]]
   });
+  public Message : string = "";
+  public showMessage : boolean = false;
 
   ngOnInit(): void {
 
   }
 
   register(){
-    //this.auth.register()
+    let fields = ["username", "email", "password"];
+    let request : any = {};
+
+    for(let field of fields){
+      request[field] = this.registerForm.get(field)?.value
+    }
+
+    this.auth.register(request.username, request.email, request.password)
+    .then(() =>{
+      this.router.navigate(['client/inicio']);
+    })
+    .catch(error => {
+      let message = this.auth.parseError(error);
+      this.Message = message;
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 5000);
+    });
   }
 
   checkError(field : string, type : string){

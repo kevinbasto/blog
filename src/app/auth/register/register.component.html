@@ -29,6 +29,9 @@
                 <span class="error" [ngClass]="checkError('verifyPassword', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
                 <span class="error" [ngClass]="!verifyPassword() && registerForm.get('verifyPassword').touched? [''] : ['hidden'] ">¡Las contraseñas no coinciden!</span>
             </div>
+            <div class="error_container" *ngIf="showMessage">
+                <span class="error">{{Message}}</span>
+            </div>
             <div>
                 <input type="checkbox" formControlName="terms">
                 <label>Acepto los <a [routerLink]="['/terms']" class="reference">términos y condiciones</a></label>

@@ -54,7 +54,7 @@ export class AuthService {
     return this.errorCode[error.code] ? this.errorCode[error.code] : "Ha ocurrido un error no identificado, por favor intentelo nuevamente mas tarde";
   }
 
-  async register(username : string, email : string, password : string, terms: boolean){
+  async register(username : string, email : string, password : string){
     try{
       return await this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(register => {
