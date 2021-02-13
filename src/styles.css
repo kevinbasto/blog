@@ -37,6 +37,18 @@
     --tx-seconadary: #000;
 }
 
+.beige{
+    --bg-primary : #f6e4d3;
+    --bg-secondary: #ebcaa8;
+    --bg-terciary: #e2be99;
+    --bg-quartary: #d7b38e;
+    --tx-primary: #000;
+    --tx-secondary: #111;
+    --tx-terciary: #222;
+    --cover-color : rgba(0,0,0,0);
+    --cover-hover: rgba(255, 255, 255, 1.0);
+}
+
 body{
     background-color: var(--bg-primary);
     color: var(--tx-primary);
