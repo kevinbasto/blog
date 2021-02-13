@@ -11,7 +11,20 @@
                 <i class="fas {{option.icon}}"></i>
                 {{option.title}}
             </a>
-            
+        </li>
+        <li (click)="changeTheme()">
+            <div *ngIf="theme == 'light'">
+                <i class="fas fa-sun"></i>
+                <span>Claro</span>
+            </div>
+            <div *ngIf="theme == 'dark'">
+                <i class="fas fa-moon"></i>
+                <span>Oscuro</span>
+            </div>
+            <div *ngIf="theme == 'beige'">
+                <i class="fas fa-glasses"></i>
+                <span>Beige</span>
+            </div>
         </li>
     </ul>
 </div>
