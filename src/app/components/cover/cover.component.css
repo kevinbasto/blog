@@ -1,13 +1,24 @@
 .cover{
     display: flex;
+    align-items: flex-end;
     height: 30vh;
     width: 100vw;
-    align-items: flex-end;
     background-color: var(--bg-quartary);
     background-position: center;
     background-size: cover;
 }
 
+.container{
+    display: flex;
+    align-items: flex-end;
+    width: 100vw;
+    height: 30vh;
+    background-color: var(--tx-primary);
+    -webkit-mask-image: linear-gradient(to top, var(--tx-primary), transparent);
+
+}
+
 .cover h3{
     margin-left: 1ch;
+    color: var(--bg-primary);
 }

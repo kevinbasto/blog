@@ -25,7 +25,7 @@
     --bg-terciary: #ddd;
     --bg-quartary: #ccc;
     --tx-primary: #000;
-    --tx-seconadary: #fff;
+    --tx-secondary: #fff;
 }
 
 .dark{
@@ -34,7 +34,7 @@
     --bg-terciary: #555;
     --bg-quartary: #666;
     --tx-primary: #fff;
-    --tx-seconadary: #000;
+    --tx-secondary: #000;
 }
 
 .beige{
