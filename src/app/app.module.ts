@@ -12,11 +12,13 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,
