@@ -1,0 +1,24 @@
+.card_header h2{
+    margin: 1em;
+}
+
+@media only screen and (max-width:600px){
+    .login_container{
+        width: 98vw;
+        margin: auto;
+    }
+}
+
+@media only screen and (min-width:600px) and (max-width:1200px){
+    .login_container{
+        width: 60vw;
+        margin: auto;
+    }
+}
+
+@media only screen and (min-width:1200px){
+    .login_container{
+        width: 40vw;
+        margin: auto;
+    }
+}

@@ -1,0 +1,37 @@
+<div class="card login_container">
+    <div class="card_header">
+        <h2>Funadas no fansub</h2>
+    </div>
+    <form [formGroup]="loginForm" (submit)="login()">
+        <div class="card_body">
+            <div class="form_group">
+                <span class="form_label">Correo Electrónico</span>
+                <input type="email" formControlName="email" [ngClass]="checkError('email', 'required') || checkError('email', 'email')? ['error_field']: ['']">
+                <span class="error" [ngClass]="checkError('email', 'required')? [''] : ['hidden'] ">¡Introduce tu correo para continuar!</span>
+                <span class="error" [ngClass]="checkError('email', 'email')? [''] : ['hidden'] ">¡Introduce un correo válido para continuar!</span>
+            </div>
+            <div class="form_group">
+                <span class="form_label">Contraseña</span>
+                <input type="password" formControlName="password" minlength="6" [ngClass]="checkError('password', 'required') || checkError('password', 'minlength')? ['error_field']: ['']" >
+                <span class="error" [ngClass]="checkError('password', 'required')? [''] : ['hidden'] ">¡Introduce la contraseña para continuar!</span>
+                <span class="error" [ngClass]="checkError('password', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
+            </div>
+            <div>
+                <span>¿No tienes una cuenta? <a [routerLink]="['/auth/register']" class="reference">Crear una cuenta</a></span>
+            </div>
+            <div *ngIf="showMessage" class="error_container">
+                <span class="error" >{{Message}}</span>
+            </div>
+        </div>    
+        <div class="card_footer">
+            <button class="button_primary" type="submit" [disabled]="!loginForm.valid || loading">
+                <div *ngIf="loading">
+                    <i class="fas fa-spin fa-circle-notch"></i>
+                </div>
+                <span *ngIf="!loading">
+                    Iniciar sesión
+                </span>
+            </button>
+        </div>
+    </form>
+</div>

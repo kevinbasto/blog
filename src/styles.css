@@ -1,3 +1,7 @@
+:focus{
+    outline: none;
+}
+
 :root{
     --bg-primary: #fff;
     --bg-secondary: #eee;
@@ -6,11 +10,13 @@
     --tx-primary: #000;
     --tx-secondary: #fff;
     --tx-hover: #333;
-    --ts-time : 700ms;
+    --ts-time : 200ms;
     --sctrack: #666;
     --scbar: #000;
     --fnt-size: 16px;
     --fnt-family: Helvetica;
+    --link-primary: #007bff;
+    --tx-error: #dc3545;
 }
 
 .light{
@@ -39,4 +45,99 @@ body{
     overflow-x: hidden;
     font-size: var(--fnt-size);
     font-family: var(--fnt-family);
+}
+
+.card{
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+}
+
+.card_header{
+    border-bottom: 1px solid var(--bg-quartary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_body{
+    padding: 1em;
+    border-bottom: 1px solid var(--bg-quartary);
+}
+
+.card_footer{
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+
+}
+
+.card_footer > .button_primary{
+    width: 20%;
+}
+
+.form_group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form_group .form_label{
+    font-weight: bold;
+}
+
+.form_group input{
+    width: 98%;
+    margin: auto;
+    height: 2em;
+    border-radius: 5px;
+    border: 1px solid var(--bg-terciary);
+}
+
+.form_group span{
+    transition: var(--ts-time);
+}
+
+.button_primary{
+    height: 3em;
+    font-weight: bold;
+    border-radius: 5px;
+    background: var(--bg-quartary);
+    border: 1px solid var(--bg-terciary);
+    transition: var(--ts-time) ease-out;
+}
+
+.button_primary:hover{
+    filter: brightness(.7);
+    cursor: pointer;
+}
+
+.button_primary:disabled{
+    pointer-events: none;
+}
+
+.reference{
+    text-decoration: none;
+    color: var(--link-primary);
+    transition: var(--ts-time);
+}
+
+.reference:hover{
+    cursor: pointer;
+    filter: brightness(.6);
+}
+
+.error{
+    color: var(--tx-error);
+}
+
+.error_field{
+    border: 1px solid var(--tx-error) !important;
+}
+
+.hidden{
+    display: none;
+}
+
+.error_container{
+    max-width: 100%;
 }

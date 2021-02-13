@@ -1,0 +1,49 @@
+<div class="card register_container">
+    <div class="card_header">
+        <h2>Registrate a funadas no fansub</h2>
+    </div>
+    <form [formGroup]="registerForm" (submit)="register()">
+        <div class="card_body">
+            <div class="form_group">
+                <label class="form_label">Nombre de usuario:</label>
+                <input type="text" formControlName="username" minlength="2" [ngClass]="checkError('username', 'required') || checkError('username', 'minlength')? ['error_field'] : [''] ">
+                <span class="error" [ngClass]="checkError('username', 'required')? [''] : ['hidden'] ">¡Introduce un nombre de usuario!</span>
+                <span class="error" [ngClass]="checkError('username', 'minlength')? [''] : ['hidden'] ">¡El nombre de usuario es muy corto!</span>
+            </div>
+            <div class="form_group">
+                <label class="form_label">Correo Electrónico:</label>
+                <input type="email" formControlName="email" [ngClass]="checkError('email', 'required') || checkError('email', 'email')? ['error_field'] : [''] ">
+                <span class="error" [ngClass]="checkError('email', 'required')? [''] : ['hidden'] ">¡Introduce tu correo para continuar!</span>
+                <span class="error" [ngClass]="checkError('email', 'email')? [''] : ['hidden'] ">¡Introduce un correo válido para continuar!</span>
+            </div>
+            <div class="form_group">
+                <label class="form_label">Contraseña:</label>
+                <input type="password" formControlName="password" minlength="6" [ngClass]="checkError('password', 'required') || checkError('password', 'minlength')? ['error_field']: ['']" >
+                <span class="error" [ngClass]="checkError('password', 'required')? [''] : ['hidden'] ">¡Introduce una contraseña!</span>
+                <span class="error" [ngClass]="checkError('password', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
+            </div>
+            <div class="form_group">
+                <label class="form_label">Confirmar contraseña:</label>
+                <input type="password" formControlName="verifyPassword"  minlength="6" [ngClass]="checkError('verifyPassword', 'required') || checkError('password', 'minlength') || (!verifyPassword() && registerForm.get('verifyPassword').touched)? ['error_field']: ['']">
+                <span class="error" [ngClass]="checkError('verifyPassword', 'required')? [''] : ['hidden'] ">¡Introduce una contraseña!</span>
+                <span class="error" [ngClass]="checkError('verifyPassword', 'minlength')? [''] : ['hidden'] ">¡La contraseña es muy corta!</span>
+                <span class="error" [ngClass]="!verifyPassword() && registerForm.get('verifyPassword').touched? [''] : ['hidden'] ">¡Las contraseñas no coinciden!</span>
+            </div>
+            <div class="error_container" *ngIf="showMessage">
+                <span class="error">{{Message}}</span>
+            </div>
+            <div>
+                <input type="checkbox" formControlName="terms">
+                <label>Acepto los <a [routerLink]="['/terms']" class="reference">términos y condiciones</a></label>
+            </div>
+        </div>
+        <div class="card_footer">
+            <button type="submit" class="button_primary" [disabled]="!(registerForm.valid && verifyPassword()) || registerForm.get('terms').value == false  || loading">
+                <div *ngIf="loading">
+                    <i class="fas fa-spin fa-circle-notch"></i>
+                </div>
+                <span *ngIf="!loading">Registrarse</span>
+            </button>
+        </div>
+    </form>
+</div>
