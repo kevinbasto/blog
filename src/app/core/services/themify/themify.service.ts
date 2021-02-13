@@ -14,8 +14,7 @@ export class ThemifyService {
 
   // public current : Observable<string>;
   public theme : string;
-  public bodyClass : any;
-  
+  public bodyClass : any;  
 
   constructor() {
     this.getCurrentTheme();
