@@ -1,0 +1,13 @@
+.cover{
+    display: flex;
+    height: 30vh;
+    width: 100vw;
+    align-items: flex-end;
+    background-color: var(--bg-quartary);
+    background-position: center;
+    background-size: cover;
+}
+
+.cover h3{
+    margin-left: 1ch;
+}

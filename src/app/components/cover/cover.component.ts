@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoverComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    
+  ) { }
+
+  public coverUrl : string = "https://cdn.wallpapersafari.com/7/69/dxBmov.jpg";
+  public title: string;
 
   ngOnInit(): void {
+    this.setTitle();
+  }
+
+  setTitle(){
+
   }
 
 }
