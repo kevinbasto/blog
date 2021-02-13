@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    
+    this.loading = true;
     let fields = ["username", "email", "password"];
     let request : any = {};
 
@@ -41,8 +41,9 @@ export class RegisterComponent implements OnInit {
     }
 
     this.auth.register(request.username, request.email, request.password)
-    .then(() =>{
-      this.router.navigate(['client/inicio']);
+    .then(res =>{
+      console.log(res);
+      //this.router.navigate(['client/inicio']);
     })
     .catch(error => {
       let message = this.auth.parseError(error);
@@ -51,6 +52,9 @@ export class RegisterComponent implements OnInit {
       setTimeout(() => {
         this.showMessage = false;
       }, 5000);
+    })
+    .finally(()=> {
+      this.loading = false;
     });
   }
 

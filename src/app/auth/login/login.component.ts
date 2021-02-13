@@ -31,10 +31,11 @@ export class LoginComponent implements OnInit {
   login(){
     let email = this.loginForm.get("email")?.value;
     let password = this.loginForm.get("password")?.value;
-    
+    this.loading = true;
     this.auth.login(email, password)
     .then(res => {
-      this.router.navigate(['client/inicio'])
+      console.log(res);
+      // this.router.navigate(['client/inicio'])
     })
     .catch(error => {
       let message = this.auth.parseError(error);
@@ -44,6 +45,9 @@ export class LoginComponent implements OnInit {
         this.showMessage = false;
       }, 5000);
     })
+    .finally(()=> {
+      this.loading = false;
+    });
   }
 
   checkError(field : string, type : string){
