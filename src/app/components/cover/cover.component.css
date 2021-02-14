@@ -15,10 +15,11 @@
     height: 30vh;
     background-color: var(--tx-primary);
     -webkit-mask-image: linear-gradient(to top, var(--tx-primary), transparent);
+    transition: var(--ts-time);
 
 }
 
-.cover h3{
+.cover h2{
     margin-left: 1ch;
     color: var(--bg-primary);
 }
