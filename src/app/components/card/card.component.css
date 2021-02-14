@@ -1,0 +1,13 @@
+.novel_card{
+    width: 15em;
+    height: 21em;
+    margin-left: 1em;
+    background-position: center;
+    background-size: cover;
+    transition: var(--ts-time) ease;
+}
+
+.novel_card:hover{
+    cursor: pointer;
+    transform: scale(1.01);
+}

@@ -9,6 +9,8 @@ export class CardComponent implements OnInit {
 
   constructor() { }
 
+  public coverUrl : string = "https://m.media-amazon.com/images/I/51qv2IdWLzL.jpg";
+
   ngOnInit(): void {
   }
 
