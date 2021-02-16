@@ -46,3 +46,11 @@
 .menu_container ul li a:hover{
     color: var(--tx-hover);
 }
+
+.menu_container ul li:hover{
+    color: var(--tx-hover);
+}
+
+.menu_container ul li div span{
+    padding: 5px;
+}

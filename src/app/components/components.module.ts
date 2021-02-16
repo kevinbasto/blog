@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CoverComponent } from './cover/cover.component';
+import { CardComponent } from './card/card.component';
 
 
 
@@ -12,7 +13,8 @@ import { CoverComponent } from './cover/cover.component';
   declarations: [
     SidebarComponent,
     NavbarComponent,
-    CoverComponent
+    CoverComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { CoverComponent } from './cover/cover.component';
   exports: [
     SidebarComponent,
     NavbarComponent,
-    CoverComponent
+    CoverComponent,
+    CardComponent
   ]
 })
 export class ComponentsModule { }
