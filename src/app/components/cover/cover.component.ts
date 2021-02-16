@@ -23,7 +23,6 @@ export class CoverComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd){
-        console.log(this.cs.getTitle(event.url));
         this.title = this.cs.getTitle(event.url);
       }
     });
