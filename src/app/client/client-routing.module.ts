@@ -7,7 +7,7 @@ import { GenresComponent } from './genres/genres.component';
 
 const routes: Routes = [
   {
-    path: '**',
+    path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'
   },

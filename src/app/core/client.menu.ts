@@ -27,7 +27,7 @@ export const ClientMenu : Array<MenuOption> = [
       },
       {
         title: "Japonesas",
-        url: "client/japonesas",
+        url: "/client/japonesas",
         icon: "fa-torii-gate",
         level: 1
       },
