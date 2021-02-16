@@ -4,6 +4,11 @@
     flex-direction: column;
     position: relative;
     height: 100%;
+    transition: var(--ts-time);
+}
+
+.novel_card:hover {
+    transform: scale(1.01);
 }
 
 .novel_card a {
