@@ -1,3 +1,18 @@
-<div class="novel_card" [ngStyle]="coverUrl? { 'background-image': 'url(' + coverUrl + ')'} : {}">
-
+<!-- <div class="novel_card">
+    <img src="{{cover}}" alt="{{title}}">
+    <div class="card_info">
+        <h3>text</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo sunt cumque eos magnam labore quo alias quaerat ipsa maiores cum optio possimus, amet inventore nisi, reiciendis beatae, praesentium at laborum!</span>
+    </div>
+</div> -->
+<div class="novel_card">
+    <a [routerLink]="[url]">
+        <img src="{{cover}}" alt="">
+        <div class="novel_card_info">
+            <h3>{{title}}</h3>
+            <span>
+            {{description}}
+        </span>
+        </div>
+    </a>
 </div>

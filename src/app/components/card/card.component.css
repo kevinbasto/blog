@@ -1,13 +1,33 @@
-.novel_card{
-    width: 15em;
-    height: 21em;
-    margin-left: 1em;
-    background-position: center;
-    background-size: cover;
-    transition: var(--ts-time) ease;
+.novel_card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-.novel_card:hover{
+.novel_card a {
+    position: relative;
+}
+
+.novel_card a img {
+    object-fit: contain;
+    margin: auto;
+    width: 100%;
+}
+
+.novel_card_info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0);
+    transition: 0.7s;
+    top: 0;
+    color: var(--tx-primary);
+}
+
+.novel_card_info:hover {
     cursor: pointer;
-    transform: scale(1.01);
+    background: black;
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
 }
