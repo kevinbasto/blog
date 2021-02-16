@@ -26,8 +26,12 @@
     color: var(--tx-primary);
 }
 
+.novel_card_info h3 {
+    text-align: center;
+}
+
 .novel_card_info:hover {
     cursor: pointer;
-    background: black;
-    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    background: var(--bg-hover);
+    -webkit-mask-image: linear-gradient(to bottom, var(--bg-hover), transparent);
 }
