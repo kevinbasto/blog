@@ -19,7 +19,7 @@ export class GenresComponent implements OnInit {
 
   public novels : Array<any>;
   public page : number = 1;
-  public genre : string;
+  public genre : string = "Novelas ";
 
   ngOnInit(): void { }
 
@@ -28,6 +28,7 @@ export class GenresComponent implements OnInit {
       if(event instanceof NavigationEnd){
         let tokens = event.url.split("/");
         let genre = tokens[tokens.length-1];
+        this.genre += genre;
         this.gs.getCollection(genre)
         .then(novels => {
           this.novels = novels;

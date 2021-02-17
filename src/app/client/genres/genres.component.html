@@ -1,5 +1,5 @@
-<div>
-    <h1>title</h1>
+<div class="title_container">
+    <h1>{{genre}}</h1>
 </div>
 <div class="catalog_container" *ngIf="novels">
     <app-card *ngFor="let novel of novels" [title]="novel.title" [description]="novel.description" [cover]="novel.cover" [url]="novel.url" class="novel_card_container"></app-card>
