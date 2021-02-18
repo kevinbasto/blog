@@ -11,6 +11,12 @@
     margin-bottom: 1em;
 }
 
+@media screen and (max-width: 300px) {
+    .catalog_container {
+        grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+    }
+}
+
 .button_container {
     display: flex;
     justify-content: center;
