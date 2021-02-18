@@ -19,6 +19,7 @@
 
 .button_container button {
     width: 20%;
+    color: var(--tx-primary);
 }
 
 .spinner {
