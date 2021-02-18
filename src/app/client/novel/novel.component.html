@@ -1,32 +1,46 @@
-<div class="card novel_container">
-    <div class="novel_img">
-        <img src="https://m.media-amazon.com/images/I/51qv2IdWLzL.jpg" alt="kobayashi-san chi no maid dragon">
+<div class="container">
+    <div class="card novel_container" *ngIf="novel">
+        <div class="novel_img">
+            <img src="{{novel.cover}}" alt="kobayashi-san chi no maid dragon">
+        </div>
+        <div class="novel_description">
+            <div class="novel_title">
+                <h1>{{novel.title}}</h1>
+            </div>
+            <div class="novel_data">
+                <h3>Descripción: </h3>
+                <p>{{novel.description}}</p>
+            </div>
+            <div class="novel_data">
+                <div class="data_field">
+                    <h3>Capítulos: </h3>
+                    <span>{{novel.chapters}}</span>
+                </div>
+                <div class="data_field">
+                    <h3>Estatus: </h3>
+                    <span *ngIf="novel.finished"> 
+                        <i class="fas fa-circle finished"></i> Terminado
+                    </span>
+                    <span *ngIf="!novel.finished">  
+                        <i class="fas fa-circle live"></i> En emisión
+                    </span>
+                </div>
+                <div class="data_field">
+                    <h3>Traductor(es):</h3>
+                    <span>
+                        <p *ngFor="let translator of novel.translators">{{translator}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="novel_description">
-        <div class="novel_title">
-            <h1>title</h1>
-        </div>
-        <div class="novel_data">
-            <h3>Descripción: </h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, amet! Dolorum exercitationem corporis libero molestiae aliquid, cumque sequi nostrum suscipit necessitatibus numquam ducimus aperiam consectetur iusto fugit nesciunt facilis vel!</p>
-        </div>
-        <div class="novel_data">
-            <div class="data_field">
-                <h3>Autor: </h3>
-                <span>Cool kyou Sinnja</span>
-            </div>
-            <div class="data_field">
-                <h3>Capítulos: </h3>
-                <span>51</span>
-            </div>
-            <div class="data_field">
-                <h3>Estatus: </h3>
-                <span>Terminado</span>
-            </div>
-            <div class="data_field">
-                <h3>Traductor(es):</h3>
-                <span>Time7aker, Dávalos</span>
-            </div>
+</div>
+<div class="chapters_container">
+    <div class="chapters card" *ngIf="chapters">
+        <div class="chapter" *ngFor="let chapter of chapters">
+            <a [routerLink]="[chapter.url]">
+                <span>{{chapter.number}}</span>
+            </a>
         </div>
     </div>
 </div>
