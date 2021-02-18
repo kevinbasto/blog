@@ -20,3 +20,12 @@
 .button_container button {
     width: 20%;
 }
+
+.spinner {
+    display: flex;
+    justify-content: center;
+}
+
+.notice h1 {
+    text-align: center;
+}

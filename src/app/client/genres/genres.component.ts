@@ -17,6 +17,10 @@ export class GenresComponent implements OnInit {
     this.getFirstPage();
   }
 
+  // all the loading stuff
+  public loading = true;
+
+  // all the page data
   public title : string = "Novelas ";
   public novels: Array<any>;
   public smallestId : number;
@@ -33,19 +37,24 @@ export class GenresComponent implements OnInit {
       this.gs.getPage(this.genre)
       .then(page => {
         this.novels = page;
-        this.smallestId = this.novels[this.novels.length -1].id;
+        if(page.length != 0){
+          this.smallestId = this.novels[this.novels.length-1].id;
+        }
+        this.loading = false;   
       })
       .catch(error => console.error(error));
     });
   }
 
   async getNextPage(){
+    this.loading = true;
     this.gs.getPage(this.genre, this.smallestId)
     .then(page => {
       for(let novel of page){
         this.novels.push(novel);
       }
       this.smallestId = this.novels[this.novels.length-1].id;
+      this.loading = false;
     })
     .catch(error => console.error(error));
   }
