@@ -11,32 +11,42 @@ import { filter } from 'rxjs/operators';
 export class GenresComponent implements OnInit {
 
   constructor(
-    private gs : GenresService,
+    private gs: GenresService,
     private router: Router
-  ) { 
-    this.getNovelsByGenre();
+  ) {
+    this.getFirstPage();
   }
 
-  public novels : Array<any>;
-  public page : number = 1;
-  public genre : string = "Novelas ";
+  public title : string = "Novelas ";
+  public novels: Array<any>;
+  public smallestId : number;
+  public genre: string;
 
   ngOnInit(): void { }
 
-  getNovelsByGenre(){
-    this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd){
-        let tokens = event.url.split("/");
-        let genre = tokens[tokens.length-1];
-        this.genre += genre;
-        this.gs.getCollection(genre)
-        .then(novels => {
-          this.novels = novels;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-      }
+  async getFirstPage() {
+    await this.gs.genre$.subscribe(genre => {
+      this.genre = genre;
+      this.title = "Novelas ";
+      this.title += genre;
+      
+      this.gs.getPage(this.genre)
+      .then(page => {
+        this.novels = page;
+        this.smallestId = this.novels[this.novels.length -1].id;
+      })
+      .catch(error => console.error(error));
     });
+  }
+
+  async getNextPage(){
+    this.gs.getPage(this.genre, this.smallestId)
+    .then(page => {
+      for(let novel of page){
+        this.novels.push(novel);
+      }
+      this.smallestId = this.novels[this.novels.length-1].id;
+    })
+    .catch(error => console.error(error));
   }
 }
