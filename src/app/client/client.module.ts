@@ -6,12 +6,14 @@ import { ComponentsModule } from '../components/components.module';
 import { InicioComponent } from './inicio/inicio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GenresComponent } from './genres/genres.component';
+import { NovelComponent } from './novel/novel.component';
 
 @NgModule({
   declarations: [
     InicioComponent,
     ProfileComponent,
     GenresComponent,
+    NovelComponent,
     
   ],
   imports: [
