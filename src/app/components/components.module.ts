@@ -6,6 +6,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CoverComponent } from './cover/cover.component';
 import { CardComponent } from './card/card.component';
+import { CommentsBoxComponent } from './comments-box/comments-box.component';
 
 
 
@@ -14,7 +15,8 @@ import { CardComponent } from './card/card.component';
     SidebarComponent,
     NavbarComponent,
     CoverComponent,
-    CardComponent
+    CardComponent,
+    CommentsBoxComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { CardComponent } from './card/card.component';
     SidebarComponent,
     NavbarComponent,
     CoverComponent,
-    CardComponent
+    CardComponent,
+    CommentsBoxComponent
   ]
 })
 export class ComponentsModule { }
