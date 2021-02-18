@@ -1,0 +1,42 @@
+.novel_container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em;
+    margin: auto;
+}
+
+.novel_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.novel_img img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .novel_container {
+        border: 0;
+        background: var(--bg-primary);
+        flex-direction: column;
+        margin-top: 1em;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .novel_container {
+        width: 80%;
+        margin: auto;
+        margin-top: 1em;
+    }
+    .novel_description {
+        margin-left: 1ch;
+    }
+    .comments_container {
+        width: 80%;
+        margin: auto;
+        margin-top: 1em;
+        padding: 1em;
+    }
+}
