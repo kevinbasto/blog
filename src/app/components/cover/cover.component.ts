@@ -15,17 +15,18 @@ export class CoverComponent implements OnInit {
   constructor(
     private cs : CoverService,
     private router: Router
-  ) { }
+  ) { 
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationEnd){
+        this.title = this.cs.getTitle(event.url);
+      }
+    });
+  }
 
   public coverUrl : string = "https://cdn.wallpapersafari.com/7/69/dxBmov.jpg";
   public title: string = "Inicio";
 
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd){
-        console.log(this.cs.getTitle(event.url));
-        this.title = this.cs.getTitle(event.url);
-      }
-    });
+    
   }
 }
