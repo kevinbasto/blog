@@ -6,8 +6,7 @@
 .box textarea {
     background: var(--bg-terciary);
     color: var(--tx-primary);
-    border-radius: 15px;
-    padding: 1em;
+    border-radius: 5px;
 }
 
 .buttons {
@@ -18,6 +17,7 @@
 
 .comments_box {
     display: flex;
+    flex-direction: column;
 }
 
 .comment {
@@ -28,4 +28,5 @@
     max-width: 50px;
     object-fit: contain;
     margin-right: 1ch;
+    max-height: 70px;
 }
