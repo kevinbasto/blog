@@ -1,0 +1,31 @@
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.box textarea {
+    background: var(--bg-terciary);
+    color: var(--tx-primary);
+    border-radius: 15px;
+    padding: 1em;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+}
+
+.comments_box {
+    display: flex;
+}
+
+.comment {
+    display: flex;
+}
+
+.comment img {
+    max-width: 50px;
+    object-fit: contain;
+    margin-right: 1ch;
+}
