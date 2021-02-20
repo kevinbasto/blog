@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NavigationEnd, Router } from '@angular/router';
-import { userInfo } from 'os';
 import { take } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
