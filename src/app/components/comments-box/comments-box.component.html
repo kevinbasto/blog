@@ -2,13 +2,15 @@
     <div class="title">
         <h1>Deja un Comentario: </h1>
     </div>
-    <div class="box">
-        <textarea name="" id="" rows="10" placeholder="Deja un comentario :D"></textarea>
-        <div class="buttons">
-            <button class="button_primary">Subir</button>
+    <form [formGroup]="comment" (submit)="submit()">
+        <div class="box">
+            <textarea name="" id="" rows="10" placeholder="Deja un comentario :D" formControlName="comment"></textarea>
+            <div class="buttons">
+                <button type="submit" class="button_primary" [disabled]="!comment.valid">Subir</button>
+            </div>
         </div>
-    </div>
-    <div class="comments_box">
+    </form>
+    <div class="comments_box" *ngIf="comments">
         <div class="comment" *ngFor="let comment of comments">
             <div>
                 <img src="{{comment.picture}}" alt="{{comment.username}}" class="profile_picture">
@@ -20,5 +22,11 @@
                 </p>
             </div>
         </div>
+    </div>
+    <div class="spinner_container" *ngIf="loading">
+        <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+    </div>
+    <div class="button_container" *ngIf="(lowestId != 1) && !loading">
+        <button class="button_primary" (click)="loadMoreComments()">Cargar más comentarios</button>
     </div>
 </div>

@@ -30,3 +30,22 @@
     margin-right: 1ch;
     max-height: 70px;
 }
+
+.content h3{
+    margin: 0;
+}
+
+.content p{
+    margin: 0;
+}
+
+.spinner_container{
+    display: flex;
+    justify-content: center;
+}
+
+.button_container{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}

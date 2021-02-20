@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommentsService } from 'src/app/core/services/comments/comments.service';
 
 @Component({
   selector: 'app-comments-box',
@@ -7,27 +9,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentsBoxComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private cs: CommentsService,
+    private fb: FormBuilder
+  ) { }
 
-  public comments : Array<any> = [
-    {
-      username: "Dávalos",
-      picture: "https://mgl.skyrock.net/art/SHAR.8041.456.2.jpg",
-      content: "Esta novela está hermosa <3"
-    },
-    {
-      username: "Time7aker",
-      picture: "https://i.pinimg.com/originals/b1/44/be/b144be8dbedfaff32a380b9feff234c6.jpg",
-      content: "Sube más del autor!"
-    },
-    {
-      username: "jona",
-      picture: "https://i.pinimg.com/originals/e0/76/cd/e076cda4ac938cfa5e52c39ee8cf62fa.jpg",
-      content: "Si no supiste amar, ahora te puedes marchar"
-    }
-  ];
+  public loading : boolean;
+  public comments : Array<any>;
+  public lowestId : number = Infinity;
+
+  public comment : FormGroup = this.fb.group({
+    comment: ["", [Validators.required]]
+  })
 
   ngOnInit(): void {
+    this.getComments();
   }
 
+  getComments(){
+    this.loading = true;
+    this.cs.getComments(this.lowestId)
+    .then(comments => {
+      this.comments = comments;
+      this.lowestId = comments[comments.length -1].id;
+      this.loading = !this.loading;
+    });
+  }
+
+  loadMoreComments(){
+    this.loading = true;
+    console.log(this.lowestId);
+    this.cs.getComments(this.lowestId)
+    .then(comments => {
+      for(let comment of comments){
+        this.comments.push(comment);
+      }
+      this.lowestId = comments[comments.length - 1].id;
+      this.loading = false;
+    });
+  }
+
+  submit(){
+    this.cs.postComment(this.comment.get("comment").value)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 }
