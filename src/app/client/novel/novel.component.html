@@ -34,6 +34,9 @@
             </div>
         </div>
     </div>
+    <div class="card novel_container" *ngIf="!novel" style="display: flex; justify-content: center;">
+        <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+    </div>
 </div>
 <div class="chapters_container">
     <div class="chapters card" *ngIf="chapters">
@@ -42,6 +45,9 @@
                 <span>{{chapter.number}}</span>
             </a>
         </div>
+    </div>
+    <div class="card" style="display: flex; justify-content: center; width: 80%; margin: auto;" *ngIf="!chapters">
+        <i class="fas fa-2x fa-spin fa-circle-notch"></i>
     </div>
 </div>
 <div class="card comments_container">
