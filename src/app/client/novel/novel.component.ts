@@ -37,7 +37,6 @@ export class NovelComponent implements OnInit {
         number: i,
         url: `/client/${this.ns.genre}/${this.ns.id}/${i}`
       });
-    }
-    
+    }    
   }
 }
