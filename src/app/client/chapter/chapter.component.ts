@@ -23,7 +23,7 @@ export class ChapterComponent implements OnInit {
     this.cs.getChapter()
     .then((chapter : Chapter) => {
       this.chapter = chapter;
-      console.log(chapter);
+      
     })
     .catch(error => {
       console.log(error);
