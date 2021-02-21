@@ -17,6 +17,7 @@ export class CommentsBoxComponent implements OnInit {
   public loading : boolean;
   public comments : Array<any>;
   public lowestId : number = Infinity;
+  public posting : boolean = false;
 
   public comment : FormGroup = this.fb.group({
     comment: ["", [Validators.required]]
@@ -38,7 +39,6 @@ export class CommentsBoxComponent implements OnInit {
 
   loadMoreComments(){
     this.loading = true;
-    console.log(this.lowestId);
     this.cs.getComments(this.lowestId)
     .then(comments => {
       for(let comment of comments){
@@ -50,12 +50,20 @@ export class CommentsBoxComponent implements OnInit {
   }
 
   submit(){
+    this.posting = !this.posting
     this.cs.postComment(this.comment.get("comment").value)
     .then(res => {
-      console.log(res);
+      this.comments.push(res);
+      this.comments.sort((commentA,commentB) => {
+        return (commentA.id - commentB.id)*-1;
+      })
+      this.posting = !this.posting;
+      
+
     })
     .catch(error => {
       console.log(error);
     })
+    this.comment.get("comment").setValue("");
   }
 }

@@ -81,7 +81,12 @@ export class CommentsService {
         content : content
       })
       .then(res => {
-        resolve("comentario creado correctamente :D");
+        resolve({
+          id: id,
+          username: user.username,
+          picture: user.picture,
+          content : content
+        });
       })
       .catch(error => {
         reject("hubo un problema a la hora de comentar")

@@ -6,7 +6,14 @@
         <div class="box">
             <textarea name="" id="" rows="10" placeholder="Deja un comentario :D" formControlName="comment"></textarea>
             <div class="buttons">
-                <button type="submit" class="button_primary" [disabled]="!comment.valid">Subir</button>
+                <button type="submit" class="button_primary" [disabled]="!comment.valid || posting">
+                    <div *ngIf="posting">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!posting">
+                        Subir
+                    </span>
+                </button>
             </div>
         </div>
     </form>
