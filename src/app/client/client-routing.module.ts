@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GenresComponent } from './genres/genres.component';
+import { NovelComponent } from './novel/novel.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: ':genre',
     component: GenresComponent
+  },
+  {
+    path: ':genre/:novel',
+    component: NovelComponent
   }
 ]
 

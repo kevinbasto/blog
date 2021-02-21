@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="card novel_container" *ngIf="novel">
+        <div class="novel_img">
+            <img src="{{novel.cover}}" alt="kobayashi-san chi no maid dragon">
+        </div>
+        <div class="novel_description">
+            <div class="novel_title">
+                <h1>{{novel.title}}</h1>
+            </div>
+            <div class="novel_data">
+                <h3>Descripción: </h3>
+                <p>{{novel.description}}</p>
+            </div>
+            <div class="novel_data">
+                <div class="data_field">
+                    <h3>Capítulos: </h3>
+                    <span>{{novel.chapters}}</span>
+                </div>
+                <div class="data_field">
+                    <h3>Estatus: </h3>
+                    <span *ngIf="novel.finished"> 
+                        <i class="fas fa-circle finished"></i> Terminado
+                    </span>
+                    <span *ngIf="!novel.finished">  
+                        <i class="fas fa-circle live"></i> En emisión
+                    </span>
+                </div>
+                <div class="data_field">
+                    <h3>Traductor(es):</h3>
+                    <span>
+                        <p *ngFor="let translator of novel.translators">{{translator}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card novel_container" *ngIf="!novel" style="display: flex; justify-content: center;">
+        <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+    </div>
+</div>
+<div class="chapters_container">
+    <div class="chapters card" *ngIf="chapters">
+        <div class="chapter" *ngFor="let chapter of chapters">
+            <a [routerLink]="[chapter.url]">
+                <span>{{chapter.number}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="card" style="display: flex; justify-content: center; width: 80%; margin: auto;" *ngIf="!chapters">
+        <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+    </div>
+</div>
+<div class="card comments_container">
+    <app-comments-box></app-comments-box>
+</div>
