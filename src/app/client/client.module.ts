@@ -7,6 +7,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GenresComponent } from './genres/genres.component';
 import { NovelComponent } from './novel/novel.component';
+import { ChapterComponent } from './chapter/chapter.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { NovelComponent } from './novel/novel.component';
     ProfileComponent,
     GenresComponent,
     NovelComponent,
+    ChapterComponent,
     
   ],
   imports: [
