@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.chapter_title{
+    display: flex;
+    justify-content: center;
+}
+
+.chapter_title h1{
+    text-transform: capitalize;
+}
+
+@media only screen  and (max-width:600px){
+    .chapter{
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .chapter{
+        max-width: 80%;
+    }
+}
