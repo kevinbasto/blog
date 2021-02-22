@@ -23,11 +23,11 @@
             </div>
         </div>
         <div class="chapter_controls">
-            <button class="button_primary">Atrás</button>
+            <button class="button_primary" *ngIf="chapterCount > 1" (click)="navigateToPrevious()">Atrás</button>
             <span>
                 {{chapterCount}}
             </span>
-            <button class="button_primary">Siguiente</button>
+            <button class="button_primary" *ngIf="chapterCount < totalChapters" (click)="navigateToNext()">Siguiente</button>
         </div>
     </div>    
 </div>
