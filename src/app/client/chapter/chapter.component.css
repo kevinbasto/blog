@@ -33,3 +33,10 @@
         max-width: 80%;
     }
 }
+
+.spinner_container{
+    padding-top: 1em;
+    display: flex;
+    justify-content: center;
+
+}
