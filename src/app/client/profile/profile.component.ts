@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/core/interfaces/user';
 import { ProfileService } from 'src/app/core/services/profile/profile.service';
 
 
@@ -24,16 +25,24 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.profileForm.controls["username"].disable();
     this.profileForm.controls["email"].disable();
-    this.ps.getProfile();
+    this.getProfile();
   }
 
   getProfile(){
     this.ps.getProfile()
-    .then(user => {
-      
+    .then((user : User) => {
+      console.log(user);
+      this.setProfileData(user);
     })
     .catch(error => {
       this.error = error;
     });
+  }
+
+  setProfileData(user : User){
+    console.log("executing");
+    this.profileForm.controls["username"].setValue(user.username);
+    this.profileForm.controls["email"].setValue(user.email);
+
   }
 }
