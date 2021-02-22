@@ -15,7 +15,10 @@ export class ProfileService {
   getProfile(){
     return new Promise((resolve, reject) => {
       this.auth.user$.subscribe(user => {
-        resolve(user);
+        if(user)
+          resolve(user);
+        else
+          reject("Hubo un error a la hora de recuperar al usuario");
       });
     })
   }
