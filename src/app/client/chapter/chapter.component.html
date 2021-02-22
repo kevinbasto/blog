@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="chapter" *ngIf="chapter">
+        <div class="chapter_title">
+            <h1>{{chapter.title}}</h1>
+        </div>
+        <div class="chapter_content">
+            <p *ngFor="let paragraph of chapter.content">
+                {{paragraph}}
+            </p>
+        </div>
+        <div class="chapter_data">
+            <div class="chapter_field">
+                <h3>Autor(es): </h3>
+                <span *ngFor="let author of chapter.authors">
+                    {{author}}
+                </span>
+            </div>
+            <div class="chapter_field">
+                <h3>Traductor(es)</h3>
+                <span *ngFor="let translator of chapter.translators">
+                    {{translator}}
+                </span>
+            </div>
+        </div>
+        <div class="chapter_controls">
+            <button class="button_primary" *ngIf="chapterCount > 1" (click)="navigateToPrevious()">Atrás</button>
+            <span>
+                {{chapterCount}}
+            </span>
+            <button class="button_primary" *ngIf="chapterCount < totalChapters" (click)="navigateToNext()">Siguiente</button>
+        </div>
+    </div>    
+</div>
