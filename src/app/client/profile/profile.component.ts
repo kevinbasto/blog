@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
     email : ["", [Validators.required]]
   });
   public error: string;
+  public user: User;
 
   ngOnInit(): void {
     this.profileForm.controls["username"].disable();
@@ -31,7 +32,6 @@ export class ProfileComponent implements OnInit {
   getProfile(){
     this.ps.getProfile()
     .then((user : User) => {
-      console.log(user);
       this.setProfileData(user);
     })
     .catch(error => {
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
   }
 
   setProfileData(user : User){
-    console.log("executing");
+    this.user = user;
     this.profileForm.controls["username"].setValue(user.username);
     this.profileForm.controls["email"].setValue(user.email);
 
