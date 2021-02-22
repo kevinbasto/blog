@@ -1,1 +1,25 @@
-<p>profile works!</p>
+<div class="container">
+    <div class="profile card">
+        <div class="card_header">
+            <h3>Mi perfil</h3>
+        </div>
+        <form [formGroup]="profileForm">
+            <div class="data card_body">
+                <div class="picture">
+                    <img *ngIf="false" src="" alt="">
+                </div>
+                <div class="data_field">
+                    <span>Username</span>
+                    <input type="text" formControlName="username">
+                </div>
+                <div class="data_field">
+                    <span>email</span>
+                    <input type="text" formControlName="email">
+                </div>
+            </div>
+            <div class="card_footer">
+                <button class="button_primary" type="button">Editar información</button>
+            </div>
+        </form>
+    </div>
+</div>
