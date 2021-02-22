@@ -12,6 +12,16 @@
     text-transform: capitalize;
 }
 
+.chapter_controls{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.chapter_controls button{
+    margin: 1em;
+}
+
 @media only screen  and (max-width:600px){
     .chapter{
         width: 100%;

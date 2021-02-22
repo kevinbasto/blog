@@ -14,6 +14,7 @@ export class ChapterComponent implements OnInit {
   ) { }
 
   public chapter : Chapter;
+  public chapterCount: string;
 
   ngOnInit(): void {
     this.getChapter();
@@ -23,7 +24,7 @@ export class ChapterComponent implements OnInit {
     this.cs.getChapter()
     .then((chapter : Chapter) => {
       this.chapter = chapter;
-      
+      this.chapterCount = this.cs.chapter;
     })
     .catch(error => {
       console.log(error);
