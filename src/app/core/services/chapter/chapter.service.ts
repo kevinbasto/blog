@@ -46,10 +46,8 @@ export class ChapterService {
     .doc(this.novel)
     .valueChanges()
     .subscribe((novel : any) => {
-      localStorage.setItem("currentNovel", this.novel);
-      localStorage.setItem("chapters", novel.chapters.toString());
-      localStorage.setItem("currentchapter", this.chapter);
-      this.totalChapters = novel.chapters;
+      if(novel)
+        this.totalChapters = novel.chapters;
     })
   }
 
