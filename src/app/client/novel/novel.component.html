@@ -40,11 +40,13 @@
 </div>
 <div class="chapters_container">
     <div class="chapters card" *ngIf="chapters">
-        <div class="chapter" *ngFor="let chapter of chapters">
-            <a [routerLink]="[chapter.url]">
-                <span>{{chapter.number}}</span>
+        
+            <a *ngFor="let chapter of chapters" [routerLink]="[chapter.url]">
+                <div class="chapter" >
+                    <span>{{chapter.number}}</span>
+                </div>
             </a>
-        </div>
+        
     </div>
     <div class="card" style="display: flex; justify-content: center; width: 80%; margin: auto;" *ngIf="!chapters">
         <i class="fas fa-2x fa-spin fa-circle-notch"></i>

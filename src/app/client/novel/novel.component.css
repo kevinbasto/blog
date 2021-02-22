@@ -48,12 +48,12 @@
     filter: brightness(1.1);
 }
 
-.chapter a {
+a {
     text-decoration: none;
     color: var(--tx-primary);
 }
 
-.chapter a:hover {
+a:hover {
     cursor: pointer;
 }
 
