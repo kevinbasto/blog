@@ -13,8 +13,10 @@ export class ProfileService {
   ) { }
 
   getProfile(){
-    this.auth.user$.subscribe(user => {
-      console.log(user);
+    return new Promise((resolve, reject) => {
+      this.auth.user$.subscribe(user => {
+        resolve(user);
+      });
     })
   }
 }
