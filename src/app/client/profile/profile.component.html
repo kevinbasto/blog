@@ -21,7 +21,8 @@
                 </div>
             </div>
             <div class="card_footer">
-                <button class="button_primary" type="button">Editar información</button>
+                <button *ngIf="!editing" class="button_primary" type="button" (click)="editData()">Editar información</button>
+                <button *ngIf="editing" class="button_primary" type="button" (click)="editData()">Guardar cambios</button>
             </div>
         </form>
     </div>

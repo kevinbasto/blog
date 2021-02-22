@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   });
   public error: string;
   public user: User;
+  public editing : boolean = false;
 
   ngOnInit(): void {
     this.profileForm.controls["username"].disable();
@@ -43,6 +44,16 @@ export class ProfileComponent implements OnInit {
     this.user = user;
     this.profileForm.controls["username"].setValue(user.username);
     this.profileForm.controls["email"].setValue(user.email);
+  }
 
+  editData(){
+    this.editing = !this.editing;
+    if(this.editing){
+      this.profileForm.controls["username"].enable();
+      this.profileForm.controls["email"].enable();
+    }else{
+      this.profileForm.controls["username"].disable();
+      this.profileForm.controls["email"].disable();
+    }
   }
 }
