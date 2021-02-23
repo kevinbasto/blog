@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   public editing : boolean = false;
   public picture : File;
   public picurl : any;
+  public uploading : boolean = false;
 
   ngOnInit(): void {
     this.profileForm.controls["username"].disable();
@@ -58,11 +59,13 @@ export class ProfileComponent implements OnInit {
   }
 
   setChanges(){
-    this.editing = !this.editing;
+    this.uploading = !this.uploading;
     let username = this.profileForm.get("username").value;
     this.ps.editProfile(username, this.picture)
     .then(change => {
       console.log(change);
+      this.editing = !this.editing;
+      this.uploading = !this.uploading
     })
     .catch(error => {
       console.log(error);

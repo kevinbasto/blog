@@ -28,7 +28,14 @@
             <div class="card_footer">
                 <button *ngIf="!editing" class="button_primary" type="button" (click)="editData()">Editar información</button>
                 <button *ngIf="editing" class="button_primary" type="button" (click)="cancel()" style="margin-right: 5px;">Cancelar</button>
-                <button *ngIf="editing" class="button_primary" type="submit">Guardar cambios</button>
+                <button *ngIf="editing" class="button_primary" type="submit" [disabled]="uploading">
+                    <span *ngIf="!uploading">
+                        Guardar cambios
+                    </span>
+                    <div *ngIf="uploading">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                </button>
                 
             </div>
         </form>
