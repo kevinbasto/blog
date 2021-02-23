@@ -9,7 +9,7 @@
         <form [formGroup]="profileForm" (submit)="setChanges()">
             <div class="data card_body" *ngIf="user">
                 <div class="container picture">
-                    <img src="{{picture}}" alt="">
+                    <img src="{{picurl}}" alt="">
                 </div>
                 <div class="data_field">
                     <span>Username</span>
@@ -22,12 +22,14 @@
 
                 <div class="data_field">
                     <span>foto de perfil:</span>
-                    <input type="file" formControlName="profilePicture" class="button_primary" (change)="uploadFile($event)">
+                    <input type="file" formControlName="profilePicture" (change)="uploadFile($event)">
                 </div>
             </div>
             <div class="card_footer">
                 <button *ngIf="!editing" class="button_primary" type="button" (click)="editData()">Editar información</button>
+                <button *ngIf="editing" class="button_primary" type="button" (click)="cancel()" style="margin-right: 5px;">Cancelar</button>
                 <button *ngIf="editing" class="button_primary" type="submit">Guardar cambios</button>
+                
             </div>
         </form>
     </div>

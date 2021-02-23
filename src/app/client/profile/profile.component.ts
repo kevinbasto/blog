@@ -24,8 +24,8 @@ export class ProfileComponent implements OnInit {
   public error: string;
   public user: User;
   public editing : boolean = false;
-  public file : any;
-  public picture : any
+  public picture : File;
+  public picurl : any;
 
   ngOnInit(): void {
     this.profileForm.controls["username"].disable();
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
   setProfileData(user : User){
     this.user = user;
-    this.picture = user.picture;
+    this.picurl = user.picture;
     this.profileForm.controls["username"].setValue(user.username);
     this.profileForm.controls["email"].setValue(user.email);
   }
@@ -59,19 +59,29 @@ export class ProfileComponent implements OnInit {
 
   setChanges(){
     this.editing = !this.editing;
-    this.profileForm.controls["username"].disable();
-    this.profileForm.controls["profilePicture"].disable();
-    let username : any = this.profileForm.get("username").value;
+    let username = this.profileForm.get("username").value;
+    this.ps.editProfile(username, this.picture)
+    .then(change => {
+      console.log(change);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    
+  }
 
+  cancel(){
+    this.editing = !this.editing;
   }
 
   uploadFile($event : any){
-    let file = $event.target.files[0];
-    this.file = file;
-    let fr = new FileReader();
-    fr.readAsDataURL(this.file);
-    fr.onload = () => {
-      this.picture = fr.result;
+    this.picture = $event.target.files[0];
+    if(this.picture){
+      let fr = new FileReader();
+      fr.readAsDataURL(this.picture);
+      fr.onload = () => {
+      this.picurl =  fr.result;
+    }
     }
   }
 }
