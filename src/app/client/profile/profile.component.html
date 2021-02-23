@@ -6,10 +6,10 @@
         <div class="container" style="padding: 1em;" *ngIf="!user">
             <i class="fas fa-2x fa-spin fa-circle-notch"></i>
         </div>
-        <form [formGroup]="profileForm">
+        <form [formGroup]="profileForm" (submit)="setChanges()">
             <div class="data card_body" *ngIf="user">
                 <div class="container picture">
-                    <img src="{{user.picture}}" alt="">
+                    <img src="{{picture}}" alt="">
                 </div>
                 <div class="data_field">
                     <span>Username</span>
@@ -19,10 +19,15 @@
                     <span>Email</span>
                     <input type="text" formControlName="email">
                 </div>
+
+                <div class="data_field">
+                    <span>foto de perfil:</span>
+                    <input type="file" formControlName="profilePicture" class="button_primary" (change)="uploadFile($event)">
+                </div>
             </div>
             <div class="card_footer">
                 <button *ngIf="!editing" class="button_primary" type="button" (click)="editData()">Editar información</button>
-                <button *ngIf="editing" class="button_primary" type="button" (click)="editData()">Guardar cambios</button>
+                <button *ngIf="editing" class="button_primary" type="submit">Guardar cambios</button>
             </div>
         </form>
     </div>

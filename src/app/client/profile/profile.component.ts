@@ -18,15 +18,19 @@ export class ProfileComponent implements OnInit {
 
   public profileForm : FormGroup = this.fb.group({
     username : ["", [Validators.required]],
-    email : ["", [Validators.required]]
+    email : ["", [Validators.required]],
+    profilePicture: [null]
   });
   public error: string;
   public user: User;
   public editing : boolean = false;
+  public file : any;
+  public picture : any
 
   ngOnInit(): void {
     this.profileForm.controls["username"].disable();
     this.profileForm.controls["email"].disable();
+    this.profileForm.controls["profilePicture"].disable();
     this.getProfile();
   }
 
@@ -42,18 +46,32 @@ export class ProfileComponent implements OnInit {
 
   setProfileData(user : User){
     this.user = user;
+    this.picture = user.picture;
     this.profileForm.controls["username"].setValue(user.username);
     this.profileForm.controls["email"].setValue(user.email);
   }
 
   editData(){
     this.editing = !this.editing;
-    if(this.editing){
-      this.profileForm.controls["username"].enable();
-      this.profileForm.controls["email"].enable();
-    }else{
-      this.profileForm.controls["username"].disable();
-      this.profileForm.controls["email"].disable();
+    this.profileForm.controls["username"].enable();
+    this.profileForm.controls["profilePicture"].enable();
+  }
+
+  setChanges(){
+    this.editing = !this.editing;
+    this.profileForm.controls["username"].disable();
+    this.profileForm.controls["profilePicture"].disable();
+    let username : any = this.profileForm.get("username").value;
+
+  }
+
+  uploadFile($event : any){
+    let file = $event.target.files[0];
+    this.file = file;
+    let fr = new FileReader();
+    fr.readAsDataURL(this.file);
+    fr.onload = () => {
+      this.picture = fr.result;
     }
   }
 }
