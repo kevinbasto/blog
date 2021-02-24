@@ -28,7 +28,7 @@ import { ClientComponent } from './client/client.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFirestoreModule
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
