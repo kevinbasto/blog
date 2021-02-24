@@ -6,6 +6,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { GenresComponent } from './genres/genres.component';
 import { NovelComponent } from './novel/novel.component';
 import { ChapterComponent } from './chapter/chapter.component';
+import { UploadComponent } from './upload/upload.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: ProfileComponent
+  },
+  {
+    path: 'sube',
+    component: UploadComponent
   },
   {
     path: ':genre',

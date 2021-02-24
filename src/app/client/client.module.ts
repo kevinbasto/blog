@@ -9,6 +9,7 @@ import { GenresComponent } from './genres/genres.component';
 import { NovelComponent } from './novel/novel.component';
 import { ChapterComponent } from './chapter/chapter.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     GenresComponent,
     NovelComponent,
     ChapterComponent,
+    UploadComponent,
     
   ],
   imports: [
