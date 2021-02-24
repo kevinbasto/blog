@@ -10,6 +10,7 @@ import { NovelComponent } from './novel/novel.component';
 import { ChapterComponent } from './chapter/chapter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadComponent } from './upload/upload.component';
+import { TermsComponent } from './terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UploadComponent } from './upload/upload.component';
     NovelComponent,
     ChapterComponent,
     UploadComponent,
+    TermsComponent,
     
   ],
   imports: [

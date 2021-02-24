@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="card terms_container">
+        <div *ngIf="!downloading">
+            <div class="card_header">
+                <h1>{{title}}</h1>
+            </div>
+            <div class="card_body">
+                <p *ngFor="let paragraph of content">
+                    {{paragraph}}
+                </p>
+            </div>
+        </div>
+        <div *ngIf="downloading">
+            <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+        </div>
+    </div>
+</div>
