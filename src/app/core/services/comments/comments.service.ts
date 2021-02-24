@@ -68,7 +68,13 @@ export class CommentsService {
     .toPromise()
     .then(comment => lastComment = comment);
 
-    let id = lastComment[0].id + 1;
+    let id: number;
+
+    if(lastComment.length > 0){
+      id = lastComment[0].id + 1;
+    }else{
+      id = 1;
+    }
 
     return new Promise<any>((resolve, reject) => {
       this.af

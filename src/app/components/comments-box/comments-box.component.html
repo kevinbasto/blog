@@ -33,7 +33,7 @@
     <div class="spinner_container" *ngIf="loading">
         <i class="fas fa-2x fa-spin fa-circle-notch"></i>
     </div>
-    <div class="button_container" *ngIf="(lowestId != 1) && !loading">
+    <div class="button_container" *ngIf="(lowestId > 1) && !loading">
         <button class="button_primary" (click)="loadMoreComments()">Cargar más comentarios</button>
     </div>
 </div>

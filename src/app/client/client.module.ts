@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { GenresComponent } from './genres/genres.component';
 import { NovelComponent } from './novel/novel.component';
 import { ChapterComponent } from './chapter/chapter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChapterComponent } from './chapter/chapter.component';
   imports: [
     CommonModule,
     ClientRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class ClientModule { }

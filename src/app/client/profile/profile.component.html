@@ -1,1 +1,43 @@
-<p>profile works!</p>
+<div class="container">
+    <div class="profile card">
+        <div class="card_header">
+            <h3>Mi perfil</h3>
+        </div>
+        <div class="container" style="padding: 1em;" *ngIf="!user">
+            <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+        </div>
+        <form [formGroup]="profileForm" (submit)="setChanges()">
+            <div class="data card_body" *ngIf="user">
+                <div class="container picture">
+                    <img src="{{picurl}}" alt="">
+                </div>
+                <div class="data_field">
+                    <span>Username</span>
+                    <input type="text" formControlName="username">
+                </div>
+                <div class="data_field">
+                    <span>Email</span>
+                    <input type="text" formControlName="email">
+                </div>
+
+                <div class="data_field">
+                    <span>foto de perfil:</span>
+                    <input type="file" formControlName="profilePicture" (change)="uploadFile($event)">
+                </div>
+            </div>
+            <div class="card_footer">
+                <button *ngIf="!editing" class="button_primary" type="button" (click)="editData()">Editar información</button>
+                <button *ngIf="editing" class="button_primary" type="button" (click)="cancel()" style="margin-right: 5px;">Cancelar</button>
+                <button *ngIf="editing" class="button_primary" type="submit" [disabled]="uploading">
+                    <span *ngIf="!uploading">
+                        Guardar cambios
+                    </span>
+                    <div *ngIf="uploading">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                </button>
+                
+            </div>
+        </form>
+    </div>
+</div>

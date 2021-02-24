@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.profile{
+    margin-top: 1em;
+}
+
+.picture img{
+    border-radius: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.data_field{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-primary{
+    width: auto;
+}
+
+@media only screen and (max-width: 600px){
+    .profile{
+        background: var(--bg-primary) !important;
+        border: 0 !important;
+        width: 100%;
+    }
+
+    .card_header{
+        border-bottom: 0!important;
+    }
+
+    .card_body{
+        border-bottom: 0!important;
+    }
+
+    .card_footer{
+        justify-content: center;
+    }
+}
