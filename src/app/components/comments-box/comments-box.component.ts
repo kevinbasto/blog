@@ -31,9 +31,14 @@ export class CommentsBoxComponent implements OnInit {
     this.loading = true;
     this.cs.getComments(this.lowestId)
     .then(comments => {
-      this.comments = comments;
-      this.lowestId = comments[comments.length -1].id;
-      this.loading = !this.loading;
+      if(comments.length != 0){
+        this.comments = comments;
+        this.lowestId = comments[comments.length -1].id;
+        this.loading = !this.loading;
+      }else{
+        this.loading = !this.loading;
+        this.lowestId = 0;
+      }
     });
   }
 
@@ -53,11 +58,20 @@ export class CommentsBoxComponent implements OnInit {
     this.posting = !this.posting
     this.cs.postComment(this.comment.get("comment").value)
     .then(res => {
-      this.comments.push(res);
-      this.comments.sort((commentA,commentB) => {
-        return (commentA.id - commentB.id)*-1;
-      })
-      this.posting = !this.posting;
+      if(this.comments){
+        this.comments.push(res);
+        this.comments.sort((commentA,commentB) => {
+          return (commentA.id - commentB.id)*-1;
+        })
+        this.posting = !this.posting;
+      }else{
+        this.comments = []
+        this.comments.push(this.comments);
+        this.posting = !this.posting;
+        this.comments.sort((commentA,commentB) => {
+          return (commentA.id - commentB.id) * (-1);
+        })
+      }
       
 
     })
