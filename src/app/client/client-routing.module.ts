@@ -7,6 +7,7 @@ import { GenresComponent } from './genres/genres.component';
 import { NovelComponent } from './novel/novel.component';
 import { ChapterComponent } from './chapter/chapter.component';
 import { UploadComponent } from './upload/upload.component';
+import { TermsComponent } from './terms/terms.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'sube',
     component: UploadComponent
+  },
+  {
+    path: 'terminos',
+    component: TermsComponent
   },
   {
     path: ':genre',
