@@ -1,0 +1,47 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.upload_form{
+    margin-top: 1em;
+}
+
+.data_field{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-primary{
+    width: auto;
+}
+
+@media only screen and (max-width: 600px){
+    .profile{
+        background: var(--bg-primary) !important;
+        border: 0 !important;
+        width: 100%;
+    }
+
+    .card_header{
+        border-bottom: 0!important;
+    }
+
+    .card_body{
+        border-bottom: 0!important;
+    }
+
+    .card_footer{
+        justify-content: center;
+    }
+}
+
+.link{
+    color: var(--link-primary);
+    text-decoration: none;
+}
+
+.link:hover{
+    filter: opacity(.8);
+}

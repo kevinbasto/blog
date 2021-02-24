@@ -1,1 +1,47 @@
-<p>upload works!</p>
+<div class="container">
+    <div class="card upload_form">
+        <div class="card_header">
+            <h3>Sube tus proyectos</h3>
+        </div>
+        <form [formGroup]="uploadForm" (submit)="submit()">
+            <div class="card_body">
+                <div class="form_group">
+                    <span>Tu nombre</span>
+                    <input type="text" formControlName="name">
+                </div>
+                <div class="form_group">
+                    <span>¿Por qué quieres publicar con nosotras?</span>
+                    <input type="text" formControlName="reason">
+                </div>
+                <div class="form_group">
+                    <span>¿Qué generos publicarías?</span>
+                    <input type="text" formControlName="genres">
+                </div>
+                <div style="margin-top: 1em;">
+                    <input type="checkbox" formControlName="terms">
+                    <span>
+                        Acepto los
+                        <a [routerLink]="['/client/terms']" class="link" target="blank">
+                            términos y condiciones
+                        </a>
+                    </span>
+                </div>
+                <div style="display: flex; justify-content: center;" *ngIf="message">
+                    <span>
+                        {{message}}
+                    </span>
+                </div>
+            </div>
+            <div class="card_footer">
+                <button type="submit" class="button_primary" [disabled]="!uploadForm.valid || uploadForm.get('terms').value == false">
+                    <span *ngIf="!uploading">
+                        Subir formulario
+                    </span>
+                    <div *ngIf="uploading">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
