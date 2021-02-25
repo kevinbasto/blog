@@ -9,6 +9,7 @@
     --bg-quartary: #ccc;
     --tx-primary: #000;
     --tx-secondary: #fff;
+    --tx-terciary: #333;
     --tx-hover: #333;
     --ts-time: 200ms;
     --sctrack: #666;
@@ -24,6 +25,7 @@
     --bg-primary: #fff;
     --bg-secondary: #eee;
     --bg-terciary: #ddd;
+    --tx-terciary: #333;
     --bg-quartary: #ccc;
     --tx-primary: #000;
     --tx-secondary: #fff;
@@ -37,6 +39,7 @@
     --bg-quartary: #666;
     --tx-primary: #fff;
     --tx-secondary: #000;
+    --tx-terciary: #ccc;
     --bg-hover: rgba(1, 1, 1, 1.0);
 }
 
@@ -47,6 +50,7 @@
     --bg-quartary: #d7b38e;
     --tx-primary: #000;
     --tx-secondary: #111;
+    --tx-terciary: #333;
     --tx-terciary: #222;
     --cover-color: rgba(0, 0, 0, 0);
     --cover-hover: rgba(255, 255, 255, 1.0);
