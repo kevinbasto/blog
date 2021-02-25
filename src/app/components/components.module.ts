@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CoverComponent } from './cover/cover.component';
 import { CardComponent } from './card/card.component';
 import { CommentsBoxComponent } from './comments-box/comments-box.component';
+import { TableComponent } from './table/table.component';
 
 
 
@@ -18,7 +19,8 @@ import { CommentsBoxComponent } from './comments-box/comments-box.component';
     NavbarComponent,
     CoverComponent,
     CardComponent,
-    CommentsBoxComponent
+    CommentsBoxComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
