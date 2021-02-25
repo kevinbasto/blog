@@ -32,7 +32,8 @@ import { TableComponent } from './table/table.component';
     NavbarComponent,
     CoverComponent,
     CardComponent,
-    CommentsBoxComponent
+    CommentsBoxComponent,
+    TableComponent
   ]
 })
 export class ComponentsModule { }
