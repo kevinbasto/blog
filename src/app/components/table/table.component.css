@@ -14,7 +14,17 @@ tr > td{
     height: 2.5em;
 }
 
-tbody tr:last-child td{
-    border-radius: 15px;
+tfoot tr td{
     border-bottom: 0px;
+    display: flex;
+    justify-content: flex-end;
+    height: auto;
+    align-items: center;
 }
+
+tfoot tr td button{
+    margin: 1em;
+    
+}
+
+

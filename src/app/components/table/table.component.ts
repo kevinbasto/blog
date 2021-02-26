@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -8,6 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class TableComponent implements OnInit {
 
   constructor() { }
+
+  @Input() headers : Array<string>;
+  @Input() model : Array<string>;
+  @Input() data : Array<any>;
+  @Input() page : number;
+  @Input() maxPage : number;
+  @Output() create = new EventEmitter();
+  @Output() nextPage = new EventEmitter();
+
 
   ngOnInit(): void {
   }
