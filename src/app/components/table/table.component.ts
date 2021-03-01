@@ -10,26 +10,26 @@ export class TableComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  /* @Input() headers : Array<string>;
+  // @Input() headers : Array<string>;
   // @Input() model : Array<string>;
   // @Input() data : Array<any>;
   // @Input() page : number;
   // @Input() maxPage : number;
   // @Output() create = new EventEmitter();
-  // @Output() nextPage = new EventEmitter();  */
+  // @Output() nextPage = new EventEmitter();
 
   // all the input data of the component
   //this three will be on the final table
-  public title : string;
-  public headers : Array<string>;
-  public model : Array<string>;
+  @Input() public title : string;
+  @Input() public headers : Array<string>;
+  @Input() public model : Array<string>;
 
   // this data is processed
-  public data : Array<any>;
+  @Input() public data : Array<any>;
   public page : number;
   
   // this is constant
-  public maxPage : number;
+  @Input() public maxPage : number;
 
   // all the table data management
   public currentPage : Array<any>;
@@ -37,7 +37,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     // this is for testing purposes, later on will be deleted
-    this.setTestData();
+    // this.setTestData();
     this.loadPage();
   }
 
