@@ -24,6 +24,7 @@ export class LandingComponent implements OnInit {
   public maxPage : number;
   public title : string;
   public pageSize : number = 5;
+  private lowestId : number;
 
   ngOnInit(): void { }
 
@@ -51,9 +52,21 @@ export class LandingComponent implements OnInit {
 
   nextPage(){
     this.page++;
+    this.getPage();
   }
 
   previousPage(){
     this.page--;
+    this.getPage();
+  }
+
+  getPage(){
+    this.as.getActivityLog(this.pageSize, this.page)
+    .then(collection => {
+      console.log(collection)
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 }
