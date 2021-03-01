@@ -1,7 +1,9 @@
-<table width="100%" cellspacing="0" cellpadding="0" *ngIf="data">
+<table width="100%" cellspacing="0" cellpadding="0">
     <thead>
         <tr>
-            <th *ngIf="headers" colspan="100%">{{title}}</th>
+            <th colspan="100%">
+                {{title}}
+            </th>
         </tr>
         <tr>
             <th *ngFor="let header of headers">
@@ -10,22 +12,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let record of currentPage">
-            <td *ngFor="let description of model">
-                {{record[description]}}
+        <tr *ngFor="let record of data">
+            <td *ngFor="let property of model">
+                {{record[property]}}
             </td>
         </tr>
     </tbody>
-    <tfoot>
-        <tr></tr>
-        <tr>
-            <td colspan="100%">
-                <div class="controls_container" style="display: flex; width: 100%; justify-content: flex-end; align-items: center;">
-                    <button class="button_primary" *ngIf="page != 1" (click)="previousPage()">Atras</button>
-                    <span class="page">{{page}}</span>
-                    <button class="button_primary" *ngIf="page != maxPage" (click)="nextPage()">Adelante</button>
-                </div>
-            </td>
-        </tr>
-    </tfoot>
 </table>
