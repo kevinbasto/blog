@@ -1,3 +1,7 @@
+table thead tr:first-child th:first-child{
+    border-radius: 15px 15px 0px 0px;
+}
+
 tr th{
     padding: 1em
 }
@@ -27,4 +31,8 @@ tr:nth-child(2n + 1){
 
 .page{
     margin: 0.5em;   
+}
+
+table tfoot tr:last-child td{
+    border-radius: 0px 0px 15px 15px;
 }
