@@ -1,5 +1,17 @@
-th{
-    border: 1px solid white;
+tr th{
+    padding: 1em
+}
+
+tr td{
+    padding: 1em
+}
+
+tr:nth-child(2n){
+    background-color: var(--bg-secondary);
+}
+
+tr:nth-child(2n + 1){
+    background-color: var(--bg-terciary);
 }
 
 .controls_container{
