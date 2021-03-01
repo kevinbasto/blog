@@ -14,6 +14,7 @@ export class LandingComponent implements OnInit {
     private as : ActivityService
   ) { 
     this.getActivityLog();
+    this.setBasicData();
   }
 
   public headers : Array<string>;
@@ -21,6 +22,7 @@ export class LandingComponent implements OnInit {
   public data : Array<any>;
   public page : number = 1;
   public maxPage : number;
+  public title : string;
 
   ngOnInit(): void { }
 
@@ -28,10 +30,23 @@ export class LandingComponent implements OnInit {
     this.as.getActivityLog(this.page)
     .then(collection => {
       this.data = collection;
+      this.getMaxPage();
     })
     .catch(error => {
       console.log(error);
     })
+  }
+
+  setBasicData(){
+    this.title = "Registro de actividad";
+    this.headers = ["Id", "título", "fecha"]
+    this.model = ["id", "title", "date"];
+
+  }
+
+  getMaxPage(){
+    let maxId = this.data[0].id;
+    this.maxPage = Math.ceil(maxId/5);
   }
 
 }

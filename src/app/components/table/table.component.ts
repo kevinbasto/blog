@@ -45,6 +45,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   }
 
+  // delete after finished
   setTestData(){
     this.title = title;
     this.headers = headers;
@@ -57,9 +58,11 @@ export class TableComponent implements OnInit, OnChanges {
   loadPage(){
     let pageSize = 5;
     this.currentPage = [];
-    for(let i = 0; i < this.data.length; i++){
-      if( (i+1 > (this.page - 1) * pageSize) && i < (this.page) * pageSize )
-        this.currentPage.push(this.data[i]);
+    if(this.data){
+      for(let i = 0; i < this.data.length; i++){
+        if( (i+1 > (this.page - 1) * pageSize) && i < (this.page) * pageSize )
+          this.currentPage.push(this.data[i]);
+      }
     }
   }
 
