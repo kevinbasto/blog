@@ -23,11 +23,12 @@ export class LandingComponent implements OnInit {
   public page : number = 1;
   public maxPage : number;
   public title : string;
+  public pageSize : number = 5;
 
   ngOnInit(): void { }
 
   getActivityLog(){
-    this.as.getActivityLog(this.page)
+    this.as.getActivityLog(this.pageSize)
     .then(collection => {
       this.data = collection;
       this.getMaxPage();
@@ -41,7 +42,6 @@ export class LandingComponent implements OnInit {
     this.title = "Registro de actividad";
     this.headers = ["Id", "título", "fecha"]
     this.model = ["id", "title", "date"];
-
   }
 
   getMaxPage(){
@@ -49,4 +49,11 @@ export class LandingComponent implements OnInit {
     this.maxPage = Math.ceil(maxId/5);
   }
 
+  nextPage(){
+    this.page++;
+  }
+
+  previousPage(){
+    this.page--;
+  }
 }

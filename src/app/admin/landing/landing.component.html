@@ -7,12 +7,11 @@
             [data]="data"
             ></app-table>
         <div class="table_paginator">
-            <button class="button_primary">Anterior</button>
+            <button class="button_primary" (click)="previousPage()" *ngIf="page > 1">Anterior</button>
             <span>
-                page
+                {{page}}
             </span>
-            <button class="button_primary">Siguiente</button>
-
+            <button class="button_primary" (click)="nextPage()" *ngIf="page < maxPage">Siguiente</button>
         </div>
     </div>
 </div>

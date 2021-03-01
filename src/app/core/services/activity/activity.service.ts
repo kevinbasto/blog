@@ -10,20 +10,32 @@ export class ActivityService {
     private af : AngularFirestore
   ) { }
 
-  getActivityLog(page : number = 1){
+  getActivityLog(pageSize : number, page : number = Infinity,){
     return new Promise<any>((resolve, reject) => {
-      this.af.collection("updates", ref => 
-      ref.limit(5)
-      .orderBy("id","desc")
-      .where("id", "<=", 5 * page)
-      .where("id", ">=", 5 * (page - 1)))
-      .valueChanges()
-      .subscribe(collection => {
-        if(collection)
-          resolve(collection);
-        else
-          reject("hubo un problema para obtener el registro de actividades");
-      })
+      if(page == Infinity){
+        this.af.collection("updates", ref => 
+          ref.limit(pageSize)
+          .orderBy("id", "desc")
+        ).valueChanges()
+        .subscribe(collection => {
+          if(collection)
+            resolve(collection)
+          else
+            reject("hubo un problema al obtener los registros");
+        })
+      }else{
+        this.af.collection("updates", ref => 
+        ref.limit(pageSize)
+        .where("id", ">", pageSize * (page - 1))
+        .where("id", "<=", pageSize * page)
+        ).valueChanges()
+        .subscribe(collection => {
+          if(collection)
+            resolve(collection)
+          else
+            reject("hubo un problema al obtener los datos");
+        })
+      }
     });
     
   }
