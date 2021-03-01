@@ -23,7 +23,6 @@ export class TableComponent implements OnInit, OnChanges {
   public title : string;
   public headers : Array<string>;
   public model : Array<string>;
-  public length : number = 4;
 
   // this data is processed
   public data : Array<any>;
