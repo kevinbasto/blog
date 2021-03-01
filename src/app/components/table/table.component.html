@@ -1,27 +1,30 @@
-<div class="table">
-    <table>
-        <thead>
-            <tr>
-                <td >La tabla de pruebas</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>test</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3">
-                    <button class="button_primary">Anterior</button>
-                    1
-                    <button class="button_primary">Siguiente</button>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
+<table width="100%">
+    <thead>
+        <tr>
+            <th *ngIf="headers" colspan="100%">{{title}}</th>
+        </tr>
+        <tr>
+            <th *ngFor="let header of headers">
+                {{header}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let record of currentPage">
+            <td *ngFor="let description of model">
+                {{record[description]}}
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="100%">
+                <div class="controls_container" style="display: flex; width: 100%; justify-content: flex-end; align-items: center;">
+                    <button class="button_primary" *ngIf="page != 1" (click)="previousPage()">Atras</button>
+                    <span class="page">{{page}}</span>
+                    <button class="button_primary" *ngIf="page != maxPage" (click)="nextPage()">Adelante</button>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
