@@ -14,7 +14,7 @@ export class ActivityService {
     return new Promise<any>((resolve, reject) => {
       this.af.collection("updates", ref => 
       ref.limit(pagesize)
-      .where("id", "<=", lowestId)
+      .where("id", "<", lowestId)
       .orderBy("id", "desc")
       ).valueChanges()
       .subscribe(updates => {
