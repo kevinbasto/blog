@@ -99,9 +99,18 @@ export class LandingComponent implements OnInit {
 
   download() : Promise<Array<any>>{
     return new Promise((resolve, reject) => {
-      this.as.getActivityLog(this.pageSize, this.lowestId)
-      .then(updates => resolve(updates))
+      this.as.getActivityLog(this.lowestId, this.pageSize)
+      .then(updates => {
+        if(this.lowestId == Infinity){
+          this.calculateMaxPage(updates[0].id);
+        }
+        resolve(updates)
+      })
       .catch(error => {reject(error)});
     });
+  }
+
+  calculateMaxPage(highestId : number){
+    this.maxPage = Math.ceil(highestId / this.pageSize);
   }
 }
