@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { title, headers, model, data} from './dummy.data';
 
 @Component({
   selector: 'app-table',

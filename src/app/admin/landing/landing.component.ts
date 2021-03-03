@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuOption } from 'src/app/core/menu.option';
 import { ActivityService } from 'src/app/core/services/activity/activity.service';
 
 
@@ -12,61 +11,97 @@ export class LandingComponent implements OnInit {
 
   constructor(
     private as : ActivityService
-  ) { 
-    this.getActivityLog();
+  ) { }
+
+  // all the data that is going to be exported
+  public title : string;
+  public headers : Array<string>;
+  public model :  Array<string>;
+
+  // pool and page
+  public data : Array<any>;
+  public pageData : Array<any>;
+
+  // all the internal management controls
+  public maxPage : number;
+  public page : number;
+  public lowestId : number;
+  public highestId : number;
+  public pageSize: number;
+  
+
+  ngOnInit(): void { 
     this.setBasicData();
   }
 
-  public headers : Array<string>;
-  public model :  Array<string>;
-  public data : Array<any>;
-  public page : number = 1;
-  public maxPage : number;
-  public title : string;
-  public pageSize : number = 5;
-  private lowestId : number;
-
-  ngOnInit(): void { }
-
-  getActivityLog(){
-    this.as.getActivityLog(this.pageSize)
-    .then(collection => {
-      this.data = collection;
-      this.getMaxPage();
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
+  // sets the basic data that is going to be sended to the table
   setBasicData(){
+    // data for the table
     this.title = "Registro de actividad";
     this.headers = ["Id", "título", "fecha"]
     this.model = ["id", "title", "date"];
-  }
+    this.data = [];
+    this.pageData = [];
 
-  getMaxPage(){
-    let maxId = this.data[0].id;
-    this.maxPage = Math.ceil(maxId/5);
+    // data for the controls
+    this.maxPage = 1;
+    this.pageSize = 5;
+    this.page = 1;
+
+    // this is for control of the pageloc
+    this.lowestId = Infinity;
+    this.highestId = 0;
+    this.getPage(true);
   }
 
   nextPage(){
     this.page++;
-    this.getPage();
+    this.getPage(true);
   }
 
   previousPage(){
     this.page--;
-    this.getPage();
+    this.getPage(false);
   }
 
-  getPage(){
-    this.as.getActivityLog(this.pageSize, this.page)
-    .then(collection => {
-      console.log(collection)
-    })
-    .catch(error => {
-      console.log(error);
-    })
+  async getPage(forward: boolean){
+    // si el paginado avanza a la página siguiente
+    if(forward){
+      let totalPages = this.data.length/this.pageSize;
+      if(totalPages == this.maxPage){
+        // the buffer does contain the next page
+        this.pageData = [];
+        for(let record of this.data){
+          if( (record.id < this.lowestId) && (record.id > (this.lowestId - this.pageSize)) ){
+            this.pageData.push(record);
+          }
+        }
+      }else{
+        // the buffer doesn't contain the next page
+        this.download()
+        .then(collection => {
+          this.pageData = [];
+          collection.map(update => this.data.push(update))
+          this.pageData = collection;
+        })
+      }
+    }
+    // si el paginado retrocede
+    else{
+      this.pageData = []
+      for(let record of this.data){
+        if( (record.id > this.highestId) && (record < (this.highestId + this.pageSize)) ){
+          this.pageData.push(record);
+        }
+      }
+    }
+  }
+
+  download() : Promise<Array<any>>{
+    return new Promise((resolve, reject) => {
+      this.as.getActivityLog(this.pageSize, this.lowestId)
+      .then(updates => resolve(updates))
+      .catch(error => {reject(error)});
+    });
   }
 }
