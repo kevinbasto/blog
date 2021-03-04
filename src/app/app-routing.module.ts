@@ -6,6 +6,8 @@ import { AuthModule }  from './auth/auth.module'
 import { AuthComponent } from './auth/auth.component';
 import { ClientComponent } from './client/client.component';
 import { ClientModule } from './client/client.module';
+import { AdminComponent } from './admin/admin.component';
+import { AdminModule } from './admin/admin.module';
 
 const routes: Routes = [
   {
@@ -30,6 +32,16 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: './client/client.module#ClientModule'
+      }
+    ]
+  },
+  {
+    path: 'admin',
+    component : AdminComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './admin/admin.module#AdminModule'
       }
     ]
   },

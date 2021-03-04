@@ -1,0 +1,21 @@
+<table width="100%" cellspacing="0" cellpadding="0">
+    <thead>
+        <tr>
+            <th colspan="100%">
+                {{title}}
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let header of headers">
+                {{header}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let record of data">
+            <td *ngFor="let property of model">
+                {{record[property]}}
+            </td>
+        </tr>
+    </tbody>
+</table>

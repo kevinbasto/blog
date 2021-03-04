@@ -14,12 +14,14 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { ClientComponent } from './client/client.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    ClientComponent
+    ClientComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
