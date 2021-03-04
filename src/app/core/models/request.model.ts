@@ -3,7 +3,7 @@ export const requestModel : Array<string> = [
     "date"
 ];
 
-export const requestTitle : Array<string> = [
+export const requestTitles : Array<string> = [
     "usuario",
     "fecha"
 ]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TablesService } from 'src/app/core/services/tables/tables.service';
 
+
 @Component({
   selector: 'app-tables',
   templateUrl: './tables.component.html',
@@ -8,25 +9,19 @@ import { TablesService } from 'src/app/core/services/tables/tables.service';
 })
 export class TablesComponent implements OnInit {
 
-  constructor(
-    private ts : TablesService
-  ) { 
-    this.getTable();
-  }
+  constructor( ) { }
 
   // data to export to the table
   public title: string;
-  public headers : Array<String>;
+  public headers : Array<string>;
   public model : Array<string>;
+  public pageData : Array<any>;
   public data : Array<any>;
+  public lowestId : number;
+  public pageSize : number;
+  public page : number;
 
   ngOnInit(): void {
   }
 
-  getTable(){
-    this.ts.table$.subscribe(table => {
-      this.title = table
-      
-    });
-  }
 }
