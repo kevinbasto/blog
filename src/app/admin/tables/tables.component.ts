@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TablesService } from 'src/app/core/services/tables/tables.service';
 
 @Component({
   selector: 'app-tables',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private ts : TablesService
+  ) { 
+    this.getTable();
+  }
+
+  public title: string;
 
   ngOnInit(): void {
   }
 
+  getTable(){
+    this.ts.table$.subscribe(table => {
+      this.title = table
+    })
+  }
 }
