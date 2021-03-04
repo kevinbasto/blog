@@ -1,4 +1,4 @@
-export const novel : Array<string> = [
+export const novelModel : Array<string> = [
     "id",
     "title",
     "author",
