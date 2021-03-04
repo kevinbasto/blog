@@ -19,7 +19,6 @@ export class ActivityService {
       ).valueChanges()
       .subscribe(updates => {
         if(updates){
-          console.log(updates);
           resolve(updates)
         }
         else
