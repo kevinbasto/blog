@@ -14,7 +14,11 @@ export class TablesComponent implements OnInit {
     this.getTable();
   }
 
+  // data to export to the table
   public title: string;
+  public headers : Array<String>;
+  public model : Array<string>;
+  public data : Array<any>;
 
   ngOnInit(): void {
   }
@@ -22,6 +26,7 @@ export class TablesComponent implements OnInit {
   getTable(){
     this.ts.table$.subscribe(table => {
       this.title = table
-    })
+      
+    });
   }
 }

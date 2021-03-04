@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TablesComponent } from 'src/app/admin/tables/tables.component';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,9 @@ export class TablesService {
         }
       });
     });
+  }
+
+  getModel(table : string){
+    
   }
 }
