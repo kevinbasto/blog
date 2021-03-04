@@ -2,5 +2,10 @@ export const novelModel : Array<string> = [
     "id",
     "title",
     "author",
-    "translator"
 ];
+
+export const novelTitles : Array<string> = [
+    "id",
+    "Título",
+    "Autor",
+]

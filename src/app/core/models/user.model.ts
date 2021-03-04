@@ -3,3 +3,9 @@ export const userModel : Array<string> = [
     "username",
     "email"
 ];
+
+export const userTitles : Array<string> = [
+    "id",
+    "usuario",
+    "correo"
+]

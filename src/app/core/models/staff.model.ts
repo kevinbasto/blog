@@ -3,3 +3,9 @@ export const staffModel : Array<string> = [
     "username",
     "level",
 ]
+
+export const staffTitles : Array<string> = [
+    "id",
+    "usuario",
+    "nivel"
+]
