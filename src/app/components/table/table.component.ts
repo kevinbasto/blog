@@ -17,6 +17,7 @@ export class TableComponent implements OnInit {
   public title : string;
   public headers : Array<string>;
   public model : Array<string>;
+  public data : Array<any>;
 
   ngOnInit(): void { }
 
@@ -26,6 +27,13 @@ export class TableComponent implements OnInit {
       this.headers = this.ts.headers;
       this.model = this.ts.model;
     })
+  }
+
+  previous(){
+
+  }
+
+  next(){
 
   }
 }
