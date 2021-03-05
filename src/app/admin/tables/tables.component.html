@@ -1,22 +1,7 @@
 <div class="container">
     <div class="table_container">
         <div class="table">
-            <div class="table_console">
-                <button class="button_primary">Añadir elemento</button>
-            </div>
-            <div class="table">
-                <app-table 
-                    [title]="title"
-                    [headers]="headers"
-                    [model]="model"
-                    [data]="pageData"
-                ></app-table>
-            </div>
-            <div class="table_controllers">
-                <button class="button_primary">anterior</button>
-                <span>{{page}}</span>
-                <button class="button_primary">Siguiente</button>
-            </div>
+            <app-table></app-table>
         </div>
     </div>
 </div>

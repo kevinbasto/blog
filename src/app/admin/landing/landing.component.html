@@ -1,17 +1,5 @@
 <div class="container">
     <div class="table">
-        <app-table 
-            [title]="title" 
-            [headers]="headers"
-            [model]="model"
-            [data]="pageData"
-            ></app-table>
-        <div class="table_paginator">
-            <button class="button_primary" (click)="previousPage()" *ngIf="page > 1">Anterior</button>
-            <span>
-                {{page}}
-            </span>
-            <button class="button_primary" (click)="nextPage()" *ngIf="page < maxPage">Siguiente</button>
-        </div>
+        <app-table></app-table>
     </div>
 </div>
