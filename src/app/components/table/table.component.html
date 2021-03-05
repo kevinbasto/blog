@@ -12,19 +12,35 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let record of data">
+        <!-- <tr *ngFor="let record of data">
             <td *ngFor="let property of model">{{record[property]}}</td>
+        </tr> -->
+        <tr>
+            <td>
+                data 1
+            </td>
+            <td>
+                data 2
+            </td>
+        </tr>
+        <tr>
+            <td>
+                data 1
+            </td>
+            <td>
+                data 2
+            </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
             <td colspan="100%">
                 <div>
-                    <button class="button_primary" (click)="previous()" *ngIf="page > 1">Anterior</button>
+                    <button class="button_primary">Anterior</button>
                     <span>
-                        {{page}}
+                        page
                     </span>
-                    <button class="button_primary" (click)="next()" *ngIf="page < maxPage">Siguiente</button>
+                    <button class="button_primary">Siguiente</button>
                 </div>
             </td>
         </tr>

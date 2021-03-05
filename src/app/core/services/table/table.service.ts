@@ -1,9 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
-import { promise } from 'protractor';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { TableDataService } from './table-data.service';
+import { novelTitles } from '../../models/novel.model';
+import { requestModel, requestTitles } from '../../models/request.model';
+import { staffModel, staffTitles } from '../../models/staff.model';
+import { userModel, userTitles } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,157 +13,73 @@ import { TableDataService } from './table-data.service';
 export class TableService {
 
   constructor(
-    private tds: TableDataService
-  ) {
-    this.initializeTable();
+    private router : Router
+  ){
+    this.getTable();
   }
 
-  // public item values for the component
-  public title: Observable<string>;
-  public headers: Observable<Array<string>>;
-  public model: Observable<Array<string>>;
+  public table : Observable<string>;
+  public title : string;
+  public headers : Array<string>;
+  public model : Array<string>;
 
-  // data that does change by user interaction
-  public table : string;
-  public page: number;
-  public pageData: Array<any>;
-  public pageSize: number;
-  public maxPage: number;
 
-  // private item values for the management of the table
-  private lowestId: number;
-  private highestId: number;
-  private data: Array<any> = [];
-
-  initializeTable() {
-    this.title = new Observable(subscriber => {
-      this.tds.title$.subscribe(title => { subscriber.next(title) });
-    });
-    this.headers = new Observable(subscriber => {
-      this.tds.headers$.subscribe(headers => subscriber.next(headers));
-    });
-    this.model = new Observable(subscriber => {
-      this.tds.model$.subscribe(model => subscriber.next(model));
-    });
-
-    this.tds.table.subscribe(table => {
-      this.table = table;
-      this.initializeTableParameters();
-    })
-  }
-
-  initializeTableParameters() {
-    // public parameters
-    this.page = 1;
-    this.pageData = [];
-    this.pageSize = 5;
-    this.maxPage = 1;
-
-    // private parameters
-    this.lowestId = Infinity;
-    this.highestId = 0;
-    this.data = [];
-  }
-
-  getPage(forward: boolean) {
-    return new Promise<any>((resolve, reject) => {
-      // we are navigating to a next page
-      if (forward) {
-        
-        let totalPages = this.data.length / this.pageSize;
-        // we are navigating to a next page which does contain the data
-        if (totalPages == this.maxPage) {
-          
-          this.pageData = [];
-          for(let record of this.data){
-            if((record.id < this.lowestId) && (record.id > (this.lowestId - this.pageSize))){
-              this.pageData.push(record);
-            }
-          }
-
-          this.lowestId = this.pageData[this.pageData.length - 1].id;
-          this.highestId = this.pageData[0].id;
-
-          // we need to resolve the information to the component
-          // ---------------------------------------------------
-          resolve({
-            pageData : this.pageData,
-            page : this.page,
-            maxPage : this.maxPage
-          })
+  getTable(){
+    this.table = new Observable(subscriber => {
+      this.router.events.subscribe(event => {
+        if(event instanceof NavigationEnd){
+          let table = this.setTable(event.url);
+          subscriber.next(table);
         }
-        // we are navigating to a next page which does not contain the data
-        else {
-          
-          // we download the data
-          this.downloadPage()
-          .then((page : Array<any>) => {
-            console.log(page);
-            this.pageData = [];
-            page.map(record => this.data.push(record));
-            this.pageData = page;
-            this.lowestId = this.pageData[this.pageData.length - 1].id;
-            this.highestId = this.pageData[0].id;
-
-            // don't forget to resolve the data to the component
-            // -------------------------------------------------
-            resolve({
-              pageData : this.pageData,
-              page : this.page,
-              maxPage : this.maxPage
-            })
-          })
-          this.page++;
-        }
-      }
-      // we are navigating to a  previous page
-      else {
-        this.pageData = [];
-        for(let record of this.data){
-          if ((record.id > this.highestId) && (record.id <= (this.highestId + this.pageSize))) {
-            this.pageData.push(record);
-          }
-        }
-        this.lowestId = this.pageData[this.pageData.length - 1].id;
-        this.highestId = this.pageData[0].id;
-
-        // resolve the data once is ready
-        // ------------------------------
-        this.page = this.page-1;
-        resolve({
-          pageData : this.pageData,
-          page : this.page,
-          maxPage : this.maxPage
-        })
-      }
-    });
-  }
-
-  downloadPage() {
-    return new Promise<any>(async(resolve, reject) => {
-      let title : string;
-      if(this.pageSize == undefined){
-        await this.title.pipe(take(1)).toPromise().then(data => {title = data});
-      }else{
-        title = this.table;
-      }
-      this.tds.getData(title, this.lowestId, this.pageSize)
-      .then(page => {
-        console.log(page);
-        if(page.length > 0){
-          if(this.lowestId == Infinity){
-            this.calculateMaxPage(page[0].id);
-          }
-        }
-        resolve(page)
       })
-      .catch(error => {
-        reject(error)
-      });
     });
   }
 
-  calculateMaxPage(highestId: number) {
-    this.maxPage = Math.ceil(highestId / this.pageSize);
+  setTable(url : string) : string{
+    let table = url.split("/")[url.split("/").length - 1];
+    this.title = table;
+    this.setHeaders(table);
+    this.setModel(table);
+    return table;
+  }
+
+  setHeaders(table : string){
+    switch(table){
+      case "inicio":
+        
+      break;
+      case "usuarios":
+        this.headers = userTitles;
+      break;
+      case "solicitudes":
+        this.headers = requestTitles;
+      break;
+      case "staff":
+        this.headers = staffTitles;
+      break;
+      default:
+        this.headers = novelTitles;
+      break;
+    } 
+  }
+
+  setModel(table : string){
+    switch(table){
+      case "inicio":
+
+      break;
+      case "usuarios":
+        this.model = userModel;
+      break;
+      case "solicitudes":
+        this.model = requestModel;
+      break;
+      case "staff":
+        this.model = staffModel;
+      break;
+      default:
+
+      break;
+    } 
   }
 }
