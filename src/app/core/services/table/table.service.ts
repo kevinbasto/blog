@@ -23,6 +23,7 @@ export class TableService {
   public title : string;
   public headers : Array<string>;
   public model : Array<string>;
+  public page : number;
 
 
   getTable(){
@@ -41,6 +42,9 @@ export class TableService {
     this.title = table;
     this.setHeaders(table);
     this.setModel(table);
+    // this value is prefixed due to the change of tables implies
+    // deleting the data in the buffer and downloading the new data
+    this.setPage(1);
     return table;
   }
 
@@ -82,5 +86,9 @@ export class TableService {
         this.model = novelModel
       break;
     } 
+  }
+
+  setPage(page : number){
+    this.page = page;
   }
 }

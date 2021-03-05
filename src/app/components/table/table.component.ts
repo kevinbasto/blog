@@ -18,6 +18,7 @@ export class TableComponent implements OnInit {
   public headers : Array<string>;
   public model : Array<string>;
   public data : Array<any>;
+  public page : number;
 
   ngOnInit(): void { }
 
@@ -26,14 +27,22 @@ export class TableComponent implements OnInit {
       this.title = this.ts.title;
       this.headers = this.ts.headers;
       this.model = this.ts.model;
+      this.page = this.ts.page;
+      this.getData(true);
     })
   }
 
   previous(){
-
+    this.page--;
+    this.getData(false);
   }
 
   next(){
+    this.page++;
+    this.getData(true);
+  }
+
+  getData(forward : boolean){
 
   }
 }
