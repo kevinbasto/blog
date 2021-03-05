@@ -35,16 +35,16 @@ export class TableComponent implements OnInit {
     .then(data => {
       this.data = data.pageData;
       this.page = data.page;
-      this.maxPage = this.maxPage;
+      this.maxPage = data.maxPage;
     })
   }
 
   next(){
-    
+    this.getData(true);
   }
 
   previous(){
-
+    this.getData(false)
   }
   
 }

@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
 import { Observable } from 'rxjs';
@@ -21,6 +22,7 @@ export class TableService {
   public model: Observable<Array<string>>;
 
   // data that does change by user interaction
+  public table : string;
   public page: number;
   public pageData: Array<any>;
   public pageSize: number;
@@ -43,6 +45,7 @@ export class TableService {
     });
 
     this.tds.table.subscribe(table => {
+      this.table = table;
       this.initializeTableParameters();
     })
   }
@@ -64,9 +67,11 @@ export class TableService {
     return new Promise<any>((resolve, reject) => {
       // we are navigating to a next page
       if (forward) {
-        let totalPages = this.data.length / this.pageSize || 0;
+        
+        let totalPages = this.data.length / this.pageSize;
         // we are navigating to a next page which does contain the data
         if (totalPages == this.maxPage) {
+          
           this.pageData = [];
           for(let record of this.data){
             if((record.id < this.lowestId) && (record.id > (this.lowestId - this.pageSize))){
@@ -81,15 +86,17 @@ export class TableService {
           // ---------------------------------------------------
           resolve({
             pageData : this.pageData,
-            page : this.page++,
+            page : this.page,
             maxPage : this.maxPage
           })
         }
         // we are navigating to a next page which does not contain the data
         else {
+          
           // we download the data
           this.downloadPage()
           .then((page : Array<any>) => {
+            
             this.pageData = [];
             page.map(record => this.data.push(record));
             this.pageData = page;
@@ -100,10 +107,11 @@ export class TableService {
             // -------------------------------------------------
             resolve({
               pageData : this.pageData,
-              page : this.page++,
+              page : this.page,
               maxPage : this.maxPage
             })
           })
+          this.page++;
         }
       }
       // we are navigating to a  previous page
@@ -119,9 +127,10 @@ export class TableService {
 
         // resolve the data once is ready
         // ------------------------------
+        this.page = this.page-1;
         resolve({
           pageData : this.pageData,
-          page : this.page--,
+          page : this.page,
           maxPage : this.maxPage
         })
       }
@@ -131,8 +140,11 @@ export class TableService {
   downloadPage() {
     return new Promise<any>(async(resolve, reject) => {
       let title : string;
-      await this.title.pipe(take(1)).toPromise().then(data => title = data);
-
+      if(this.pageSize == undefined){
+        await this.title.pipe(take(1)).toPromise().then(data => {title = data});
+      }else{
+        title = this.table;
+      }
       this.tds.getData(title, this.lowestId, this.pageSize)
       .then(page => {
         if(this.lowestId == Infinity){
@@ -140,7 +152,9 @@ export class TableService {
         }
         resolve(page)
       })
-      .catch(error => reject(error));
+      .catch(error => {
+        reject(error)
+      });
     });
   }
 

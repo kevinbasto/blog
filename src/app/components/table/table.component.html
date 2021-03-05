@@ -20,9 +20,11 @@
         <tr>
             <td colspan="100%">
                 <div>
-                    <button class="button_primary">Anterior</button>
-                    pagina
-                    <button class="button_primary">Siguiente</button>
+                    <button class="button_primary" (click)="previous()" *ngIf="page > 1">Anterior</button>
+                    <span>
+                        {{page}}
+                    </span>
+                    <button class="button_primary" (click)="next()" *ngIf="page < maxPage">Siguiente</button>
                 </div>
             </td>
         </tr>
