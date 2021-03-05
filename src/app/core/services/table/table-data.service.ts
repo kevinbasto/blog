@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { NavigationEnd, Router } from '@angular/router';
-import { observable, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { novelModel, novelTitles } from '../../models/novel.model';
 import { requestModel, requestTitles } from '../../models/request.model';
 import { staffModel, staffTitles } from '../../models/staff.model';
@@ -12,7 +13,8 @@ import { userModel, userTitles } from '../../models/user.model';
 export class TableDataService {
 
   constructor(
-    private router : Router
+    private router : Router,
+    private af: AngularFirestore
   ) { }
   public table : Observable<string> = new Observable(subscriber => {
     this.router.events.subscribe(event => {
@@ -67,5 +69,23 @@ export class TableDataService {
       default:
         return novelModel 
     }
+  }
+
+  //for tables of NOT specific querys such as terminated or staff
+  getData(table : string, lowestId : number, pageSize: number){
+    return new Promise<any>((resolve, reject) => {
+      this.af.collection(table, ref => 
+        ref.limit(pageSize)
+        .where("id", "<", lowestId)
+        .orderBy("id", "desc")  
+      ).valueChanges()
+      .subscribe(collection => {
+        if(collection){
+          resolve(collection);
+        }else{
+          reject("Hubo un problema al recuperar los datos");
+        }
+      })
+    });
   }
 }

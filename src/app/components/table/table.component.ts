@@ -17,8 +17,9 @@ export class TableComponent implements OnInit {
   public title : string;
   public headers: Array<string>;
   public model : Array<string>;
-  public data : Array<string>;
+  public data : Array<any>;
   public page : number;
+  public maxPage : number;
 
   ngOnInit(): void { }
 
@@ -26,6 +27,24 @@ export class TableComponent implements OnInit {
     this.ts.title.subscribe(title => this.title = title);
     this.ts.headers.subscribe(headers => this.headers = headers);
     this.ts.model.subscribe(model => this.model = model);
+    this.getData(true);
+  }
+
+  getData(forward : boolean){
+    this.ts.getPage(forward)
+    .then(data => {
+      this.data = data.pageData;
+      this.page = data.page;
+      this.maxPage = this.maxPage;
+    })
+  }
+
+  next(){
+    
+  }
+
+  previous(){
+
   }
   
 }

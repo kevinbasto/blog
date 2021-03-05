@@ -7,15 +7,13 @@
         </tr>
         <tr>
             <th *ngFor="let header of headers">
-                <a>
-                    {{header}}
-                </a>
+                {{header}}
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td *ngFor="let property of model">Hola</td>
+        <tr *ngFor="let record of data">
+            <td *ngFor="let property of model">{{record[property]}}</td>
         </tr>
     </tbody>
     <tfoot>

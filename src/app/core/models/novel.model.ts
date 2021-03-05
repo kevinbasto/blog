@@ -1,11 +1,11 @@
 export const novelModel : Array<string> = [
     "id",
     "title",
-    "author",
+    "chapters",
 ];
 
 export const novelTitles : Array<string> = [
-    "id",
+    "Id",
     "Título",
-    "Autor",
+    "Capítulos",
 ]
