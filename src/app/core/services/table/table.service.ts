@@ -96,7 +96,7 @@ export class TableService {
           // we download the data
           this.downloadPage()
           .then((page : Array<any>) => {
-            
+            console.log(page);
             this.pageData = [];
             page.map(record => this.data.push(record));
             this.pageData = page;
@@ -147,8 +147,11 @@ export class TableService {
       }
       this.tds.getData(title, this.lowestId, this.pageSize)
       .then(page => {
-        if(this.lowestId == Infinity){
-          this.calculateMaxPage(page[0].id);
+        console.log(page);
+        if(page.length > 0){
+          if(this.lowestId == Infinity){
+            this.calculateMaxPage(page[0].id);
+          }
         }
         resolve(page)
       })

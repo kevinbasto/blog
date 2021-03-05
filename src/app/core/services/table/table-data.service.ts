@@ -71,7 +71,7 @@ export class TableDataService {
     }
   }
 
-  //for tables of NOT specific querys such as terminated or staff
+  //for tables of NOT specific querys such as terminated or staff or landing
   getData(table : string, lowestId : number, pageSize: number){
     return new Promise<any>((resolve, reject) => {
       this.af.collection(table, ref => 
