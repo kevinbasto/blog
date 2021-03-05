@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TableService } from 'src/app/core/services/table/table.service';
 
 @Component({
   selector: 'app-table',
@@ -7,17 +8,24 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private ts : TableService
+  ) {
+    this.initializeTable();
+   }
 
-  // all the input data of the component
-  //this three will be on the final table
-  @Input() public title : string;
-  @Input() public headers : Array<string>;
-  @Input() public model : Array<string>;
-  @Input() public data : Array<any>;
+  public title : string;
+  public headers: Array<string>;
+  public model : Array<string>;
+  public data : Array<string>;
+  public page : number;
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void { }
+
+  initializeTable(){
+    this.ts.title.subscribe(title => this.title = title);
+    this.ts.headers.subscribe(headers => this.headers = headers);
+    this.ts.model.subscribe(model => this.model = model);
   }
   
 }

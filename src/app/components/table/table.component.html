@@ -7,15 +7,26 @@
         </tr>
         <tr>
             <th *ngFor="let header of headers">
-                {{header}}
+                <a>
+                    {{header}}
+                </a>
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let record of data">
-            <td *ngFor="let property of model">
-                {{record[property]}}
-            </td>
+        <tr>
+            <td *ngFor="let property of model">Hola</td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="100%">
+                <div>
+                    <button class="button_primary">Anterior</button>
+                    pagina
+                    <button class="button_primary">Siguiente</button>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
 </table>
