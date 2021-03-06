@@ -43,6 +43,7 @@ export class TableService {
     return table;
   }
 
+  // data setting for the table
   setHeaders(table: string) {
     switch (table) {
       case "updates":
