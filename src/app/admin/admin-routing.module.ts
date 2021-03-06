@@ -10,6 +10,10 @@ const routes: Routes = [
     redirectTo: 'updates'
   },
   {
+    path : 'updates',
+    component: LandingComponent
+  },
+  {
     path: ':table',
     component: TablesComponent
   },

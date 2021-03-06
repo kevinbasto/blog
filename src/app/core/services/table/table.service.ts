@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { NavigationEnd, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
 import { novelModel, novelTitles } from '../../models/novel.model';
 import { requestModel, requestTitles } from '../../models/request.model';
 import { staffModel, staffTitles } from '../../models/staff.model';
@@ -13,8 +10,6 @@ import { userModel, userTitles } from '../../models/user.model';
   providedIn: 'root'
 })
 export class TableService {
-
-  public table : Subject<any> = new Subject<any>();
 
   constructor(
     private af: AngularFirestore
@@ -45,7 +40,6 @@ export class TableService {
     // this value is prefixed due to the change of tables implies
     // deleting the data in the buffer and downloading the new data
     this.setInitialParameters();
-    this.table.next(table);
     return table;
   }
 
@@ -97,6 +91,7 @@ export class TableService {
     this.pageSize = 5;
   }
 
+  // functions for handling the information in the tables
   getPageData(forward: boolean) {
     return new Promise<any>(async (resolve, reject) => {
       if (forward) {
