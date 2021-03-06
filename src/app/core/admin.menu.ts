@@ -32,12 +32,6 @@ export const AdminMenu : Array<MenuOption> = [
         level: 3
     },
     {
-        title: "Novelas Coreanas",
-        url: "/admin/coreanas",
-        icon: "fa-yin-yang",
-        level: 3
-    },
-    {
         title: "Novelas +15/+19",
         url: "/admin/mayores",
         icon: "fa-surprise",

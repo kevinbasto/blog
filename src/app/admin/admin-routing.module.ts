@@ -7,11 +7,7 @@ import { TablesComponent } from './tables/tables.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inicio'
-  },
-  {
-    path: 'updates',
-    component: LandingComponent
+    redirectTo: 'updates'
   },
   {
     path: ':table',

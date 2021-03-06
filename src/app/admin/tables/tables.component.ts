@@ -22,6 +22,7 @@ export class TablesComponent implements OnInit {
   public page : number;
 
   ngOnInit(): void {
+    
   }
 
 }

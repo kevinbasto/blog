@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { TableService } from 'src/app/core/services/table/table.service';
 
 @Component({
@@ -9,27 +11,42 @@ import { TableService } from 'src/app/core/services/table/table.service';
 export class TableComponent implements OnInit {
 
   constructor(
-    private ts : TableService
+    private ts : TableService,
+    private router: Router
   ) {
-    this.getTable();
+    
   }
 
+  
+  public table = this.router.events
+  .pipe(filter(event => event instanceof NavigationEnd))
+  .subscribe((event : any) => {
+    console.log(event.url);
+  })
   public title : string;
   public headers : Array<string>;
   public model : Array<string>;
   public data : Array<any>;
   public page : number;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
+
 
   getTable(){
-    this.ts.table.subscribe(table => {
-      this.title = this.ts.title;
-      this.headers = this.ts.headers;
-      this.model = this.ts.model;
-      this.page = this.ts.page;
-      this.getData(true);
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event : any) => {
+      console.log(event.url);
     })
+    // this.ts.table.subscribe(table => {
+    //   console.log(table);
+    //   this.title = this.ts.title;
+    //   this.headers = this.ts.headers;
+    //   this.model = this.ts.model;
+    //   this.page = this.ts.page;
+    //   this.getData(true);
+    // })
   }
 
   previous(){
@@ -42,11 +59,10 @@ export class TableComponent implements OnInit {
     this.getData(true);
   }
 
-  async getData(forward : boolean){
+  getData(forward : boolean){
     this.ts.getPageData(forward)
     .then(value => {
-      console.log(this.ts.pageData);
-      this.data = this.ts.pageData;
+      this.page = this.ts.page;
     });
   }
 }
