@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -14,22 +15,35 @@ import { userModel, userTitles } from '../../models/user.model';
 export class TableService {
 
   constructor(
-    private router : Router
-  ){
+    private router: Router,
+    private af: AngularFirestore
+  ) {
     this.getTable();
   }
 
-  public table : Observable<string>;
-  public title : string;
-  public headers : Array<string>;
-  public model : Array<string>;
-  public page : number;
+  // observable
+  public table: Observable<string>;
+
+  //data for the table
+  public title: string;
+  public headers: Array<string>;
+  public model: Array<string>;
+
+  //page navigation
+  public data: Array<any>;
+  public pageData: Array<any>;
+  public pageSize: number;
+  public page: number;
+  public maxPage: number;
+  public lowestId: number;
+  public highestId: number;
 
 
-  getTable(){
+
+  getTable() {
     this.table = new Observable(subscriber => {
       this.router.events.subscribe(event => {
-        if(event instanceof NavigationEnd){
+        if (event instanceof NavigationEnd) {
           let table = this.setTable(event.url);
           subscriber.next(table);
         }
@@ -37,58 +51,144 @@ export class TableService {
     });
   }
 
-  setTable(url : string) : string{
+  setTable(url: string): string {
     let table = url.split("/")[url.split("/").length - 1];
     this.title = table;
     this.setHeaders(table);
     this.setModel(table);
     // this value is prefixed due to the change of tables implies
     // deleting the data in the buffer and downloading the new data
-    this.setPage(1);
+    this.setInitialParameters();
     return table;
   }
 
-  setHeaders(table : string){
-    switch(table){
-      case "inicio":
+  setHeaders(table: string) {
+    switch (table) {
+      case "updates":
         this.headers = updatesTitles;
-      break;
-      case "usuarios":
+        break;
+      case "users":
         this.headers = userTitles;
-      break;
-      case "solicitudes":
+        break;
+      case "requests":
         this.headers = requestTitles;
-      break;
+        break;
       case "staff":
         this.headers = staffTitles;
-      break;
+        break;
       default:
         this.headers = novelTitles;
-      break;
-    } 
+        break;
+    }
   }
 
-  setModel(table : string){
-    switch(table){
-      case "inicio":
+  setModel(table: string) {
+    switch (table) {
+      case "updates":
         this.model = updatesModel;
-      break;
-      case "usuarios":
+        break;
+      case "users":
         this.model = userModel;
-      break;
-      case "solicitudes":
+        break;
+      case "requests":
         this.model = requestModel;
-      break;
+        break;
       case "staff":
         this.model = staffModel;
-      break;
+        break;
       default:
         this.model = novelModel
-      break;
-    } 
+        break;
+    }
   }
 
-  setPage(page : number){
-    this.page = page;
+  setInitialParameters() {
+    this.page = 1;
+    this.data = [];
+    this.lowestId = Infinity;
+    this.highestId = 0;
+    this.pageSize = 5;
+  }
+
+  getPageData(forward: boolean) {
+    return new Promise<any>(async (resolve, reject) => {
+      if (forward) {
+        await this.next();
+        resolve(true);
+      }
+      else {
+        this.previous();
+        resolve(false);
+      }
+    });
+  }
+
+  async next() {
+    // if maxpage is not defined then it's a new reload;
+    if (!this.maxPage) {
+      await this.download()
+      .then((page : Array<any>) => {
+        this.bufferData(page);
+      })
+      return;
+    }
+
+    // the buffer is not empty, hence there's data in it
+    let totalPages = this.data.length / this.pageSize;
+    if(totalPages == this.maxPage){
+      // the buffer does contain the next page
+      this.pageData = [];
+      for (let record of this.data) {
+        if ((record.id < this.lowestId) && (record.id > (this.lowestId - this.pageSize))) {
+          this.pageData.push(record);
+        }
+      }
+      console.log(this.setParams);
+      this.setParams();
+    }
+    else{
+      // the buffer does not contain the page
+      await this.download()
+          .then((collection : Array<any>) => {
+            this.pageData = [];
+            collection.map(update => this.data.push(update))
+            this.pageData = collection;
+            this.setParams();
+          })
+    }
+  }
+
+  bufferData(page : Array<any>){
+    page.map(record => this.data.push(record));
+    this.pageData = page;
+    this.setParams();
+  }
+
+  setParams(){
+    this.lowestId = this.pageData[this.pageData.length - 1].id;
+    this.highestId = this.pageData[0].id;
+  }
+
+  previous() {
+    this.pageData = [];
+    for (let record of this.data) {
+      if ((record.id > this.highestId) && (record.id <= (this.highestId + this.pageSize))) {
+        this.pageData.push(record);
+      }
+    }
+    this.setParams();
+  }
+
+  download() {
+    return new Promise<any>((resolve, reject) => {
+      this.af.collection(this.title, ref =>
+        ref.limit(this.pageSize)
+          .where("id", "<", this.lowestId)
+          .orderBy("id", "desc"))
+        .valueChanges()
+        .subscribe(page => {
+          resolve(page);
+        })
+    })
   }
 }

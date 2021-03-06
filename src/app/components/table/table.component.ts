@@ -42,7 +42,11 @@ export class TableComponent implements OnInit {
     this.getData(true);
   }
 
-  getData(forward : boolean){
-
+  async getData(forward : boolean){
+    this.ts.getPageData(forward)
+    .then(value => {
+      console.log(this.ts.pageData);
+      this.data = this.ts.pageData;
+    });
   }
 }

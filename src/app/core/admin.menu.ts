@@ -3,7 +3,7 @@ import { MenuOption } from "./menu.option";
 export const AdminMenu : Array<MenuOption> = [
     {
         title: "inicio",
-        url : "/admin/inicio",
+        url : "/admin/updates",
         icon: "fa-tasks",
         level: 3
     },
@@ -51,13 +51,13 @@ export const AdminMenu : Array<MenuOption> = [
     },
     {
         title: "usuarios",
-        url: "/admin/usuarios",
+        url: "/admin/users",
         icon: "fa-users",
         level: 3
     },
     {
         title: "solicitudes",
-        url: "/admin/solicitudes",
+        url: "/admin/requests",
         icon: "fa-tasks",
         level: 3
     },
