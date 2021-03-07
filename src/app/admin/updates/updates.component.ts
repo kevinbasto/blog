@@ -9,6 +9,8 @@ export class UpdatesComponent implements OnInit {
 
   constructor() { }
 
+  public collection : string = "updates";
+
   ngOnInit(): void {
   }
 
