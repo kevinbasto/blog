@@ -6,6 +6,7 @@ import { UpdatesComponent } from './updates/updates.component';
 import { UsersComponent } from './users/users.component';
 import { StaffComponent } from './staff/staff.component';
 import { NovelsComponent } from './novels/novels.component';
+import { PersonalizationComponent } from './personalization/personalization.component';
 
 
 
@@ -14,7 +15,8 @@ import { NovelsComponent } from './novels/novels.component';
     UpdatesComponent,
     UsersComponent,
     StaffComponent,
-    NovelsComponent
+    NovelsComponent,
+    PersonalizationComponent
   ],
   imports: [
     CommonModule,

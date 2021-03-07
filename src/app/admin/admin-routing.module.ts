@@ -5,6 +5,7 @@ import { UpdatesComponent } from './updates/updates.component';
 import { UsersComponent } from './users/users.component';
 import { StaffComponent } from './staff/staff.component';
 import { NovelsComponent } from './novels/novels.component';
+import { PersonalizationComponent } from './personalization/personalization.component';
 
 
 const routes: Routes = [
@@ -25,11 +26,12 @@ const routes: Routes = [
     component: StaffComponent
   },
   {
-    path: ':genre',
-    component: NovelsComponent
+    path: 'personalization',
+    component: PersonalizationComponent
   },
   {
-    
+    path: ':genre',
+    component: NovelsComponent
   }
 ]
 
