@@ -5,6 +5,7 @@ import { ComponentsModule } from '../components/components.module';
 import { UpdatesComponent } from './updates/updates.component';
 import { UsersComponent } from './users/users.component';
 import { StaffComponent } from './staff/staff.component';
+import { NovelsComponent } from './novels/novels.component';
 
 
 
@@ -12,7 +13,8 @@ import { StaffComponent } from './staff/staff.component';
   declarations: [
     UpdatesComponent,
     UsersComponent,
-    StaffComponent
+    StaffComponent,
+    NovelsComponent
   ],
   imports: [
     CommonModule,

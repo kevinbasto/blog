@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UpdatesComponent } from './updates/updates.component';
 import { UsersComponent } from './users/users.component';
 import { StaffComponent } from './staff/staff.component';
+import { NovelsComponent } from './novels/novels.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,13 @@ const routes: Routes = [
     path: 'staff',
     component: StaffComponent
   },
+  {
+    path: ':genre',
+    component: NovelsComponent
+  },
+  {
+    
+  }
 ]
 
 @NgModule({
