@@ -4,13 +4,15 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { ComponentsModule } from '../components/components.module';
 import { UpdatesComponent } from './updates/updates.component';
 import { UsersComponent } from './users/users.component';
+import { StaffComponent } from './staff/staff.component';
 
 
 
 @NgModule({
   declarations: [
     UpdatesComponent,
-    UsersComponent
+    UsersComponent,
+    StaffComponent
   ],
   imports: [
     CommonModule,
