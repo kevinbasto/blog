@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingComponent } from './landing/landing.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ComponentsModule } from '../components/components.module';
-import { TablesComponent } from './tables/tables.component';
+import { UpdatesComponent } from './updates/updates.component';
 
 
 
 @NgModule({
   declarations: [
-    LandingComponent,
-    TablesComponent
+    UpdatesComponent
   ],
   imports: [
     CommonModule,

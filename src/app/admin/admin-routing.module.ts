@@ -1,21 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingComponent } from './landing/landing.component';
-import { TablesComponent } from './tables/tables.component';
+import { UpdatesComponent } from './updates/updates.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'updates'
+    redirectTo: 'inicio'
   },
   {
-    path : 'updates',
-    component: LandingComponent
-  },
-  {
-    path: ':table',
-    component: TablesComponent
+    path: 'inicio',
+    component: UpdatesComponent
   },
 ]
 
