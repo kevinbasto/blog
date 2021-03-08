@@ -70,8 +70,7 @@ export class TableComponent implements OnInit {
   }
 
   generateUrl(url : string){
-    let tokens = url.split("/");
-    url = `/admin/${tokens[1]}/${tokens[2]}/${tokens[3]}/${tokens[4]}`;
+    url = '/admin' + url;
     return url;
   }
 
