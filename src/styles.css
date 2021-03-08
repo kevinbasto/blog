@@ -119,6 +119,7 @@ body {
     background: var(--bg-quartary);
     border: 1px solid var(--bg-terciary);
     transition: var(--ts-time) ease-out;
+    color : var(--tx-primary);
 }
 
 .button_primary:hover {
