@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { TableService } from 'src/app/core/services/table/table.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { TableService } from 'src/app/core/services/table/table.service';
 export class TableComponent implements OnInit {
 
   constructor(
-    private table : TableService
+    private table : TableService,
+    private router: Router
   ) { }
 
   @Input() collection : string;
@@ -56,11 +58,26 @@ export class TableComponent implements OnInit {
 
   getData(){
     this.table.getData(this.page, this.pageSize)
-    .then(page => {
+    .then((page : Array<any>) => {
+      page.map(record => {
+        record.url = this.generateUrl(record.url);
+      })
+
+      console.log(page);
       this.data = page;
     })
     .catch(error => {
       console.log(error);
     })
+  }
+
+  generateUrl(url : string){
+    let tokens = url.split("/");
+    url = `/admin/${tokens[1]}/${tokens[2]}/${tokens[3]}/${tokens[4]}`;
+    return url;
+  }
+
+  navigate(url : string){
+    this.router.navigate([url]);
   }
 }
