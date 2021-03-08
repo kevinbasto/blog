@@ -22,7 +22,7 @@ export const AdminMenu : Array<MenuOption> = [
     {
         title: "solicitudes",
         url: "/admin/requests",
-        icon: "fa-tasks",
+        icon: "fa-clipboard-list",
         level: 3
     },
     {
