@@ -22,7 +22,7 @@
         </tr>
     </tbody>
     <tbody *ngIf="data">
-        <tr *ngFor="let row of data">
+        <tr *ngFor="let row of data" (click)="navigate(row.url)">
             <td *ngFor="let property of model">
                 {{row[property]}}
             </td>
