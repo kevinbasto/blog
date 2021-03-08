@@ -62,8 +62,6 @@ export class TableComponent implements OnInit {
       page.map(record => {
         record.url = this.generateUrl(record.url);
       })
-
-      console.log(page);
       this.data = page;
     })
     .catch(error => {
