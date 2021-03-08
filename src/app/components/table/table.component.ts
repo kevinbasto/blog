@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TableService } from 'src/app/core/services/table/table.service';
 
 @Component({
   selector: 'app-table',
@@ -7,17 +8,59 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private table : TableService
+  ) { }
 
-  // all the input data of the component
-  //this three will be on the final table
-  @Input() public title : string;
-  @Input() public headers : Array<string>;
-  @Input() public model : Array<string>;
-  @Input() public data : Array<any>;
+  @Input() collection : string;
+  @Input() title : string;
+  @Input() headers : Array<string>;
+  @Input() model : Array<string>;
+
+  // what is showed in the document
+  public data : Array<any>;
+
+  public page : number;
+  public maxPage : number;
+  public pageSize : number;
+  
 
   ngOnInit(): void {
-    
+    this.setCollection();
+    this.setPage(0);
+    this.setPageSize(5);
+    this.next();
   }
-  
+
+  setCollection(){
+    this.table.setCollection(this.collection);
+  }
+
+  setPage(page : number){
+    this.page = page;
+  }
+
+  setPageSize(pageSize : number){
+    this.pageSize = pageSize;
+  }
+
+  previous(){
+    this.setPage(this.page - 1)
+    this.getData();
+  }
+
+  next(){
+    this.setPage(this.page + 1);
+    this.getData();
+  }
+
+  getData(){
+    this.table.getData(this.page, this.pageSize)
+    .then(page => {
+      this.data = page;
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 }

@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingComponent } from './landing/landing.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ComponentsModule } from '../components/components.module';
+import { UpdatesComponent } from './updates/updates.component';
+import { UsersComponent } from './users/users.component';
+import { StaffComponent } from './staff/staff.component';
+import { NovelsComponent } from './novels/novels.component';
+import { PersonalizationComponent } from './personalization/personalization.component';
 
 
 
 @NgModule({
   declarations: [
-    LandingComponent
+    UpdatesComponent,
+    UsersComponent,
+    StaffComponent,
+    NovelsComponent,
+    PersonalizationComponent
   ],
   imports: [
     CommonModule,
