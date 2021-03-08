@@ -1,4 +1,4 @@
-<table>
+<table cellspacing="0" cellpadding="0">
     <thead>
         <tr>
             <th colspan="100%">
@@ -6,14 +6,15 @@
             </th>
         </tr>
         <tr>
-            <td *ngFor="let header of headers">
+            <th *ngFor="let header of headers">
                 {{header}}
-            </td>
+            </th>
         </tr>
     </thead>
     <tbody *ngIf="!data">
-        <tr>
-            <td colspan="100%">
+        <tr class="show">
+            <td></td>
+            <td colspan="100%" class="spinner">
                 <div>
                     <i class="fas fa-2x fa-spin fa-circle-notch"></i>
                 </div>
@@ -30,7 +31,7 @@
     <tfoot>
         <tr>
             <td colspan="100%">
-                <div>
+                <div class="table_controller">
                     <button class="button_primary" *ngIf="page > 1" (click)="previous()">
                         Anterior
                     </button>
