@@ -1,1 +1,47 @@
-<p>table works!</p>
+<table>
+    <thead>
+        <tr>
+            <th colspan="100%">
+                {{title}}
+            </th>
+        </tr>
+        <tr>
+            <td *ngFor="let header of headers">
+                {{header}}
+            </td>
+        </tr>
+    </thead>
+    <tbody *ngIf="!data">
+        <tr>
+            <td colspan="100%">
+                <div>
+                    <i class="fas fa-2x fa-spin fa-circle-notch"></i>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="data">
+        <tr *ngFor="let row of data">
+            <td *ngFor="let property of model">
+                {{row[property]}}
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="100%">
+                <div>
+                    <button class="button_primary" *ngIf="page > 1" (click)="previous()">
+                        Anterior
+                    </button>
+                    <span>
+                        {{page}}
+                    </span>
+                    <button class="button_primary" *ngIf="true" (click)="next()">
+                        Siguiente
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
