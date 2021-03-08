@@ -7,6 +7,7 @@ import { StaffComponent } from './staff/staff.component';
 import { NovelsComponent } from './novels/novels.component';
 import { PersonalizationComponent } from './personalization/personalization.component';
 import { RequestsComponent } from './requests/requests.component';
+import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'usuarios',
     component: UsersComponent
+  },
+  {
+    path: 'usuarios/:user',
+    component: UserComponent
   },
   {
     path: 'staff',
