@@ -8,6 +8,7 @@ import { StaffComponent } from './staff/staff.component';
 import { NovelsComponent } from './novels/novels.component';
 import { PersonalizationComponent } from './personalization/personalization.component';
 import { RequestsComponent } from './requests/requests.component';
+import { UserComponent } from './user/user.component';
 
 
 
@@ -18,7 +19,8 @@ import { RequestsComponent } from './requests/requests.component';
     StaffComponent,
     NovelsComponent,
     PersonalizationComponent,
-    RequestsComponent
+    RequestsComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
