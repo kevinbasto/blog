@@ -50,7 +50,5 @@ tfoot tr td div{
         display: none;
     }
 
-    .show .td:first-child{
-        display: inline;
-    }
+    
 }
