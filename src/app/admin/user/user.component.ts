@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route : ActivatedRoute,
+    private router : Router,
     private us : UserService
   ) { }
 
@@ -81,15 +82,21 @@ export class UserComponent implements OnInit {
     } 
   }
 
+  cancel(){
+    this.disableFields();
+    this.router.navigate(['/admin/usuarios']);
+  }
+
   edit(){
     this.uploading = true;
     this.setEditing();
     let user : any = this.userForm.value;
     user.picture = this.user.picture;
-    user.url = `/users/${this.user.uid}`;
+    user.url = `/usuarios/${this.user.uid}`;
+    user.id = this.user.id;
     this.us.setData(user)
     .then(response => {
-      console.log(response);
+      this.router.navigate(["/admin/usuarios"])
     })
     .catch(error => {
       console.log(error);
