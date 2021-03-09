@@ -70,8 +70,12 @@ export class TableComponent implements OnInit {
   }
 
   generateUrl(url : string){
-    url = '/admin' + url;
-    return url;
+    if(url.includes("/admin")){
+      return url;
+    }else{
+      url = '/admin' + url;
+      return url;
+    }
   }
 
   navigate(url : string){
