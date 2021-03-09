@@ -7,6 +7,9 @@ import { UsersComponent } from './users/users.component';
 import { StaffComponent } from './staff/staff.component';
 import { NovelsComponent } from './novels/novels.component';
 import { PersonalizationComponent } from './personalization/personalization.component';
+import { RequestsComponent } from './requests/requests.component';
+import { UserComponent } from './user/user.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,12 +19,15 @@ import { PersonalizationComponent } from './personalization/personalization.comp
     UsersComponent,
     StaffComponent,
     NovelsComponent,
-    PersonalizationComponent
+    PersonalizationComponent,
+    RequestsComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

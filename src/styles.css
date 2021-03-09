@@ -108,6 +108,14 @@ body {
     border: 1px solid var(--bg-terciary);
 }
 
+.form_control{
+    width: 98%;
+    margin: auto;
+    height: 2em;
+    border-radius: 5px;
+    border: 1px solid var(--bg-terciary);
+}
+
 .form_group span {
     transition: var(--ts-time);
 }

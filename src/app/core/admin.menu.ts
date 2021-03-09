@@ -8,6 +8,30 @@ export const AdminMenu : Array<MenuOption> = [
         level: 3
     },
     {
+        title: "usuarios",
+        url: "/admin/usuarios",
+        icon: "fa-users",
+        level: 3
+    },
+    {
+        title: "staff",
+        url: "/admin/staff",
+        icon: "fa-users-cog",
+        level: 3
+    },
+    {
+        title: "solicitudes",
+        url: "/admin/requests",
+        icon: "fa-clipboard-list",
+        level: 3
+    },
+    {
+        title : "Personalizar",
+        url: "/admin/personalization",
+        icon : "fa-palette",
+        level: 3
+    },
+    {
         title: "Novelas Japonesas",
         url: "/admin/japonesas",
         icon: "fa-torii-gate",
@@ -41,24 +65,6 @@ export const AdminMenu : Array<MenuOption> = [
         title: "Novelas Boys-love",
         url: "/admin/boys-love",
         icon: "fa-heart",
-        level: 3
-    },
-    {
-        title: "usuarios",
-        url: "/admin/users",
-        icon: "fa-users",
-        level: 3
-    },
-    {
-        title: "solicitudes",
-        url: "/admin/requests",
-        icon: "fa-tasks",
-        level: 3
-    },
-    {
-        title: "staff",
-        url: "/admin/staff",
-        icon: "fa-users-cog",
         level: 3
     },
     {
