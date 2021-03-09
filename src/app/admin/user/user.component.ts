@@ -18,13 +18,15 @@ export class UserComponent implements OnInit {
 
   public uid : string;
   public user : any;
+  public editing : boolean = false;
+  public uploading : boolean = false;
 
   public userForm : FormGroup = this.fb.group({
     username: [""],
     email: [""],
     uid: [""],
-    role: [""],
-    roleId: [""]
+    role: [null],
+    roleId: [null]
   });
 
   ngOnInit(): void {
@@ -42,10 +44,58 @@ export class UserComponent implements OnInit {
     await this.us.getData(this.uid)
     .then(user => {
       this.user = user;
+      this.setUserData();
     })
     .catch(error => {
       console.log(error);
     });
   }
 
+  setUserData(){
+    let fields = ["username", "email", "uid", "role", "roleId"];
+    for(let field of fields){
+      this.userForm.controls[field].setValue(this.user[field]);
+    }
+    this.disableFields();
+  }
+  setEditing(){
+    this.editing = !this.editing;
+    if(this.editing){
+      this.enableFields();
+    }else{
+      this.disableFields();
+    }
+  }
+
+  disableFields(){
+    let fields = ["username", "email", "uid", "role", "roleId"];
+    for(let field of fields){
+      this.userForm.controls[field].disable();
+    } 
+  }
+
+  enableFields(){
+    let fields = ["username", "role", "roleId"];
+    for(let field of fields){
+      this.userForm.controls[field].enable();
+    } 
+  }
+
+  edit(){
+    this.uploading = true;
+    this.setEditing();
+    let user : any = this.userForm.value;
+    user.picture = this.user.picture;
+    user.url = `/users/${this.user.uid}`;
+    this.us.setData(user)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    .finally(() => {
+      this.uploading = false;
+    })
+  }
 }

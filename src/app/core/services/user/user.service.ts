@@ -25,4 +25,14 @@ export class UserService {
       })
     });
   }
+
+
+  setData(user : any){
+    return new Promise<any>((resolve, reject) => {
+      this.af.doc(`/users/${user.uid}`)
+      .set(user)
+      .then(response => resolve(response))
+      .catch(error => reject(error));
+    });
+  }
 }

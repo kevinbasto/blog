@@ -3,9 +3,12 @@
         <div class="card_header">
             <h3>usuario</h3>
         </div>
-        <div class="card_body">
+        <div class="card_body" *ngIf="!user" style="display: flex; justify-content: center;">
+            <i class="fas fa-4x fa-spin fa-circle-notch"></i>
+        </div>
+        <div class="card_body" *ngIf="user">
             <div class="image_container">
-                <img src="https://firebasestorage.googleapis.com/v0/b/funadas-blog.appspot.com/o/U4GImxSN7POTl7etIWlXJnk6tqA2%2Fnichijou%20404.jpg?alt=media&token=bf6a23a6-7268-4048-86a5-3c19d0d7c889" alt="">
+                <img src="{{user.picture}}" alt="">
             </div>
             <form [formGroup]="userForm">
                 <div class="form_group">
@@ -22,7 +25,7 @@
                 </div>
                 <div class="form_group">
                     <span class="form_label">
-                        uid
+                        Uid
                     </span>
                     <input type="text" formControlName="uid">
                 </div>
@@ -30,28 +33,42 @@
                     <span class="form_label">
                         Role
                     </span>
-                    <input type="text" formControlName="role">
+                    <select type="text" formControlName="role" class="form_control">
+                        <option value="client">Lector</option>
+                        <option value="staff">Editor</option>
+                    </select>
                 </div>
                 <div class="form_group">
                     <span class="form_label">
                         Nivel de privilegios
                     </span>
-                    <input type="text" formControlName="roleId">
+                    <select type="text" formControlName="roleId" class="form_control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
             </form>
         </div>
         <div class="card_footer">
-            <div>
-                <button class="button_primary">
+            <div *ngIf="!editing">
+                <button class="button_primary" (click)="setEditing()">
                     Editar información
                 </button>
             </div>
-            <div>
-                <button class="button_primary">
+            <div *ngIf="editing">
+                <button class="button_primary" (click)="setEditing()">
                     Cancelar
                 </button>
-                <button class="button_primary">
-                    Guardar edición
+                <button class="button_primary" (click)="edit()">
+                    <span *ngIf="!uploading">
+                        Guardar edición
+                    </span>
+                    <div *ngIf="uploading">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
                 </button>
             </div>
         </div>
