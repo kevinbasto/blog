@@ -1,1 +1,13 @@
-<p>staff works!</p>
+<div class="container">
+    <div class="title_container">
+        <h1>Staff de la página</h1>
+    </div>
+    <div class="table_container">
+        <app-table
+            [collection]="collection"
+            [title]="title"
+            [headers]="headers"
+            [model]="model"
+        ></app-table>
+    </div>
+</div>
