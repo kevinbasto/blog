@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyA-xRNys1FSnu_QcoabhHNjPv7zQZDN-H8",
-    authDomain: "funadas-72b48.firebaseapp.com",
-    projectId: "funadas-72b48",
-    storageBucket: "funadas-72b48.appspot.com",
-    messagingSenderId: "635405926573",
-    appId: "1:635405926573:web:7ca0ad89cda9c06f274624",
-    measurementId: "G-C3CKNQSJDJ"
+    apiKey: "AIzaSyDw07QsBUBOmCQYYbYH1jdvd7VAuZdbr1Y",
+    authDomain: "funadas-blog.firebaseapp.com",
+    projectId: "funadas-blog",
+    storageBucket: "funadas-blog.appspot.com",
+    messagingSenderId: "285159145270",
+    appId: "1:285159145270:web:cdc3cd64270de86aa33d97",
+    measurementId: "G-L0DMGF4TFM"
   }
 };
 
