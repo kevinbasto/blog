@@ -9,6 +9,7 @@ import { ClientModule } from './client/client.module';
 import { AdminComponent } from './admin/admin.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthGuard } from './core/guards/auth/auth.guard';
+import { StaffGuard } from './core/guards/staff/staff.guard';
 
 const routes: Routes = [
   {
@@ -47,7 +48,7 @@ const routes: Routes = [
         loadChildren: './admin/admin.module#AdminModule'
       }
     ],
-    canActivateChild: [ AuthGuard ]
+    canActivateChild: [ AuthGuard, StaffGuard ]
   },
   {
     path: '**',
