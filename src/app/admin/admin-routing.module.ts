@@ -8,6 +8,7 @@ import { NovelsComponent } from './novels/novels.component';
 import { PersonalizationComponent } from './personalization/personalization.component';
 import { RequestsComponent } from './requests/requests.component';
 import { UserComponent } from './user/user.component';
+import { LevelGuard } from '../core/guards/level/level.guard';
 
 
 const routes: Routes = [
@@ -17,31 +18,38 @@ const routes: Routes = [
   },
   {
     path: 'inicio',
-    component: UpdatesComponent
+    component: UpdatesComponent,
+    canActivate: [ LevelGuard ]
   },
   {
     path: 'usuarios',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [ LevelGuard ]
   },
   {
     path: 'usuarios/:user',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [ LevelGuard ]
   },
   {
     path: 'staff',
-    component: StaffComponent
+    component: StaffComponent,
+    canActivate: [ LevelGuard ]
   },
   {
     path: 'personalization',
-    component: PersonalizationComponent
+    component: PersonalizationComponent,
+    canActivate: [ LevelGuard ]
   },
   {
     path: 'requests',
-    component: RequestsComponent
+    component: RequestsComponent,
+    canActivate: [ LevelGuard ]
   },
   {
     path: ':genre',
-    component: NovelsComponent
+    component: NovelsComponent,
+    canActivate: [ LevelGuard ]
   }
 ]
 

@@ -23,13 +23,13 @@ export const AdminMenu : Array<MenuOption> = [
         title: "solicitudes",
         url: "/admin/requests",
         icon: "fa-clipboard-list",
-        level: 3
+        level: 4
     },
     {
         title : "Personalizar",
         url: "/admin/personalization",
         icon : "fa-palette",
-        level: 3
+        level: 4
     },
     {
         title: "Novelas Japonesas",
