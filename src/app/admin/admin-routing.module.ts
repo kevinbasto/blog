@@ -9,6 +9,7 @@ import { PersonalizationComponent } from './personalization/personalization.comp
 import { RequestsComponent } from './requests/requests.component';
 import { UserComponent } from './user/user.component';
 import { LevelGuard } from '../core/guards/level/level.guard';
+import { RequestComponent } from './request/request.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,11 @@ const routes: Routes = [
   {
     path: 'requests',
     component: RequestsComponent,
+    canActivate: [ LevelGuard ]
+  },
+  {
+    path: 'requests/:request',
+    component: RequestComponent,
     canActivate: [ LevelGuard ]
   },
   {
