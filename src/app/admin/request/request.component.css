@@ -1,0 +1,24 @@
+.container{
+    padding-top: 1em;
+}
+
+.card{
+    width: 80%;
+    margin: auto;
+    
+}
+
+.image_container{
+    display: flex;
+}
+
+.image_container img{
+    max-width: 40%;
+    max-height: 200px;
+    margin: auto;
+    object-fit: contain;
+}
+
+.card_footer button{
+    margin: 5px;
+}
