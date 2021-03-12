@@ -11,13 +11,13 @@ export const AdminMenu : Array<MenuOption> = [
         title: "usuarios",
         url: "/admin/usuarios",
         icon: "fa-users",
-        level: 3
+        level: 4
     },
     {
         title: "staff",
         url: "/admin/staff",
         icon: "fa-users-cog",
-        level: 3
+        level: 4
     },
     {
         title: "solicitudes",
