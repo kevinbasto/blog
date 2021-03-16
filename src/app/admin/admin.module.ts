@@ -11,6 +11,7 @@ import { RequestsComponent } from './requests/requests.component';
 import { UserComponent } from './user/user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RequestComponent } from './request/request.component';
+import { NovelComponent } from './novel/novel.component';
 
 
 
@@ -23,7 +24,8 @@ import { RequestComponent } from './request/request.component';
     PersonalizationComponent,
     RequestsComponent,
     UserComponent,
-    RequestComponent
+    RequestComponent,
+    NovelComponent
   ],
   imports: [
     CommonModule,
