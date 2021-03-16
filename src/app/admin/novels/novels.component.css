@@ -6,6 +6,13 @@
     text-align: center;
 }
 
+.table_controller{
+    display: flex;
+    padding: 5px;
+    justify-content: flex-end;
+    background-color: var(--bg-terciary);
+}
+
 @media only screen and (max-width: 600px){
     .container{
         width: 100%;
