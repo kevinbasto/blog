@@ -9,6 +9,11 @@ export class RequestsComponent implements OnInit {
 
   constructor() { }
 
+  public title : string = "Solicitudes";
+  public collection : string = "/requests";
+  public headers : Array<string> = ["Fecha", "Correo electrónico", "Nombre"];
+  public model : Array<string> = ["date", "email", "username"]
+
   ngOnInit(): void {
   }
 

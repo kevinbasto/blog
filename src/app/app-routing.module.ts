@@ -8,6 +8,8 @@ import { ClientComponent } from './client/client.component';
 import { ClientModule } from './client/client.module';
 import { AdminComponent } from './admin/admin.component';
 import { AdminModule } from './admin/admin.module';
+import { AuthGuard } from './core/guards/auth/auth.guard';
+import { StaffGuard } from './core/guards/staff/staff.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +25,8 @@ const routes: Routes = [
         path: '',
         loadChildren: './auth/auth.module#AuthModule'
       }
-    ]
+    ],
+    canActivateChild: [ AuthGuard ]
   },
   {
     path: 'client',
@@ -33,7 +36,8 @@ const routes: Routes = [
         path: '',
         loadChildren: './client/client.module#ClientModule'
       }
-    ]
+    ],
+    canActivateChild: [ AuthGuard ]
   },
   {
     path: 'admin',
@@ -43,7 +47,8 @@ const routes: Routes = [
         path: '',
         loadChildren: './admin/admin.module#AdminModule'
       }
-    ]
+    ],
+    canActivateChild: [ AuthGuard, StaffGuard ]
   },
   {
     path: '**',

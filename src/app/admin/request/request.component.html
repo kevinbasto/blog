@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="card">
+        <div class="card_header">
+            <h1>Solicitud para funadas</h1>
+        </div>
+        <form [formGroup]="requestForm">
+            <div class="card_body">
+                <div class="form_group">
+                    <label class="form_label">
+                        Fecha
+                    </label>
+                    <input type="text" formControlName="date">
+                </div>
+                <div class="form_group">
+                    <span class="form_label">
+                        Correo electrónico
+                    </span>
+                    <input type="text" formControlName="email">
+                </div>
+                <div class="form_group">
+                    <span class="form_label">
+                        Generos
+                    </span>
+                    <input type="text" formControlName="genres">
+                </div>
+                <div class="form_group">
+                    <span class="form_label">
+                        Nombre
+                    </span>
+                    <input type="text" formControlName="name">
+                </div>
+                <div class="form_group">
+                    <span class="form_label">
+                        Razón
+                    </span>
+                    <input type="text" formControlName="reason">
+                </div>
+            </div>
+            <div class="card_footer">
+                <button type="button" class="button_primary" (click)="setAccepted(false)" [disabled]="posting? true : false">
+                    <div *ngIf="posting">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!posting">
+                        Rechazar
+                    </span>
+                </button>
+                <button type="button" class="button_primary" (click)="setAccepted(true)">
+                    <div *ngIf="posting">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!posting">
+                        Aceptar
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
