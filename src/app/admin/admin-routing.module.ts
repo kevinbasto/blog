@@ -10,6 +10,7 @@ import { RequestsComponent } from './requests/requests.component';
 import { UserComponent } from './user/user.component';
 import { LevelGuard } from '../core/guards/level/level.guard';
 import { RequestComponent } from './request/request.component';
+import { NovelComponent } from '../admin/novel/novel.component';
 
 
 
@@ -56,6 +57,11 @@ const routes: Routes = [
   {
     path: ':genre',
     component: NovelsComponent,
+    canActivate: [ LevelGuard ]
+  },
+  {
+    path: ':genre/novel/:novel',
+    component: NovelComponent,
     canActivate: [ LevelGuard ]
   }
 ]
