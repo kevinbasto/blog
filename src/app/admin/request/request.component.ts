@@ -25,6 +25,7 @@ export class RequestComponent implements OnInit {
     name: [""],
     reason : [""]
   });
+  public accepted : boolean = false;
 
   ngOnInit(): void {
     this.getRequestid();
@@ -42,13 +43,35 @@ export class RequestComponent implements OnInit {
     .then(request => {
       console.log(request);
       this.request = request;
+      this.setData();
     })
     .catch(error => {
       console.log(error);
     })
   }
 
-  submit(){
-
+  setData(){
+    let fields = ["date", "email", "genres", "name", "reason"]
+    for(let field of fields){
+      this.requestForm.controls[field].disable();
+      this.requestForm.controls[field].setValue(this.request[field]);
+    }
   }
+
+  setAccepted(accepted: boolean){
+    this.accepted = accepted;
+
+    if(accepted){
+      this.rs.accept(this.id)
+      .then(result => {
+        this.router.navigate(['/admin/requests']);
+      })
+    }else{
+      this.rs.deny(this.id)
+      .then(res => {
+        this.router.navigate(['/admin/requests']);
+      })
+    }
+  }
+
 }

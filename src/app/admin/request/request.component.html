@@ -3,7 +3,7 @@
         <div class="card_header">
             <h1>Solicitud para funadas</h1>
         </div>
-        <form [formGroup]="requestForm" (submit)="submit()">
+        <form [formGroup]="requestForm">
             <div class="card_body">
                 <div class="form_group">
                     <label class="form_label">
@@ -37,10 +37,10 @@
                 </div>
             </div>
             <div class="card_footer">
-                <button type="button" class="button_primary">
+                <button type="button" class="button_primary" (click)="setAccepted(false)">
                     Rechazar
                 </button>
-                <button type="submit" class="button_primary">
+                <button type="button" class="button_primary" (click)="setAccepted(true)">
                     Aceptar
                 </button>
             </div>

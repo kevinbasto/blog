@@ -23,4 +23,34 @@ export class RequestService {
       .catch(error => reject(error));
     })
   }
+
+  async accept(id : string) : Promise<boolean>{
+    await this.af.doc(`/requests/${id}`)
+    .update({
+      accepted : true
+    })
+    await this.af.doc(`/requests/${id}`)
+    .valueChanges()
+    .pipe(take(1))
+    .toPromise()
+    .then( (request : any) => {
+      let uid = request.uid;
+      this.af.doc(`/users/${uid}`)
+      .update({
+        role: "staff",
+        roleId: 3
+      })
+    })
+    .catch(error => {
+      return false;
+    })
+
+    this.af.doc(`/requests/${id}`).delete();
+    return true;
+  }
+
+  async deny(id : string ) : Promise<boolean>{
+    await this.af.doc(`/requests/${id}`).delete()
+    return true;
+  }
 }
