@@ -26,6 +26,7 @@ export class RequestComponent implements OnInit {
     reason : [""]
   });
   public accepted : boolean = false;
+  public posting : boolean = false;
 
   ngOnInit(): void {
     this.getRequestid();
@@ -59,16 +60,19 @@ export class RequestComponent implements OnInit {
   }
 
   setAccepted(accepted: boolean){
+    this.posting = true;
     this.accepted = accepted;
 
     if(accepted){
       this.rs.accept(this.id)
       .then(result => {
+        this.posting = false;
         this.router.navigate(['/admin/requests']);
       })
     }else{
       this.rs.deny(this.id)
       .then(res => {
+        this.posting = false;
         this.router.navigate(['/admin/requests']);
       })
     }

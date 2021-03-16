@@ -37,11 +37,21 @@
                 </div>
             </div>
             <div class="card_footer">
-                <button type="button" class="button_primary" (click)="setAccepted(false)">
-                    Rechazar
+                <button type="button" class="button_primary" (click)="setAccepted(false)" [disabled]="posting? true : false">
+                    <div *ngIf="posting">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!posting">
+                        Rechazar
+                    </span>
                 </button>
                 <button type="button" class="button_primary" (click)="setAccepted(true)">
-                    Aceptar
+                    <div *ngIf="posting">
+                        <i class="fas fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!posting">
+                        Aceptar
+                    </span>
                 </button>
             </div>
         </form>
