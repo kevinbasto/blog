@@ -1,1 +1,18 @@
-<p>novels works!</p>
+<div class="container">
+    <div class="title_container">
+        <h1>{{title}}</h1>
+    </div>
+    <div class="table_container">
+        <div class="table_controller">
+            <button class="button_primary">
+                Añadir novela
+            </button>
+        </div>
+        <app-table
+            [collection]="collection"
+            [title]="title"
+            [headers]="headers"
+            [model]="model"
+        ></app-table>
+    </div>
+</div>
