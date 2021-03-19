@@ -4,7 +4,12 @@
             <h1>{{novel}}</h1>
         </div>
         <div class="card_body">
-
+            <form [formGroup]="novelForm" *ngIf="novelForm">
+                <div class="form_group">
+                    <span class="form_label">Descripción</span>                    
+                    <input type="text" formGroupName="description">
+                </div>
+            </form>
         </div>
         <div class="card_footer">
 

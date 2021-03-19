@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
 
@@ -11,11 +12,13 @@ export class NovelComponent implements OnInit {
 
   constructor(
     private router : Router,
-    private ns : NovelService
+    private ns : NovelService,
+    private fb : FormBuilder
   ) { }
 
   public novel : string;
-  
+  public content : any;
+  public novelForm : FormGroup
 
   ngOnInit(): void {
     this.getRoute();
@@ -38,7 +41,7 @@ export class NovelComponent implements OnInit {
   getNovel(genre : string, novel : string){
     this.ns.getNovel(genre, novel)
     .then(novel => {
-      console.log(novel);
+      this.content = novel;
     })
     .catch(error => {
       console.log(error);
