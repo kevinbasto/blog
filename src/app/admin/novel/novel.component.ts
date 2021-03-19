@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
 
@@ -18,14 +18,19 @@ export class NovelComponent implements OnInit {
 
   public novel : string;
   public content : any;
-  public novelForm : FormGroup
+  public novelForm : FormGroup = this.fb.group({
+    title : [""],
+    description: [""],
+    translators : this.fb.array([]),
+    finished: [null]
+  })
 
   ngOnInit(): void {
     this.getRoute();
   }
 
   getRoute(){
-    let genre = this.router.url.split("/")[this.router.url.split("/").length - 3];
+    let genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
     let novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
     if(novel == "new"){
       this.createNovel();
@@ -42,9 +47,41 @@ export class NovelComponent implements OnInit {
     this.ns.getNovel(genre, novel)
     .then(novel => {
       this.content = novel;
+      console.log(this.content);
+      this.novel = this.content.title;
+      this.setData();
     })
     .catch(error => {
       console.log(error);
     });
+  }
+
+  setData(){
+    let controls = ["title", "description"];
+    for(let control of controls){
+      this.novelForm.controls[control].setValue(this.content[control]);
+    }
+
+    for(let translator of this.content.translators){
+      this.addTranslator(translator.uid, translator.username);
+      
+    }
+  }
+
+  get translatorForms(){
+    return this.novelForm.get('translators') as FormArray;
+  }
+
+  addTranslator(uid : string, username : string){
+    let translator = this.fb.group({
+      uid : [""],
+      username : [""]
+    })
+
+    this.translatorForms.push(translator);
+  }
+
+  deleteTranslator(i : number){
+    this.translatorForms.removeAt(i);
   }
 }

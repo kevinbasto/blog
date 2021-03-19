@@ -4,10 +4,29 @@
             <h1>{{novel}}</h1>
         </div>
         <div class="card_body">
-            <form [formGroup]="novelForm" *ngIf="novelForm">
+            <form [formGroup]="novelForm" *ngIf="content">
+                <div class="form_group">
+                    <span class="form_label">Título</span>
+                    <input type="text" formControlName="title">
+                </div>
                 <div class="form_group">
                     <span class="form_label">Descripción</span>                    
-                    <input type="text" formGroupName="description">
+                    <textarea id="" cols="30" rows="10" formControlName="description"></textarea>
+                </div>
+                <div class="form_group">
+                    <span class="form_label">Traductores</span>
+                    <div formArrayName="translators" *ngIf="false">
+                        <div *ngFor="let translator of translatorsForms.controls; let i=index" [formGroupName]="i">
+                            <div class="form_group">
+                                <span class="form_label">uid</span>
+                                <input type="text" formGroupName="uid">
+                            </div>
+                            <div class="form_group">
+                                <span class="form_label">username</span>
+                                <input type="text" formGroupName="username">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

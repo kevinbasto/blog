@@ -36,7 +36,9 @@ export class NovelService {
         take(1)
       )
       .toPromise()
-      .then(novel => resolve(novel))
+      .then(novel => {
+        resolve(novel);
+      })
       .catch(error => reject(error));
     });
   }
