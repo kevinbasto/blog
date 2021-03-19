@@ -15,10 +15,10 @@ import { NovelComponent } from '../admin/novel/novel.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'inicio'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'inicio'
+  // },
   {
     path: 'inicio',
     component: UpdatesComponent,
@@ -60,7 +60,7 @@ const routes: Routes = [
     canActivate: [ LevelGuard ]
   },
   {
-    path: ':genre/novel/:novel',
+    path: ':genre/:novel',
     component: NovelComponent,
     canActivate: [ LevelGuard ]
   }
