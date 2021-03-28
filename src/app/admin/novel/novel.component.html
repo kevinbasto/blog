@@ -4,6 +4,9 @@
             <h1>{{novel}}</h1>
         </div>
         <div class="card_body">
+            <div class="image_container">
+                <img src="{{content.cover}}" alt="" *ngIf="content">
+            </div>
             <form [formGroup]="novelForm" *ngIf="content">
                 <div class="form_group">
                     <span class="form_label">Título</span>
@@ -15,15 +18,14 @@
                 </div>
                 <div class="form_group">
                     <span class="form_label">Traductores</span>
-                    <div formArrayName="translators" *ngIf="false">
-                        <div *ngFor="let translator of translatorsForms.controls; let i=index" [formGroupName]="i">
+                    <div formArrayName="translators">
+                        <div *ngFor="let translator of translatorForms.controls; let i=index" [formGroupName]="i">
                             <div class="form_group">
-                                <span class="form_label">uid</span>
-                                <input type="text" formGroupName="uid">
-                            </div>
-                            <div class="form_group">
-                                <span class="form_label">username</span>
-                                <input type="text" formGroupName="username">
+                                <select formControlName="uid">
+                                    <option value="null" disabled selected>Selecciona un empleado</option>
+                                    <option *ngFor="let translator of content.translators" value="{{translator.uid}}">{{translator.username}}</option>
+                                </select>
+                                
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
 
@@ -32,11 +32,10 @@ export class NovelComponent implements OnInit {
   getRoute(){
     let genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
     let novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
-    if(novel == "new"){
+    if(novel == "new")
       this.createNovel();
-    }else{
+    else
       this.getNovel(genre, novel);
-    }
   }
 
   createNovel(){
@@ -74,8 +73,7 @@ export class NovelComponent implements OnInit {
 
   addTranslator(uid : string, username : string){
     let translator = this.fb.group({
-      uid : [""],
-      username : [""]
+      uid: [null, Validators.required]
     })
 
     this.translatorForms.push(translator);
