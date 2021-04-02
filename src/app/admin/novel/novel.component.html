@@ -1,39 +1,56 @@
 <div class="container">
     <div class="card">
         <div class="card_header">
-            <h1>{{novel}}</h1>
+            <h1>
+                Title
+            </h1>
         </div>
         <div class="card_body">
-            <div class="image_container">
-                <img src="{{content.cover}}" alt="" *ngIf="content">
-            </div>
-            <form [formGroup]="novelForm" *ngIf="content">
+            <form [formGroup]="novelForm">
                 <div class="form_group">
-                    <span class="form_label">Título</span>
+                    <label for="" class="form_label">
+                        Nombre de la novela:
+                    </label>
                     <input type="text" formControlName="title">
                 </div>
                 <div class="form_group">
-                    <span class="form_label">Descripción</span>                    
-                    <textarea id="" cols="30" rows="10" formControlName="description"></textarea>
+                    <label class="form_label">
+                        Descripción:
+                    </label>
+                    <input type="text" formControlName="description">
                 </div>
                 <div class="form_group">
-                    <span class="form_label">Traductores</span>
-                    <div formArrayName="translators">
-                        <div *ngFor="let translator of translatorForms.controls; let i=index" [formGroupName]="i">
-                            <div class="form_group">
-                                <select formControlName="uid">
-                                    <option value="null" disabled selected>Selecciona un empleado</option>
-                                    <option *ngFor="let translator of content.translators" value="{{translator.uid}}">{{translator.username}}</option>
-                                </select>
-                                
-                            </div>
-                        </div>
+                    <label class="form_label">
+                        Autor:
+                    </label>
+                    <input type="text" formControlName="author">
+                </div>
+                <div formArrayName="translators">
+                    <div *ngFor="let translator of translators.controls; let i = index" [formGroupName]="i" class="form_group">
+                        <label class="form_label">
+                            Traductor
+                        </label>
+                        <select  class="form_control">
+                            <option disabled selected>
+                                Selecciona a un traductor
+                            </option>
+                        </select>
+                        <button class="button_primary" (click)="removeTranlator(i)">
+                            Eliminar Traductor
+                        </button>
                     </div>
+                    <button class="button_primary" (click)="addTranslator()">
+                        Añadir Traductor
+                    </button>
                 </div>
             </form>
         </div>
-        <div class="card_footer">
-
+        <div>
+            <div>
+                <h1>
+                    Capítulos
+                </h1>
+            </div>
         </div>
     </div>
 </div>
