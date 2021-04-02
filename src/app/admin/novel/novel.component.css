@@ -35,3 +35,18 @@ textarea{
     border-radius: 5px;
     border: 1px solid var(--bg-terciary);
 }
+
+.translatorField{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.translatorField div{
+    width: 100%;
+    margin-top: 5px;
+}
+
+.button_primary {
+    margin-top: 5px;
+}

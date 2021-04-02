@@ -23,6 +23,10 @@ export class NovelComponent implements OnInit {
   public novelForm : FormGroup;
 
   ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm() {
     this.novelForm = this.fb.group({
       title: [""],
       description: [""],

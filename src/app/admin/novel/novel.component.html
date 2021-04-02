@@ -26,15 +26,17 @@
                     <input type="text" formControlName="author">
                 </div>
                 <div formArrayName="translators">
-                    <div *ngFor="let translator of translators.controls; let i = index" [formGroupName]="i" class="form_group">
-                        <label class="form_label">
-                            Traductor
-                        </label>
-                        <select  class="form_control">
-                            <option disabled selected>
-                                Selecciona a un traductor
-                            </option>
-                        </select>
+                    <div *ngFor="let translator of translators.controls; let i = index" [formGroupName]="i" class="translatorField">
+                        <div >
+                            <label class="form_label">
+                                Traductor
+                            </label>
+                            <select  class="form_control">
+                                <option disabled selected>
+                                    Selecciona a un traductor
+                                </option>
+                            </select>
+                        </div>
                         <button class="button_primary" (click)="removeTranlator(i)">
                             Eliminar Traductor
                         </button>
@@ -45,12 +47,20 @@
                 </div>
             </form>
         </div>
-        <div>
+        <div class="card_body">
             <div>
                 <h1>
                     Capítulos
                 </h1>
             </div>
+        </div>
+        <div class="card_footer">
+            <button class="button_primary">
+                Cancelar
+            </button>
+            <button class="button_primary">
+                Guardar
+            </button>
         </div>
     </div>
 </div>
