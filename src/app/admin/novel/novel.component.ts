@@ -21,12 +21,19 @@ export class NovelComponent implements OnInit {
     
   }
 
+  // all the public data of the model
   public genre : string;
   public novel : string;
   public novelForm : FormGroup;
   public data : any;
   public staff : Array<any>;
   public visibleStaff : Array<any>;
+
+  // data relative to the table
+  public collection : string;
+  public chaptertitle : string = "Capítulos";
+  public headers: Array<string> = ["Título"];
+  public model : Array<string> = ["title"];
 
   ngOnInit(): void {
     this.initializeForm();
@@ -72,6 +79,7 @@ export class NovelComponent implements OnInit {
   getNovelAndGenre(){
     this.genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
     this.novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
+    this.collection = `/${this.genre}/${this.novel}/chapters`;
   }
 
   save() {
