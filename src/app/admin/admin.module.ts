@@ -12,6 +12,7 @@ import { UserComponent } from './user/user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RequestComponent } from './request/request.component';
 import { NovelComponent } from './novel/novel.component';
+import { ChapterComponent } from './chapter/chapter.component';
 
 
 
@@ -25,7 +26,8 @@ import { NovelComponent } from './novel/novel.component';
     RequestsComponent,
     UserComponent,
     RequestComponent,
-    NovelComponent
+    NovelComponent,
+    ChapterComponent
   ],
   imports: [
     CommonModule,
