@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,8 +10,11 @@ import { Router } from '@angular/router';
 export class ChapterComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private fb : FormBuilder
   ) { }
+
+  public chapterForm : FormGroup;
 
   public genre : string;
   public novel : string;
@@ -18,6 +22,13 @@ export class ChapterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUrlTree();
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    this.chapterForm = this.fb.group({
+      
+    })
   }
 
   getUrlTree() {
