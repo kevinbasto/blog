@@ -28,6 +28,12 @@ export class NovelService {
     });
   }
 
+  /**
+   * A function to query the data from firestore
+   * @param genre - the genre of the novel
+   * @param id - the id of the novel
+   * @returns - returns a novel object with all the data
+   */
   getNovel(genre : string, id : string){
     return new Promise<any>((resolve, reject) => {
       this.af.doc(`/${genre}/${id}`)
@@ -41,5 +47,25 @@ export class NovelService {
       })
       .catch(error => reject(error));
     });
+  }
+
+  /**
+   * a function to update any changes in the novel
+   * @param content - the content changed in the novel
+   * @param collection - the collection in which the novel is stored
+   * @param novel - the novel in where is going to be placed the new data
+   * @returns 
+   */
+  editNovel(content : any, collection : string, novel : string) {
+    return new Promise<any>((resolve, reject) => {
+      this.af.doc(`/${collection}/${novel}`).set(content)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      })
+    })
+
   }
 }

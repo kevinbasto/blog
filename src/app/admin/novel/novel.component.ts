@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
 import { StaffService } from 'src/app/core/services/staff/staff.service';
 
@@ -13,6 +13,7 @@ export class NovelComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private novelService : NovelService,
     private fb : FormBuilder,
     private staffService : StaffService
@@ -20,10 +21,65 @@ export class NovelComponent implements OnInit {
     
   }
 
+  public genre : string;
+  public novel : string;
   public novelForm : FormGroup;
+  public data : any;
+  public staff : Array<any>;
+  public visibleStaff : Array<any>;
 
   ngOnInit(): void {
     this.initializeForm();
+    this.getNovelAndGenre();
+    this.getStaff();
+    if(this.novel != "new"){
+      this.getData();
+    }
+
+
+  }
+
+  getData() {
+    this.novelService.getNovel(this.genre, this.novel)
+    .then( (data : any) => {
+      this.data = data;
+      this.title.setValue(data.title);
+      this.description.setValue(data.description);
+      this.Author.setValue(data.author);
+
+      for(let translator of data.translators){
+        this.addTranslator();
+      }
+
+      for(let  i = 0; i < this.translators.length; i++){
+        this.translators.controls[i].setValue({uid: this.data.translators[i].uid});
+      }
+    })
+  }
+
+  
+
+  getStaff() {
+    this.staffService.getStaff().then(staff => {
+      this.staff = staff;
+      this.visibleStaff = this.staff;
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+  getNovelAndGenre(){
+    this.genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
+    this.novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
+  }
+
+  save() {
+    this.novelService.editNovel(this.novelForm.value, this.genre, this.novel);
+  }
+
+  cancel() {
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   initializeForm() {
@@ -34,7 +90,7 @@ export class NovelComponent implements OnInit {
       translators: this.fb.array([])
     })
 
-    this.addTranslator();
+    
   }
 
   addTranslator(){

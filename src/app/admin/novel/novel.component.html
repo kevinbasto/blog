@@ -1,12 +1,13 @@
 <div class="container">
     <div class="card">
-        <div class="card_header">
-            <h1>
-                Title
-            </h1>
-        </div>
-        <div class="card_body">
-            <form [formGroup]="novelForm">
+        <form [formGroup]="novelForm" (submit)="save()">
+            <div class="card_header">
+                <h1>
+                    Title
+                </h1>
+            </div>
+            <div class="card_body">
+
                 <div class="form_group">
                     <label for="" class="form_label">
                         Nombre de la novela:
@@ -26,41 +27,46 @@
                     <input type="text" formControlName="author">
                 </div>
                 <div formArrayName="translators">
-                    <div *ngFor="let translator of translators.controls; let i = index" [formGroupName]="i" class="translatorField">
-                        <div >
+                    <div *ngFor="let translator of translators.controls; let i = index" [formGroupName]="i"
+                        class="translatorField">
+                        <div>
                             <label class="form_label">
                                 Traductor
                             </label>
-                            <select  class="form_control">
+                            <select class="form_control" formControlName="uid">
                                 <option disabled selected>
                                     Selecciona a un traductor
                                 </option>
+                                <option *ngFor="let member of visibleStaff" value="{{member.uid}}">
+                                    {{member.username}}
+                                </option>
                             </select>
                         </div>
-                        <button class="button_primary" (click)="removeTranlator(i)">
+                        <button class="button_primary" type="button" (click)="removeTranlator(i)">
                             Eliminar Traductor
                         </button>
                     </div>
-                    <button class="button_primary" (click)="addTranslator()">
+                    <button class="button_primary" type="button" (click)="addTranslator()">
                         Añadir Traductor
                     </button>
                 </div>
-            </form>
-        </div>
-        <div class="card_body">
-            <div>
-                <h1>
-                    Capítulos
-                </h1>
+
             </div>
-        </div>
-        <div class="card_footer">
-            <button class="button_primary">
-                Cancelar
-            </button>
-            <button class="button_primary">
-                Guardar
-            </button>
-        </div>
+            <div class="card_body">
+                <div>
+                    <h1>
+                        Capítulos
+                    </h1>
+                </div>
+            </div>
+            <div class="card_footer">
+                <button class="button_primary" type="button" (click)="cancel()">
+                    Cancelar
+                </button>
+                <button class="button_primary" type="submit" >
+                    Guardar
+                </button>
+            </div>
+        </form>
     </div>
 </div>
