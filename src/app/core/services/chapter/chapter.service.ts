@@ -67,4 +67,21 @@ export class ChapterService {
        })
      });
   }
+
+  getAdminChapter(genre : string, novel : string, chapter : string) {
+    return new Promise<any>((resolve, reject) => {
+      this.af
+      .collection(genre)
+      .doc(novel)
+      .collection("chapters")
+      .doc(chapter)
+      .valueChanges()
+      .subscribe(chapter => {  
+        if(chapter)
+         resolve(chapter);
+        else
+         reject("lo sentimos, no existe el capítulo :(");
+      })
+    });
+  }
 }
