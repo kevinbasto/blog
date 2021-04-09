@@ -32,7 +32,15 @@ export class ChapterComponent implements OnInit {
   getChapter() { 
     this.chapterService.getAdminChapter(this.genre, this.novel, this.chapter)
     .then(res => {
+      console.log(res);
       this.content = res;
+
+      let text : string = "";
+      for(let paragraph of res.content){
+        text += paragraph + "\n";
+      }
+
+      this.paragraphs.setValue(text);
     })
     .catch(error => {
       console.log(error);
@@ -41,7 +49,7 @@ export class ChapterComponent implements OnInit {
 
   initializeForm() {
     this.chapterForm = this.fb.group({
-      
+      paragraphs : [""]
     })
   }
 
@@ -53,5 +61,9 @@ export class ChapterComponent implements OnInit {
 
   get url(){
     return this.router.url;
+  }
+
+  get paragraphs() {
+    return this.chapterForm.controls["paragraphs"];
   }
 }

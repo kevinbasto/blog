@@ -4,6 +4,9 @@
 
 .card{
     width: 80%;
-    margin: auto;
-    
+    margin: auto;   
+}
+
+textarea{
+    height: 400px;
 }

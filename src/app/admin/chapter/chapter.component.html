@@ -1,16 +1,17 @@
 <div class="container">
     <div class="card">
         <div class="card_header">
-            <h1>
-                title
+            <h1 *ngIf="content">
+                {{content.title}}
             </h1>
         </div>
         <form [formGroup]="chapterForm">
             <div class="card_body">
                 <div class="card_form">
                     <label class="form_label">
-                        
+                        Contenido
                     </label>
+                    <textarea class="form_control" formControlName="paragraphs"></textarea>
                 </div>
             </div>
             <div class="card_footer">
