@@ -58,7 +58,7 @@ export class NovelService {
    */
   editNovel(content : any, collection : string, novel : string) {
     return new Promise<any>((resolve, reject) => {
-      this.af.doc(`/${collection}/${novel}`).set(content)
+      this.af.doc(`/${collection}/${novel}`).update(content)
       .then(res => {
         resolve(res);
       })
