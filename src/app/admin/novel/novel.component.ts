@@ -17,9 +17,7 @@ export class NovelComponent implements OnInit {
     private novelService : NovelService,
     private fb : FormBuilder,
     private staffService : StaffService
-  ) {
-    
-  }
+  ) { }
 
   // all the public data of the model
   public genre : string;
@@ -35,6 +33,12 @@ export class NovelComponent implements OnInit {
   public headers: Array<string> = ["Título"];
   public model : Array<string> = ["title"];
 
+  // cover editing
+  public picture : File;
+  public picurl : any;
+
+  public uploading : boolean = false;
+
   ngOnInit(): void {
     this.initializeForm();
     this.getNovelAndGenre();
@@ -43,7 +47,17 @@ export class NovelComponent implements OnInit {
       this.getData();
     }
 
+  }
 
+  uploadFile($event : any){
+    this.picture = $event.target.files[0];
+    if(this.picture){
+      let fr = new FileReader();
+      fr.readAsDataURL(this.picture);
+      fr.onload = () => {
+      this.picurl =  fr.result;
+    }
+    }
   }
 
   getData() {
@@ -53,6 +67,8 @@ export class NovelComponent implements OnInit {
       this.title.setValue(data.title);
       this.description.setValue(data.description);
       this.Author.setValue(data.author);
+
+      this.picurl = data.cover;
 
       for(let translator of data.translators){
         this.addTranslator();
@@ -83,7 +99,10 @@ export class NovelComponent implements OnInit {
   }
 
   save() {
-    this.novelService.editNovel(this.novelForm.value, this.genre, this.novel);
+    this.uploading = !this.uploading;
+    this.novelService.editNovel(this.novelForm.value, this.genre, this.novel, this.picture)
+    .then(() => this.uploading = !this.uploading)
+
   }
 
   cancel() {
@@ -97,8 +116,6 @@ export class NovelComponent implements OnInit {
       author: [""],
       translators: this.fb.array([])
     })
-
-    
   }
 
   addTranslator(){
@@ -130,4 +147,7 @@ export class NovelComponent implements OnInit {
     return this.novelForm.get('translators') as FormArray;
   }
 
+  get cover(){
+    return this.novelForm.get('cover') 
+  }
 }

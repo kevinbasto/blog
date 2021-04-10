@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { finalize, map, take } from 'rxjs/operators';
 import { Novel } from '../../interfaces/novel';
 
 @Injectable({
@@ -11,7 +12,8 @@ export class NovelService {
 
   constructor(
     private router: Router,
-    private af: AngularFirestore
+    private af: AngularFirestore,
+    private as: AngularFireStorage
   ) { }
 
   public genre: string;
@@ -24,7 +26,7 @@ export class NovelService {
 
       this.af.collection(this.genre).doc(this.id)
         .valueChanges()
-        .subscribe(novel  => resolve(novel));
+        .subscribe(novel => resolve(novel));
     });
   }
 
@@ -34,18 +36,18 @@ export class NovelService {
    * @param id - the id of the novel
    * @returns - returns a novel object with all the data
    */
-  getNovel(genre : string, id : string){
+  getNovel(genre: string, id: string) {
     return new Promise<any>((resolve, reject) => {
       this.af.doc(`/${genre}/${id}`)
-      .valueChanges()
-      .pipe(
-        take(1)
-      )
-      .toPromise()
-      .then(novel => {
-        resolve(novel);
-      })
-      .catch(error => reject(error));
+        .valueChanges()
+        .pipe(
+          take(1)
+        )
+        .toPromise()
+        .then(novel => {
+          resolve(novel);
+        })
+        .catch(error => reject(error));
     });
   }
 
@@ -56,15 +58,27 @@ export class NovelService {
    * @param novel - the novel in where is going to be placed the new data
    * @returns 
    */
-  editNovel(content : any, collection : string, novel : string) {
+  editNovel(content: any, collection: string, novel: string, file: File) {
     return new Promise<any>((resolve, reject) => {
-      this.af.doc(`/${collection}/${novel}`).update(content)
-      .then(res => {
-        resolve(res);
-      })
-      .catch(err => {
-        reject(err);
-      })
+      let ref = this.as.ref(`${collection}/${novel}/${file.name}`)
+      let task = ref.put(file);
+      
+      task.snapshotChanges()
+        .pipe( finalize(() => {
+          ref.getDownloadURL().subscribe(url => {
+            console.log("image done to upload");
+            content.cover = url;
+            console.log(`/${collection}/${novel}`);
+            this.af.doc(`/${collection}/${novel}`).update(content)
+              .then( (res) => {
+                resolve(res);
+              })
+              .catch(err => {
+                reject(err);
+              })
+          })
+        })
+      ).subscribe();
     })
 
   }
