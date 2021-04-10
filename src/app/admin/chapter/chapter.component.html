@@ -5,7 +5,7 @@
                 {{content.title}}
             </h1>
         </div>
-        <form [formGroup]="chapterForm">
+        <form [formGroup]="chapterForm" (submit)="submit()">
             <div class="card_body">
                 <div class="card_form">
                     <label class="form_label">
@@ -15,10 +15,10 @@
                 </div>
             </div>
             <div class="card_footer">
-                <button class="button_primary">
+                <button class="button_primary" type="button" (click)="cancel()">
                     Cancelar
                 </button>
-                <button class="button_primary">
+                <button class="button_primary" type="submit">
                     Guardar
                 </button>
             </div>

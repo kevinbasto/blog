@@ -53,6 +53,14 @@ export class ChapterComponent implements OnInit {
     })
   }
 
+  submit(){
+    
+  }
+
+  cancel(){
+
+  }
+
   getUrlTree() {
     this.genre   = this.url.split("/")[this.url.split("/").length - 3];
     this.novel   = this.url.split("/")[this.url.split("/").length - 2];
