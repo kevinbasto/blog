@@ -67,8 +67,14 @@
                     <h1>
                         Capítulos
                     </h1>
+                    
                 </div>
-                <app-table [title]="chaptertitle" [collection]="collection" [headers]="headers" [model]="model">
+                <div class="table_controller">
+                    <button class="button_primary">
+                        Añadir novela
+                    </button>
+                </div>
+                <app-table [title]="data.title" [collection]="collection" [headers]="headers" [model]="model" *ngIf="data">
                 </app-table>
             </div>
             <div class="card_footer">

@@ -60,3 +60,10 @@ textarea{
 .form_group{
     display: block;
 }
+
+.table_controller{
+    display: flex;
+    padding: 5px;
+    justify-content: flex-end;
+    background-color: var(--bg-terciary);
+}
