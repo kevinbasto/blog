@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ChapterService } from 'src/app/core/services/chapter/chapter.service';
 
 @Component({
@@ -13,7 +15,8 @@ export class ChapterComponent implements OnInit {
   constructor(
     private router: Router,
     private fb : FormBuilder,
-    private chapterService : ChapterService
+    private chapterService : ChapterService,
+    private authService : AuthService
   ) { }
 
   public chapterForm : FormGroup;
@@ -32,7 +35,6 @@ export class ChapterComponent implements OnInit {
   getChapter() { 
     this.chapterService.getAdminChapter(this.genre, this.novel, this.chapter)
     .then(res => {
-      console.log(res);
       this.content = res;
 
       let text : string = "";
@@ -53,8 +55,37 @@ export class ChapterComponent implements OnInit {
     })
   }
 
-  submit(){
+  async submit(){
+    let user : Array<any> = []; 
+    await this.authService.user$
+    .pipe(take(1))
+    .toPromise()
+    .then(res => {
+      user.push({ uid : res.uid});
+    })
+    .catch(error => {
+      console.log(error);
+    })
+
+    let content : Array<string> = this.paragraphs.value.split("\n");
+    content = content.filter(paragraph => {
+      if(paragraph != "")
+        return paragraph;
+    })
     
+    this.chapterService.updteChapter(
+      this.genre,
+      this.novel,
+      this.chapter,
+      content, 
+      user
+    )
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   cancel(){
