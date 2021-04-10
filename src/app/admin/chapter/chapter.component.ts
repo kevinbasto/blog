@@ -24,7 +24,7 @@ export class ChapterComponent implements OnInit {
   public novel : string;
   public chapter : string;
   public content : any;
-
+  public uploading : boolean = false;
 
   ngOnInit(): void {
     this.getUrlTree();
@@ -56,6 +56,7 @@ export class ChapterComponent implements OnInit {
   }
 
   async submit(){
+    this.uploading = !this.uploading;
     let user : Array<any> = []; 
     await this.authService.user$
     .pipe(take(1))
@@ -81,7 +82,8 @@ export class ChapterComponent implements OnInit {
       user
     )
     .then(res => {
-      console.log(res);
+      this.uploading = !this.uploading;
+      this.router.navigate([`/admin/${this.genre}`]);
     })
     .catch(error => {
       console.log(error);
@@ -89,7 +91,7 @@ export class ChapterComponent implements OnInit {
   }
 
   cancel(){
-
+    this.router.navigate([`/admin/${this.genre}`]);
   }
 
   getUrlTree() {
