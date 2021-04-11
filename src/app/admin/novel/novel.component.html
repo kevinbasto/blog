@@ -3,11 +3,11 @@
         <form [formGroup]="novelForm" (submit)="save()">
             <div class="card_header">
                 <h1>
-                    {{data? data.title : "title"}}
+                    {{data? data.title : "Nueva novela"}}
                 </h1>
             </div>
             <div class="card_body img_form_container">
-                <div class="img_container" *ngIf="data">
+                <div class="img_container" *ngIf="picurl">
                     <img src="{{picurl}}" alt="">
                 </div>
                 <div>
@@ -30,7 +30,7 @@
                         <input type="text" formControlName="author">
                     </div>
                     <div class="form_group">
-                        <span>foto de perfil:</span>
+                        <span>foto de portada:</span>
                         <input type="file" (change)="uploadFile($event)">
                     </div>
                     <div formArrayName="translators">

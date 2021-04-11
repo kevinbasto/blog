@@ -14,99 +14,108 @@ export class NovelComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private novelService : NovelService,
-    private fb : FormBuilder,
-    private staffService : StaffService
+    private novelService: NovelService,
+    private fb: FormBuilder,
+    private staffService: StaffService
   ) { }
 
   // all the public data of the model
-  public genre : string;
-  public novel : string;
-  public novelForm : FormGroup;
-  public data : any;
-  public staff : Array<any>;
-  public visibleStaff : Array<any>;
+  public genre: string;
+  public novel: string;
+  public novelForm: FormGroup;
+  public data: any;
+  public staff: Array<any>;
+  public visibleStaff: Array<any>;
 
   // data relative to the table
-  public collection : string;
-  public chaptertitle : string = "Capítulos";
+  public collection: string;
+  public chaptertitle: string = "Capítulos";
   public headers: Array<string> = ["Título"];
-  public model : Array<string> = ["title"];
+  public model: Array<string> = ["title"];
 
   // cover editing
-  public picture : File;
-  public picurl : any;
+  public picture: File;
+  public picurl: any;
 
-  public uploading : boolean = false;
+  public uploading: boolean = false;
 
   ngOnInit(): void {
     this.initializeForm();
     this.getNovelAndGenre();
     this.getStaff();
-    if(this.novel != "new"){
+    if (this.novel != "new") {
       this.getData();
     }
 
   }
 
-  uploadFile($event : any){
+  uploadFile($event: any) {
     this.picture = $event.target.files[0];
-    if(this.picture){
+    if (this.picture) {
       let fr = new FileReader();
       fr.readAsDataURL(this.picture);
       fr.onload = () => {
-      this.picurl =  fr.result;
-    }
+        this.picurl = fr.result;
+        
+      }
     }
   }
 
   getData() {
     this.novelService.getNovel(this.genre, this.novel)
-    .then( (data : any) => {
-      this.data = data;
-      this.title.setValue(data.title);
-      this.description.setValue(data.description);
-      this.Author.setValue(data.author);
+      .then((data: any) => {
+        this.data = data;
+        this.title.setValue(data.title);
+        this.description.setValue(data.description);
+        this.Author.setValue(data.author);
 
-      this.picurl = data.cover;
+        this.picurl = data.cover;
 
-      for(let translator of data.translators){
-        this.addTranslator();
-      }
+        for (let translator of data.translators) {
+          this.addTranslator();
+        }
 
-      for(let  i = 0; i < this.translators.length; i++){
-        this.translators.controls[i].setValue({uid: this.data.translators[i].uid});
-      }
-    })
+        for (let i = 0; i < this.translators.length; i++) {
+          this.translators.controls[i].setValue({ uid: this.data.translators[i].uid });
+        }
+      })
   }
 
-  
+
 
   getStaff() {
     this.staffService.getStaff().then(staff => {
       this.staff = staff;
       this.visibleStaff = this.staff;
     })
-    .catch(error => {
-      console.log(error);
-    })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
-  getNovelAndGenre(){
+  getNovelAndGenre() {
     this.genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
     this.novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
     this.collection = `/${this.genre}/${this.novel}/chapters`;
   }
 
   save() {
+    if (this.novel == "new") {
+      this.saveNew();
+      return;
+    }
     this.uploading = !this.uploading;
-    this.novelService.editNovel(this.novelForm.value, this.genre, this.novel, this.picture)
-    .then(() => this.uploading = !this.uploading)
+      this.novelService.editNovel(this.novelForm.value, this.genre, this.novel, this.picture)
+      .then(() => this.uploading = !this.uploading)
+  }
 
+  saveNew(){
+    let novel = this.novelForm.value;
+    console.log(novel);
   }
 
   cancel() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   initializeForm() {
@@ -118,36 +127,36 @@ export class NovelComponent implements OnInit {
     })
   }
 
-  addTranslator(){
-    let translator : FormGroup = this.fb.group({
+  addTranslator() {
+    let translator: FormGroup = this.fb.group({
       uid: [""]
     })
 
     this.translators.push(translator);
   }
 
-  removeTranlator(i : number) {
+  removeTranlator(i: number) {
     this.translators.removeAt(i);
   }
 
   // getters to ease the use of the form
-  get title(){
+  get title() {
     return this.novelForm.get('title');
   }
 
-  get description(){
+  get description() {
     return this.novelForm.get('description');
   }
 
-  get Author(){
+  get Author() {
     return this.novelForm.get('author');
   }
 
-  get translators(){
+  get translators() {
     return this.novelForm.get('translators') as FormArray;
   }
 
-  get cover(){
-    return this.novelForm.get('cover') 
+  get cover() {
+    return this.novelForm.get('cover')
   }
 }
