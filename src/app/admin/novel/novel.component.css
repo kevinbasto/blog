@@ -9,8 +9,13 @@
     
 }
 
-.image_container{
+.img_container{
     display: flex;
+    max-width: 50%;
+}
+
+.img_container img{
+    width: 100%;
 }
 
 .image_container img{

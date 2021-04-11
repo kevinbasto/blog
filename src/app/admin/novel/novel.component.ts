@@ -111,7 +111,17 @@ export class NovelComponent implements OnInit {
 
   saveNew(){
     let novel = this.novelForm.value;
-    console.log(novel);
+    this.uploading = this.uploading;
+    this.novelService.create(this.genre , novel, this.picture)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+
+    })
+    .finally(() => {
+      this.uploading = !this.uploading;
+    })
   }
 
   cancel() {

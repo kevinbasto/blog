@@ -19,6 +19,10 @@ export class NovelService {
   public genre: string;
   public id: string;
 
+  /**
+   * 
+   * @returns 
+   */
   getNovelData() {
     return new Promise<any>((resolve, reject) => {
       this.genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
@@ -80,6 +84,47 @@ export class NovelService {
         })
       ).subscribe();
     })
+  }
 
+  /**
+   * 
+   */
+  create(genre : string, novel : any, cover : File) : Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.af.collection(genre)
+      .add(novel)
+      .then(res => {
+        let id = res.id;
+        let ref = this.as.ref(`${genre}/${id}/${cover.name}`);
+        let task = ref.put(cover);
+
+        task.snapshotChanges()
+        .pipe(finalize(() => {
+          ref.getDownloadURL().subscribe(url => {
+            console.log("image upload done");
+            res.update({
+              cover : url,
+              url : `/${genre}/${id}`,
+              chapters : 0,
+              finished: false
+            })
+            .then(() => {
+              this.af.collection(`/${genre}`, ref => ref.orderBy("id", "desc").limit(1))
+              .valueChanges()
+              .pipe(take(1))
+              .toPromise()
+              .then( (collection : any) => {
+                let id = collection[0].id + 1
+                res.update({id : id})
+                .then(answer => resolve(answer))
+                .catch(error => reject(error));
+              })
+            })
+            .catch(error => reject(error));
+          })
+        }))
+        .subscribe()
+      })
+    });
   }
 }
