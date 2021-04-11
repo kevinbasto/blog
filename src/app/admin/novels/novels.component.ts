@@ -27,4 +27,7 @@ export class NovelsComponent implements OnInit {
     this.collection = `/${catalog}`;
   }
 
+  create(){
+    this.router.navigate(['/admin/japonesas/new'])
+  }
 }
