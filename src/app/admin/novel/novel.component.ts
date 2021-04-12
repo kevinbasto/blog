@@ -109,7 +109,7 @@ export class NovelComponent implements OnInit {
       return;
     }
     this.uploading = !this.uploading;
-      this.novelService.editNovel(this.novelForm.value, this.genre, this.novel, this.picture)
+    this.novelService.editNovel(this.novelForm.value, this.genre, this.novel, this.picture)
       .then(() => this.uploading = !this.uploading)
   }
 
