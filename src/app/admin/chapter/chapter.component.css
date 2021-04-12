@@ -1,0 +1,14 @@
+.container{
+    padding-top: 1em;
+}
+
+.card{
+    width: 80%;
+    margin: auto;   
+}
+
+textarea{
+    height: 400px;
+    background-color: var(--bg-primary);
+    color: var(--tx-primary);
+}

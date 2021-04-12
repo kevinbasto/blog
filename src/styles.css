@@ -100,6 +100,10 @@ body {
     font-weight: bold;
 }
 
+.form_label{
+    font-weight: bold;
+}
+
 .form_group input {
     width: 98%;
     margin: auto;
@@ -114,6 +118,8 @@ body {
     height: 2em;
     border-radius: 5px;
     border: 1px solid var(--bg-terciary);
+    background-color: var(--bg-primary);
+    color: var(--tx-primary);
 }
 
 .form_group span {
@@ -137,6 +143,7 @@ body {
 
 .button_primary:disabled {
     pointer-events: none;
+    filter: opacity(.7);
 }
 
 .reference {

@@ -79,6 +79,9 @@ export class TableComponent implements OnInit {
   }
 
   navigate(url : string){
-    this.router.navigate([url]);
+    this.router.navigate([url])
+    .then(() => {
+      window.location.reload();
+    })
   }
 }
