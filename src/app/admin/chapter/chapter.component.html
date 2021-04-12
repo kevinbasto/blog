@@ -1,24 +1,32 @@
 <div class="container">
     <div class="card">
         <div class="card_header">
-            <h1 *ngIf="content">
-                {{content.title}}
+            <h1>
+                {{title}}
             </h1>
         </div>
         <form [formGroup]="chapterForm" (submit)="submit()">
             <div class="card_body">
                 <div class="card_form">
-                    <label class="form_label">
-                        Contenido
-                    </label>
-                    <textarea class="form_control" formControlName="paragraphs"></textarea>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Título del capítulo
+                        </label>
+                        <input type="text" class="form_control" formControlName="title">
+                    </div>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Contenido
+                        </label>
+                        <textarea class="form_control" formControlName="content"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="card_footer">
                 <button class="button_primary" type="button" (click)="cancel()">
                     Cancelar
                 </button>
-                <button class="button_primary" type="submit" style="margin-left: 5px; width: 100px;" [disabled]="uploading">
+                <button class="button_primary" type="submit" style="margin-left: 5px; width: 100px;" [disabled]="uploading || !chapterForm.valid">
                     <div *ngIf="uploading">
                         <i class="fas fa-spin fa-circle-notch"></i>
                     </div>

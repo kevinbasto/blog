@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChapterService } from 'src/app/core/services/chapter/chapter.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { ChapterService } from 'src/app/core/services/chapter/chapter.service';
+
 
 @Component({
   selector: 'app-chapter',
@@ -13,98 +14,120 @@ import { ChapterService } from 'src/app/core/services/chapter/chapter.service';
 export class ChapterComponent implements OnInit {
 
   constructor(
-    private router: Router,
-    private fb : FormBuilder,
-    private chapterService : ChapterService,
-    private authService : AuthService
+    private formBuilder     : FormBuilder,
+    private chapterService  : ChapterService,
+    private authService     : AuthService,
+    private router          : Router
   ) { }
 
-  public chapterForm : FormGroup;
-  public genre : string;
-  public novel : string;
-  public chapter : string;
-  public content : any;
+  // form for the chapter
+  public chapterForm : FormGroup = this.formBuilder.group({
+    title : ["", Validators.required],
+    content : ["" , Validators.required]
+  });
+
+  // title of the chapter
+  public title : string;
   public uploading : boolean = false;
 
   ngOnInit(): void {
-    this.getUrlTree();
-    this.initializeForm();
-    this.getChapter();
+    this.getLocation();
   }
 
-  getChapter() { 
+  getLocation() {
+    if(this.chapter == "new"){
+      this.title = "Capítulo Nuevo"
+    }else{
+      this.getChapter();  
+    }
+  }
+
+  getChapter() {
     this.chapterService.getAdminChapter(this.genre, this.novel, this.chapter)
-    .then(res => {
-      this.content = res;
-
-      let text : string = "";
-      for(let paragraph of res.content){
-        text += paragraph + "\n";
-      }
-
-      this.paragraphs.setValue(text);
+    .then(chapter => {
+      console.log(chapter);
     })
     .catch(error => {
-      console.log(error);
-    })
+
+    });
   }
 
-  initializeForm() {
-    this.chapterForm = this.fb.group({
-      paragraphs : [""]
-    })
+  cancel() {
+    this.router.navigate([`/admin/${this.genre}/${this.chapter}`]);
   }
 
-  async submit(){
+  submit() {
     this.uploading = !this.uploading;
-    let user : Array<any> = []; 
-    await this.authService.user$
-    .pipe(take(1))
-    .toPromise()
-    .then(res => {
-      user.push({ uid : res.uid});
-    })
-    .catch(error => {
-      console.log(error);
-    })
+    if(this.chapter == "new"){
+      this.saveNew();
+    }else{
+      this.saveEdit();
+    }
+  }
 
-    let content : Array<string> = this.paragraphs.value.split("\n");
+  async saveNew() {
+    let chapter = this.chapterForm.value
+
+    let title = chapter.title;
+    let content : Array<string> = chapter.content.split("\n");
     content = content.filter(paragraph => {
       if(paragraph != "")
         return paragraph;
     })
+    let translator;
+    await this.user.pipe(take(1))
+    .toPromise()
+    .then(user => {
+      translator = user.uid
+    })
     
-    this.chapterService.updteChapter(
-      this.genre,
-      this.novel,
-      this.chapter,
-      content, 
-      user
-    )
+    chapter = {
+      title : title,
+      content : content,
+      translators: [
+        { uid : translator }
+      ],
+      
+    }
+
+    this.chapterService.saveNew(this.genre, this.novel, chapter)
     .then(res => {
-      this.uploading = !this.uploading;
-      this.router.navigate([`/admin/${this.genre}`]);
+      this.router.navigate([`/admin/${this.genre}/${this.novel}`]);
     })
     .catch(error => {
-      console.log(error);
+
     })
+    .finally(() => {
+      this.uploading = !this.uploading;
+    });    
+
   }
 
-  cancel(){
-    this.router.navigate([`/admin/${this.genre}`]);
+  async saveEdit() {
+    console.log("saving existing");
   }
 
-  getUrlTree() {
-    this.genre   = this.url.split("/")[this.url.split("/").length - 3];
-    this.novel   = this.url.split("/")[this.url.split("/").length - 2];
-    this.chapter = this.url.split("/")[this.url.split("/").length - 1];
+  //getters
+  get genre() {
+    let chapter : string  = this.url.split("/")[this.url.split("/").length - 3];
+    return chapter;
+  }
+
+  get novel() {
+    let chapter : string  = this.url.split("/")[this.url.split("/").length - 2];
+    return chapter;
+  }
+
+  get chapter() {
+    let chapter : string  = this.url.split("/")[this.url.split("/").length - 1];
+    return chapter;
   }
 
   get url(){
     return this.router.url;
   }
 
-  get paragraphs() {
-    return this.chapterForm.controls["paragraphs"];
+  get user(){
+    return this.authService.user$;
   }
 }

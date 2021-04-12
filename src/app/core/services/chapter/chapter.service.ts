@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NavigationEnd, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { Chapter } from '../../interfaces/chapter';
 import { Novel } from '../../interfaces/novel';
 
@@ -105,5 +106,40 @@ export class ChapterService {
       })
       .catch(error => reject(error));
     });
+  }
+
+  saveNew(genre : string, novel : string, chapter : any) : Promise<any>{
+    return new Promise<any>(async(resolve, reject) => {
+      let id : number;
+      await this.af.collection(`/${genre}/${novel}/chapters`, ref => ref.orderBy("id", "desc").limit(1))
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise()
+      .then( (doc : any) => {
+        let docId;
+        if(doc[0]){
+          docId = doc[0].id;
+        }
+
+        if(docId != undefined)
+          id = docId + 1;
+        else
+          id = 1;
+      })
+      chapter.id = id;
+      await this.af.doc(`/${genre}/${novel}`)
+      .update({
+        chapters : chapter.id
+      })
+      chapter.url = `/${genre}/${novel}/${chapter.id}`
+      await this.af.doc(`/${genre}/${novel}/chapters/${chapter.id}`)
+      .set(chapter)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+    })
   }
 }

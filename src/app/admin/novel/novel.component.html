@@ -70,8 +70,8 @@
                     
                 </div>
                 <div class="table_controller">
-                    <button class="button_primary">
-                        Añadir novela
+                    <button class="button_primary" (click)="navigate()">
+                        Añadir Capítulo
                     </button>
                 </div>
                 <app-table [title]="data.title" [collection]="collection" [headers]="headers" [model]="model" *ngIf="data">

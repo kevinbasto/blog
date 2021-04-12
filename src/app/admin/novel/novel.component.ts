@@ -49,6 +49,10 @@ export class NovelComponent implements OnInit {
 
   }
 
+  navigate() {
+    this.router.navigate([`/admin/${this.genre}/${this.novel}/new`]);
+  }
+
   uploadFile($event: any) {
     this.picture = $event.target.files[0];
     if (this.picture) {
