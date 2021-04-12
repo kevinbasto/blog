@@ -45,7 +45,12 @@ export class ChapterComponent implements OnInit {
   getChapter() {
     this.chapterService.getAdminChapter(this.genre, this.novel, this.chapter)
     .then(chapter => {
-      console.log(chapter);
+      this.chapterForm.controls["title"].setValue(chapter.title);
+      let content : string = "";
+      chapter.content.forEach((element : string) => {
+        content += element + "\n";
+      })
+      this.chapterForm.controls["content"].setValue(content);
     })
     .catch(error => {
 
@@ -104,7 +109,33 @@ export class ChapterComponent implements OnInit {
   }
 
   async saveEdit() {
-    console.log("saving existing");
+    this.uploading = !this.uploading;
+    let genre = this.genre;
+    let novel = this.novel;
+    let chapter = this.chapter;
+    let data = this.chapterForm.value
+    let title = data.title;
+    let content : Array<string> = data.content.split("\n")
+    content = content.filter(paragraph => {
+      if(paragraph != "")
+        return paragraph;
+    })
+    data = {
+      title : title,
+      content : content
+    }
+
+    this.chapterService.updteChapter(genre, novel, chapter, data)
+    .then(res => {
+      this.router.navigate([`/admin/${genre}/${novel}`]);
+    })
+    .catch(error => {
+
+    })
+    .finally(() => {
+      this.uploading = !this.uploading;
+    })
+
   }
 
   //getters

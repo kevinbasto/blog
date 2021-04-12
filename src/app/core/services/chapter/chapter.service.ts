@@ -86,25 +86,16 @@ export class ChapterService {
     });
   }
 
-  updteChapter(
-    genre : string, 
-    novel : string, 
-    chapter : string, 
-    content : Array<string>, 
-    authors : Array<string>) 
-    : Promise<any> 
-  {
+  updteChapter(genre : string, novel : string, chapter : string, data : any): Promise<any>{
     return new Promise<any>( async(resolve, reject) => {
-      let update = {
-        content : content, 
-        translators : authors
-      }
-      await this.af.doc(`/${genre}/${novel}/chapters/${chapter}`)      
-      .update(update)
+      this.af.doc(`/${genre}/${novel}/chapters/${chapter}`)
+      .update(data)
       .then(res => {
-        resolve({ status : "success" })
+        resolve(res);
       })
-      .catch(error => reject(error));
+      .catch(error => {
+        reject(error);
+      })
     });
   }
 
