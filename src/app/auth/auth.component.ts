@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private af: AngularFirestore
+  ) { }
+
+  public background : string;
 
   ngOnInit(): void {
+    this.af.doc('/info/background')
+    .valueChanges()
+    .pipe(take(1))
+    .toPromise()
+    .then((background : any) => {
+      this.background = background.background;
+    })
   }
 
 }
