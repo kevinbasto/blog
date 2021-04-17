@@ -33,4 +33,28 @@ export class PersonalizatiionService {
       .subscribe();
     })
   }
+
+  async uploadBackground( file : File ) : Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      let ref  = this.angularFirestorage.ref('info/background.png');
+      let task = ref.put(file);
+      task.snapshotChanges()
+      .pipe(finalize(() => {
+        ref.getDownloadURL().pipe(take(1)).toPromise()
+        .then(url => {
+          this.angularFirestore.doc("/info/background").update({background: url})
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          })
+        })
+        .catch(err => {
+          reject(err);
+        })
+      }))
+      .subscribe()
+    })
+  }
 }
