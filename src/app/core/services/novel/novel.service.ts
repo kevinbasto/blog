@@ -114,9 +114,18 @@ export class NovelService {
               .pipe(take(1))
               .toPromise()
               .then( (collection : any) => {
-                let id = collection[0].id + 1
+                let id;
+                if(collection[0] == undefined){
+                  id = 1;
+                }else{
+                  id = collection[0].id + 1
+                }
+
                 res.update({id : id})
-                .then(answer => resolve(answer))
+                .then(answer => {
+                  console.log(answer);
+                  resolve(answer)
+                })
                 .catch(error => reject(error));
               })
             })

@@ -28,6 +28,7 @@ export class NovelsComponent implements OnInit {
   }
 
   create(){
-    this.router.navigate(['/admin/japonesas/new'])
+    let catalog = this.router.url.split("/")[this.router.url.split("/").length - 1];
+    this.router.navigate([`/admin/${catalog}/new`])
   }
 }
