@@ -36,7 +36,7 @@ export class PersonalizatiionService {
 
   async uploadBackground( file : File ) : Promise<any>{
     return new Promise<any>((resolve, reject) => {
-      let ref  = this.angularFirestorage.ref('info/backgroun.png');
+      let ref  = this.angularFirestorage.ref('info/background.png');
       let task = ref.put(file);
       task.snapshotChanges()
       .pipe(finalize(() => {
