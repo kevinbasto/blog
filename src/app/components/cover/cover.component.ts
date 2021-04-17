@@ -27,6 +27,9 @@ export class CoverComponent implements OnInit {
   public title: string = "Inicio";
 
   ngOnInit(): void {
-    
+    this.cs.getCover().then(cover => {
+      console.log(cover);
+      this.coverUrl = cover;
+    })
   }
 }
