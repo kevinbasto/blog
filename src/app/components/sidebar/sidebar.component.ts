@@ -42,4 +42,8 @@ export class SidebarComponent implements OnInit {
     this.theme = this.themify.theme;
   }
 
+  signOut(){
+    this.auth.signout();
+  }
+
 }
