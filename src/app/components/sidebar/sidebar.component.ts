@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit {
     .toPromise()
     .then(user => {
       this.level = user.roleId;
+      console.log(this.level);
     })
     .catch(error => {
       console.log(error);
