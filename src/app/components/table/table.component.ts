@@ -64,9 +64,7 @@ export class TableComponent implements OnInit {
       })
       this.data = page;
     })
-    .catch(error => {
-      console.log(error);
-    })
+    .catch(error => console.log(error))
   }
 
   generateUrl(url : string){
