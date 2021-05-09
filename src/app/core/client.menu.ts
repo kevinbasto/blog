@@ -64,7 +64,7 @@ export const ClientMenu : Array<MenuOption> = [
       {
         title: "Ir a la consola de administrador",
         url: "/admin/inicio",
-        icon: "fa-cogs",
+        icon: "fa-terminal",
         level: 3
       }
 ]
