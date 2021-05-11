@@ -68,9 +68,9 @@ export const AdminMenu : Array<MenuOption> = [
         level: 3
     },
     {
-        title: "Leer",
+        title: "Ir al inicio",
         url: "/client/inicio",
-        icon: "fa-mug-hot",
+        icon: "fa-home",
         level: 1
     },
 ]

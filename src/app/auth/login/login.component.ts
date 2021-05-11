@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.auth.login(email, password)
     .then(res => {
-      console.log(res);
-      // this.router.navigate(['client/inicio'])
+      this.router.navigate(['client/inicio'])
     })
     .catch(error => {
       let message = this.auth.parseError(error);

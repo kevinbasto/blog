@@ -42,8 +42,7 @@ export class RegisterComponent implements OnInit {
 
     this.auth.register(request.username, request.email, request.password)
     .then(res =>{
-      console.log(res);
-      //this.router.navigate(['client/inicio']);
+      this.router.navigate(['client/inicio']);
     })
     .catch(error => {
       let message = this.auth.parseError(error);
