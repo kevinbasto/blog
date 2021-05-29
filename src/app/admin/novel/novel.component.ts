@@ -106,6 +106,8 @@ export class NovelComponent implements OnInit {
   save() {
     if (this.novel == "new") {
       this.saveNew();
+      this.uploading = !this.uploading;
+      this.router.navigate([`/admin/${this.genre}`]);
       return;
     }
     this.uploading = !this.uploading;

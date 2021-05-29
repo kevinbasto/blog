@@ -18,6 +18,7 @@ export class UserService {
       .pipe(take(1))
       .toPromise()
       .then(user => {
+        
         resolve(user);
       })
       .catch(error => {
