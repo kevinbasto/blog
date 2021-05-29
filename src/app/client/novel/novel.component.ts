@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Novel } from 'src/app/core/interfaces/novel';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
+import { UserService } from '../../core/services/user/user.service';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { NovelService } from 'src/app/core/services/novel/novel.service';
 export class NovelComponent implements OnInit {
 
   constructor(
-    private ns : NovelService
+    private ns : NovelService,
+    private userService : UserService
   ) { }
 
   public novel : Novel
@@ -23,11 +25,21 @@ export class NovelComponent implements OnInit {
 
   getData(){
     this.ns.getNovelData()
-    .then((novel : Novel) => {
+    .then( (novel : Novel) => {
       this.novel = novel;
+      this.getTranslators(novel.translators);
       this.setChaptersBox();
     })
     .catch(error => console.error(error));
+  }
+
+  async getTranslators(translators : Array<any>) : Promise<any> {
+    translators.forEach( async(translator) => {
+      translator.username = await this.userService.getData(translator.uid);
+      translator.username = translator.username.username;
+    })
+    this.novel.translators = translators;
+    return translators;
   }
 
   setChaptersBox(){
