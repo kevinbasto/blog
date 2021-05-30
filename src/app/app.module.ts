@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+
+//components used in the root component
 import { AppComponent } from './app.component';
 import { ClientComponent } from './infraestructure/routes/client/client.component';
 import { AuthComponent } from './infraestructure/routes/auth/auth.component';
