@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemifyService } from './core/services/themify/themify.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,7 @@ export class AppComponent implements OnInit {
   
 
   constructor(
-    private theme: ThemifyService
+    
   ){ }
 
   ngOnInit(){
