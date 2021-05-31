@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { ClientComponent } from './infraestructure/routes/client/client.component';
 import { AuthComponent } from './infraestructure/routes/auth/auth.component';
 import { AdminComponent } from './infraestructure/routes/admin/admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminComponent } from './infraestructure/routes/admin/admin.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
