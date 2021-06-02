@@ -10,7 +10,13 @@
     margin: auto;
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 600px) {
+    .card_container {
+        grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width:800px) {
     .card_container {
         grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
     }
