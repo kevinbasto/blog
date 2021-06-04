@@ -70,9 +70,7 @@ export class NovelService {
       task.snapshotChanges()
         .pipe( finalize(() => {
           ref.getDownloadURL().subscribe(url => {
-            console.log("image done to upload");
             content.cover = url;
-            console.log(`/${collection}/${novel}`);
             this.af.doc(`/${collection}/${novel}`).update(content)
               .then( (res) => {
                 resolve(res);
@@ -90,10 +88,21 @@ export class NovelService {
    * 
    */
   create(genre : string, novel : any, cover : File) : Promise<any>{
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<any>(async(resolve, reject) => {
+      let id : any;
+      await this.af.collection(genre, ref => ref.orderBy('id', 'desc').limit(1))
+      .valueChanges().pipe(take(1))
+      .toPromise()
+      .then( (res : Array<any>) => {
+        if(res[0]){
+          id = res[0].id
+        }else
+          id = 1;
+      });
+
       this.af.collection(genre)
       .add(novel)
-      .then(res => {
+      .then( (res) => {
         let id = res.id;
         let ref = this.as.ref(`${genre}/${id}/${cover.name}`);
         let task = ref.put(cover);
@@ -101,7 +110,6 @@ export class NovelService {
         task.snapshotChanges()
         .pipe(finalize(() => {
           ref.getDownloadURL().subscribe(url => {
-            console.log("image upload done");
             res.update({
               cover : url,
               url : `/${genre}/${id}`,
@@ -123,7 +131,6 @@ export class NovelService {
 
                 res.update({id : id})
                 .then(answer => {
-                  console.log(answer);
                   resolve(answer)
                 })
                 .catch(error => reject(error));

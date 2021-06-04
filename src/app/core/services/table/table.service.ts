@@ -44,6 +44,8 @@ export class TableService {
         }
         resolve(collection);
       }else{
+        if(this.data.length == 0)
+          return
         let lowestId = this.data[this.data.length - 1].id;
         await this.download(lowestId, pageSize)
         .then(collection => {
