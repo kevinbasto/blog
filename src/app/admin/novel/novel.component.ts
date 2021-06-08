@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
 import { StaffService } from 'src/app/core/services/staff/staff.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-novel',
@@ -16,7 +17,7 @@ export class NovelComponent implements OnInit {
     private route: ActivatedRoute,
     private novelService: NovelService,
     private formbuilder: FormBuilder,
-    private staffService: StaffService
+    private userService : AuthService
   ) { }
 
   // data used for the new title
@@ -35,7 +36,7 @@ export class NovelComponent implements OnInit {
   ngOnInit() {
     this.getCollectionName();
     this.setNovelForm();
-    this.novelForm.valueChanges.subscribe(value => console.log(value));
+    
   }
 
   getCollectionName() {
@@ -43,6 +44,8 @@ export class NovelComponent implements OnInit {
     this.novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
     if(this.novel != "new")
       this.loadNovelData();
+    else
+      this.setNovelTranslator();
   }
 
     loadNovelData(){
@@ -57,6 +60,12 @@ export class NovelComponent implements OnInit {
       description : ["", [Validators.required]],
       author: ["", [Validators.required]],
       translator: ["", [Validators.required]]
+    })
+  }
+
+  setNovelTranslator() {
+    this.userService.user$.subscribe(user => {
+      this.novelForm.controls['translator'].setValue(user.username);
     })
   }
 
