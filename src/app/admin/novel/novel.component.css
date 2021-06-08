@@ -1,74 +1,42 @@
+
+
 .container{
     padding-top: 1em;
     padding-bottom: 1em;
 }
 
 .card{
-    width: 80%;
+    display: flex;
+    width: fit-content;
     margin: auto;
-    
+    padding: 1em;
+}
+
+.card_body{
+    display: flex;
 }
 
 .img_container{
-    display: flex;
     max-width: 50%;
+    padding-right: 1em;
 }
 
 .img_container img{
-    width: 100%;
-}
-
-.image_container img{
-    max-width: 40%;
     max-height: 200px;
-    margin: auto;
     object-fit: contain;
 }
 
-.card_footer button{
-    margin: 5px;
-}
+@media only screen and (max-width:600px){
+    .card_body{
+        flex-direction: column;
+    }
 
-.form_group input:disabled{
-    color: white;
-}
-
-textarea{
-    width: 98%;
-    margin: auto;
-    resize: none;
-    height: 100px;
-    border-radius: 5px;
-    border: 1px solid var(--bg-terciary);
-}
-
-.translatorField{
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.translatorField div{
-    width: 100%;
-    margin-top: 5px;
-}
-
-.button_primary {
-    margin-top: 5px;
-}
-
-.img_form_container{
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.form_group{
-    display: block;
-}
-
-.table_controller{
-    display: flex;
-    padding: 5px;
-    justify-content: flex-end;
-    background-color: var(--bg-terciary);
+    .img_container{
+        max-width: 100%;
+        display: flex;
+        width: 100%;
+        padding: 0;
+        justify-content: center;
+        margin-bottom: 1em;
+    }
 }
