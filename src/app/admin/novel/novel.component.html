@@ -33,7 +33,13 @@
                         <label class="form_label">
                             Traductor
                         </label>
-                        <input type="text" class="form_control" disabled formControlName="translator">
+                        <input type="text" class="form_control" formControlName="translator">
+                    </div>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Foto de portada
+                        </label>
+                        <input type="file" >
                     </div>
                 </div>
             </div>
@@ -44,8 +50,13 @@
                 <button class="button_primary">
                     Cancelar
                 </button>
-                <button class="button_primary" style="margin-left: 1em;">
-                    Guardar
+                <button class="button_primary" style="margin-left: 1em;" [disabled]="!novelForm.valid || uploading">
+                    <div *ngIf="uploading" >
+                        <i class="fa fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!uploading" >
+                        Guardar
+                    </span>
                 </button>
             </div>
         </form>

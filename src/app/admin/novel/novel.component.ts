@@ -14,7 +14,6 @@ export class NovelComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private novelService: NovelService,
     private formbuilder: FormBuilder,
     private userService : AuthService
@@ -32,11 +31,13 @@ export class NovelComponent implements OnInit {
 
   // data used for the form
   public novelForm : FormGroup;
+  
+  public uploading : boolean;
 
   ngOnInit() {
     this.getCollectionName();
     this.setNovelForm();
-    
+    this.uploading = false;
   }
 
   getCollectionName() {
@@ -59,7 +60,7 @@ export class NovelComponent implements OnInit {
       name : ["", [Validators.required]],
       description : ["", [Validators.required]],
       author: ["", [Validators.required]],
-      translator: ["", [Validators.required]]
+      translator: [{value: "", disabled: true}, [Validators.required]]
     })
   }
 
@@ -70,6 +71,19 @@ export class NovelComponent implements OnInit {
   }
 
   submit(){
-
+    this.uploading = true;
+    if(this.novel == "new")
+      this.saveNew();
+    else
+      this.editCurrent();
   }
+
+    private async saveNew() {
+      let novel = this.novelForm.value;
+      //this.novelService.create(this.genre, novel);
+    }
+
+    private async editCurrent() {
+
+    }
 }
