@@ -89,7 +89,17 @@ export class NovelService {
    */
   create(genre : string, novel : any, cover : File) : Promise<any>{
     return new Promise<any>(async(resolve, reject) => {
-      let id : any;
+      if(!cover){
+        reject("Necesitas subir la portada de la novela!");
+        return;
+      }
+      
+    });      
+  }
+}
+
+
+/*let id : any;
       await this.af.collection(genre, ref => ref.orderBy('id', 'desc').limit(1))
       .valueChanges().pipe(take(1))
       .toPromise()
@@ -141,6 +151,4 @@ export class NovelService {
         }))
         .subscribe()
       })
-    });
-  }
-}
+    });*/

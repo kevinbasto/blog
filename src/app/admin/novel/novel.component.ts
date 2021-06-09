@@ -79,9 +79,25 @@ export class NovelComponent implements OnInit {
   }
 
     private async saveNew() {
+      
       let novel = this.novelForm.value;
-      //this.novelService.create(this.genre, novel);
+      this.novelService.create(this.genre, novel, undefined)
+      .then(res => this.accepted(res))
+      .catch(error => this.rejected(error))
+      .finally(() => this.finally());
     }
+
+      private accepted(response : any) {
+
+      }
+
+      private rejected(error : any) {
+        console.log(error);
+      }
+
+      private finally() {
+        this.uploading = !this.uploading;
+      }
 
     private async editCurrent() {
 
