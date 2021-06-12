@@ -3,12 +3,12 @@
         <form [formGroup]="novelForm" (submit)="submit()">
             <div class="card_header">
                 <h1>
-                    The title of the novel
+                    {{novelForm.value.title? novelForm.value.title : "Nueva novela"}}
                 </h1>
             </div>
             <div class="card_body">
                 <div class="img_container">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/81gUDMCB93L.jpg">
+                    <img src="{{visualization? visualization : ''}}">
                 </div>
                 <div class="form_container">
                     <div class="form_group">
@@ -39,7 +39,10 @@
                         <label class="form_label">
                             Foto de portada
                         </label>
-                        <input type="file" >
+                        <input type="file" (change)="uploadCover($event)">
+                    </div>
+                    <div *ngIf="errorMessage">
+                        <span class="error">{{errorMessage}}</span>
                     </div>
                 </div>
             </div>

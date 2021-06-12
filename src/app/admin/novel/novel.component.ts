@@ -30,9 +30,12 @@ export class NovelComponent implements OnInit {
   public novel : string;
 
   // data used for the form
-  public novelForm : FormGroup;
-  
+  public novelForm : FormGroup;  
   public uploading : boolean;
+
+  public cover : File;
+  public visualization : any;
+  public errorMessage : string;
 
   ngOnInit() {
     this.getCollectionName();
@@ -70,6 +73,13 @@ export class NovelComponent implements OnInit {
     })
   }
 
+  uploadCover($event : any){
+    this.cover = $event.target.files[0];
+    let fr = new FileReader();
+    fr.readAsDataURL(this.cover);
+    fr.onload = () => { this.visualization = fr.result }
+  }
+
   submit(){
     this.uploading = true;
     if(this.novel == "new")
@@ -79,9 +89,8 @@ export class NovelComponent implements OnInit {
   }
 
     private async saveNew() {
-      
       let novel = this.novelForm.value;
-      this.novelService.create(this.genre, novel, undefined)
+      this.novelService.create(this.genre, novel, this.cover)
       .then(res => this.accepted(res))
       .catch(error => this.rejected(error))
       .finally(() => this.finally());
@@ -92,7 +101,7 @@ export class NovelComponent implements OnInit {
       }
 
       private rejected(error : any) {
-        console.log(error);
+        this.errorMessage = error;
       }
 
       private finally() {

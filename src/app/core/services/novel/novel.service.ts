@@ -66,13 +66,13 @@ export class NovelService {
     return new Promise<any>((resolve, reject) => {
       let ref = this.as.ref(`${collection}/${novel}/${file.name}`)
       let task = ref.put(file);
-      
+
       task.snapshotChanges()
-        .pipe( finalize(() => {
+        .pipe(finalize(() => {
           ref.getDownloadURL().subscribe(url => {
             content.cover = url;
             this.af.doc(`/${collection}/${novel}`).update(content)
-              .then( (res) => {
+              .then((res) => {
                 resolve(res);
               })
               .catch(err => {
@@ -80,21 +80,77 @@ export class NovelService {
               })
           })
         })
-      ).subscribe();
+        ).subscribe();
     })
   }
 
   /**
-   * 
+   * this function do the following
+   * get the last collection id to give it to the table
+   * creates the new record
+   * gets the id of the record
+   * use the id to store the cover
+   * the cover returns a link
+   * the link gets updated in the record
    */
-  create(genre : string, novel : any, cover : File) : Promise<any>{
-    return new Promise<any>(async(resolve, reject) => {
-      if(!cover){
-        reject("Necesitas subir la portada de la novela!");
-        return;
-      }
-      
-    });      
+  async create(genre: string, novel: any, cover: File): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      if (!cover)
+        return reject("Necesitas subir la portada de la novela!");
+      novel.id = await this.getLastId(genre);
+      await this.upload(genre, novel, cover)
+        .then(res => resolve(res))
+        .catch(error => reject(error));
+    });
+  }
+
+  private async getLastId(genre: string): Promise<any> {
+    let id: number;
+    id = await this.af.collection(genre, ref => ref.orderBy('id', 'desc').limit(1))
+      .valueChanges().pipe(take(1))
+      .toPromise()
+      .then((res: Array<any>) => {
+        return res[0] ? res[0].id + 1 : 1;
+      })
+      .catch(error => { throw error });
+    return id;
+  }
+
+  private async upload(genre: string, novel: any, cover: File): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      let id: string;
+      await this.af.collection(genre).add(novel)
+        .then((res: any) => { id = res.id })
+        .catch(error => reject(error));
+      let coverUrl = await this.uploadCover(genre, id, cover);
+      novel = {
+        chapters: 0,
+        cover: coverUrl,
+        status: "En emisión",
+        url: `/${genre}/${id}`,
+        ...novel
+      };
+      console.log(novel);
+      this.af.doc(`/${genre}/${id}`).update(novel)
+        .then(res => resolve(res))
+        .catch(error => reject(error));
+    })
+  }
+
+  private async uploadCover(genre: string, id: string, cover: File): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      let ref = this.as.ref(`${genre}/${id}/${cover.name}`);
+      let task = ref.put(cover);
+      let coverUrl;
+      await task.snapshotChanges()
+        .pipe(finalize(() => {
+          ref.getDownloadURL().pipe(take(1)).toPromise()
+            .then(url => {
+              coverUrl = url;
+              resolve(coverUrl);
+            })
+        })).toPromise();
+    })
   }
 }
 
