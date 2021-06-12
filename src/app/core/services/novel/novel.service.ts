@@ -84,15 +84,6 @@ export class NovelService {
     })
   }
 
-  /**
-   * this function do the following
-   * get the last collection id to give it to the table
-   * creates the new record
-   * gets the id of the record
-   * use the id to store the cover
-   * the cover returns a link
-   * the link gets updated in the record
-   */
   async create(genre: string, novel: any, cover: File): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
       if (!cover)

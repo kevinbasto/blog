@@ -89,7 +89,7 @@ export class NovelComponent implements OnInit {
   }
 
     private async saveNew() {
-      let novel = this.novelForm.value;
+      let novel = this.novelForm.getRawValue();      
       this.novelService.create(this.genre, novel, this.cover)
       .then(res => this.accepted(res))
       .catch(error => this.rejected(error))
