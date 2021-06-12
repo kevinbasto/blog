@@ -60,7 +60,7 @@ export class NovelComponent implements OnInit {
   
   setNovelForm() {
     this.novelForm = this.formbuilder.group({
-      name : ["", [Validators.required]],
+      title : ["", [Validators.required]],
       description : ["", [Validators.required]],
       author: ["", [Validators.required]],
       translator: [{value: "", disabled: true}, [Validators.required]]
@@ -100,7 +100,7 @@ export class NovelComponent implements OnInit {
 
       }
 
-      private rejected(error : any) {
+      private rejected(error : string) {
         this.errorMessage = error;
       }
 
