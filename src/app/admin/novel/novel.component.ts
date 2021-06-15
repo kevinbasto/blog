@@ -122,9 +122,6 @@ export class NovelComponent implements OnInit {
       this.novelService.editNovel(novel, this.genre, this.novel,  this.cover)
       .then(res => this.accepted(res))
       .catch(error => this.rejected(error));
-      //if(this.cover)
-        // save for new cover
-      //save without changing the cover
     }
 
   navigate(){
