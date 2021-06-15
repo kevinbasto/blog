@@ -126,4 +126,8 @@ export class NovelComponent implements OnInit {
         // save for new cover
       //save without changing the cover
     }
+
+  navigate(){
+    this.router.navigate([`/admin/${this.genre}`]);
+  }
 }
