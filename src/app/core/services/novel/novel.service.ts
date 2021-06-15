@@ -58,30 +58,24 @@ export class NovelService {
   /**
    * a function to update any changes in the novel
    * @param content - the content changed in the novel
-   * @param collection - the collection in which the novel is stored
+   * @param genre - the collection in which the novel is stored
    * @param novel - the novel in where is going to be placed the new data
    * @returns 
    */
-  editNovel(content: any, collection: string, novel: string, file: File) {
-    return new Promise<any>((resolve, reject) => {
-      let ref = this.as.ref(`${collection}/${novel}/${file.name}`)
-      let task = ref.put(file);
-
-      task.snapshotChanges()
-        .pipe(finalize(() => {
-          ref.getDownloadURL().subscribe(url => {
-            content.cover = url;
-            this.af.doc(`/${collection}/${novel}`).update(content)
-              .then((res) => {
-                resolve(res);
-              })
-              .catch(err => {
-                reject(err);
-              })
-          })
-        })
-        ).subscribe();
-    })
+  editNovel(content: any, genre: string, novel: string, cover: File) {
+    return new Promise<any>(async(resolve, reject) => {
+      if(!cover){
+        console.log(`/${genre}/${novel}`)
+        return this.af.doc(`/${genre}/${novel}`).update(content)
+        .then(res => resolve(res))
+        .catch(error => reject(error));
+      }
+      let coverUrl = await this.uploadCover(genre, novel, cover);
+      content.cover = coverUrl;
+      this.af.doc(`/${genre}/${novel}`).update(content)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+    });
   }
 
   async create(genre: string, novel: any, cover: File): Promise<any> {
@@ -128,7 +122,7 @@ export class NovelService {
     })
   }
 
-  private async uploadCover(genre: string, id: string, cover: File): Promise<any> {
+  private async uploadCover(genre: string, id: string, cover: File): Promise<string> {
     return new Promise<any>(async (resolve, reject) => {
       let ref = this.as.ref(`${genre}/${id}/${cover.name}`);
       let task = ref.put(cover);
@@ -136,66 +130,30 @@ export class NovelService {
       await task.snapshotChanges()
         .pipe(finalize(() => {
           ref.getDownloadURL().pipe(take(1)).toPromise()
-            .then(url => {
-              coverUrl = url;
-              resolve(coverUrl);
-            })
+            .then(url => resolve(url));
         })).toPromise();
     })
   }
 }
 
+/**
+  return new Promise<any>((resolve, reject) => {
+      let ref = this.as.ref(`${collection}/${novel}/${file.name}`)
+      let task = ref.put(file);
 
-/*let id : any;
-      await this.af.collection(genre, ref => ref.orderBy('id', 'desc').limit(1))
-      .valueChanges().pipe(take(1))
-      .toPromise()
-      .then( (res : Array<any>) => {
-        if(res[0]){
-          id = res[0].id
-        }else
-          id = 1;
-      });
-
-      this.af.collection(genre)
-      .add(novel)
-      .then( (res) => {
-        let id = res.id;
-        let ref = this.as.ref(`${genre}/${id}/${cover.name}`);
-        let task = ref.put(cover);
-
-        task.snapshotChanges()
+      task.snapshotChanges()
         .pipe(finalize(() => {
           ref.getDownloadURL().subscribe(url => {
-            res.update({
-              cover : url,
-              url : `/${genre}/${id}`,
-              chapters : 0,
-              finished: false
-            })
-            .then(() => {
-              this.af.collection(`/${genre}`, ref => ref.orderBy("id", "desc").limit(1))
-              .valueChanges()
-              .pipe(take(1))
-              .toPromise()
-              .then( (collection : any) => {
-                let id;
-                if(collection[0] == undefined){
-                  id = 1;
-                }else{
-                  id = collection[0].id + 1
-                }
-
-                res.update({id : id})
-                .then(answer => {
-                  resolve(answer)
-                })
-                .catch(error => reject(error));
+            content.cover = url;
+            this.af.doc(`/${collection}/${novel}`).update(content)
+              .then((res) => {
+                resolve(res);
               })
-            })
-            .catch(error => reject(error));
+              .catch(err => {
+                reject(err);
+              })
           })
-        }))
-        .subscribe()
-      })
-    });*/
+        })
+        ).subscribe();
+    })
+ */

@@ -41,6 +41,12 @@
                         </label>
                         <input type="file" (change)="uploadCover($event)">
                     </div>
+                    <div class="form_group" *ngIf="novel != 'new'">
+                        <label class="form_label">
+                            Estatus
+                        </label>
+                        <input type="text" class="form_control" formControlName="status">
+                    </div>
                     <div *ngIf="errorMessage">
                         <span class="error">{{errorMessage}}</span>
                     </div>

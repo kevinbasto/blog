@@ -54,7 +54,15 @@ export class NovelComponent implements OnInit {
 
     loadNovelData(){
       this.novelService.getNovel(this.genre, this.novel)
-      .then(novel => { console.log(novel) })
+      .then(novel => { 
+        this.novelForm.controls["title"].setValue(novel.title);
+        this.novelForm.controls["description"].setValue(novel.description);
+        this.novelForm.controls["author"].setValue(novel.author);
+        this.novelForm.controls["translator"].setValue(novel.translator);
+        this.novelForm.controls["status"].setValue(novel.status);
+        this.visualization = novel.cover;
+        this.novelForm.controls["status"].enable();
+      })
       .catch(error => {});
     }
   
@@ -63,7 +71,8 @@ export class NovelComponent implements OnInit {
       title : ["", [Validators.required]],
       description : ["", [Validators.required]],
       author: ["", [Validators.required]],
-      translator: [{value: "", disabled: true}, [Validators.required]]
+      translator: [{value: "", disabled: true}, [Validators.required]],
+      status : [{value : "", disabled: true}, [Validators.required]]
     })
   }
 
@@ -97,7 +106,7 @@ export class NovelComponent implements OnInit {
     }
 
       private accepted(response : any) {
-
+        this.router.navigate([`/admin/${this.genre}`])
       }
 
       private rejected(error : string) {
@@ -109,6 +118,12 @@ export class NovelComponent implements OnInit {
       }
 
     private async editCurrent() {
-
+      let novel = this.novelForm.getRawValue();
+      this.novelService.editNovel(novel, this.genre, this.novel,  this.cover)
+      .then(res => this.accepted(res))
+      .catch(error => this.rejected(error));
+      //if(this.cover)
+        // save for new cover
+      //save without changing the cover
     }
 }
