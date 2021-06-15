@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NovelService } from 'src/app/core/services/novel/novel.service';
 import { StaffService } from 'src/app/core/services/staff/staff.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-novel',
@@ -13,166 +14,120 @@ export class NovelComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private novelService: NovelService,
-    private fb: FormBuilder,
-    private staffService: StaffService
+    private formbuilder: FormBuilder,
+    private userService : AuthService
   ) { }
 
-  // all the public data of the model
-  public genre: string;
-  public novel: string;
-  public novelForm: FormGroup;
-  public data: any;
-  public staff: Array<any>;
-  public visibleStaff: Array<any>;
+  // data used for the new title
+  public collection : string;
+  public title : string;
+  public headers : Array<string> = ["id", "título"];
+  public model : Array<string> = ["id", "title"]; 
 
-  // data relative to the table
-  public collection: string;
-  public chaptertitle: string = "Capítulos";
-  public headers: Array<string> = ["Título"];
-  public model: Array<string> = ["title"];
+  // data used to work
+  public genre : string;
+  public novel : string;
 
-  // cover editing
-  public picture: File;
-  public picurl: any;
+  // data used for the form
+  public novelForm : FormGroup;  
+  public uploading : boolean;
 
-  public uploading: boolean = false;
+  public cover : File;
+  public visualization : any;
+  public errorMessage : string;
 
-  ngOnInit(): void {
-    this.initializeForm();
-    this.getNovelAndGenre();
-    this.getStaff();
-    if (this.novel != "new") {
-      this.getData();
-    }
-
+  ngOnInit() {
+    this.getCollectionName();
+    this.setNovelForm();
+    this.uploading = false;
   }
 
-  navigate() {
-    this.router.navigate([`/admin/${this.genre}/${this.novel}/new`]);
-  }
-
-  uploadFile($event: any) {
-    this.picture = $event.target.files[0];
-    if (this.picture) {
-      let fr = new FileReader();
-      fr.readAsDataURL(this.picture);
-      fr.onload = () => {
-        this.picurl = fr.result;
-        
-      }
-    }
-  }
-
-  getData() {
-    this.novelService.getNovel(this.genre, this.novel)
-      .then((data: any) => {
-        this.data = data;
-        this.title.setValue(data.title);
-        this.description.setValue(data.description);
-        this.Author.setValue(data.author);
-
-        this.picurl = data.cover;
-
-        for (let translator of data.translators) {
-          this.addTranslator();
-        }
-
-        for (let i = 0; i < this.translators.length; i++) {
-          this.translators.controls[i].setValue({ uid: this.data.translators[i].uid });
-        }
-      })
-  }
-
-
-
-  getStaff() {
-    this.staffService.getStaff().then(staff => {
-      this.staff = staff;
-      this.visibleStaff = this.staff;
-    })
-      .catch(error => {
-        console.log(error);
-      })
-  }
-
-  getNovelAndGenre() {
+  getCollectionName() {
     this.genre = this.router.url.split("/")[this.router.url.split("/").length - 2];
     this.novel = this.router.url.split("/")[this.router.url.split("/").length - 1];
-    this.collection = `/${this.genre}/${this.novel}/chapters`;
+    if(this.novel != "new")
+      this.loadNovelData();
+    else
+      this.setNovelTranslator();
   }
 
-  save() {
-    if (this.novel == "new") {
-      this.saveNew();
-      this.uploading = !this.uploading;
-      this.router.navigate([`/admin/${this.genre}`]);
-      return;
+    loadNovelData(){
+      this.novelService.getNovel(this.genre, this.novel)
+      .then(novel => { 
+        this.novelForm.controls["title"].setValue(novel.title);
+        this.novelForm.controls["description"].setValue(novel.description);
+        this.novelForm.controls["author"].setValue(novel.author);
+        this.novelForm.controls["translator"].setValue(novel.translator);
+        this.novelForm.controls["status"].setValue(novel.status);
+        this.visualization = novel.cover;
+        this.novelForm.controls["status"].enable();
+      })
+      .catch(error => {});
     }
-    this.uploading = !this.uploading;
-    this.novelService.editNovel(this.novelForm.value, this.genre, this.novel, this.picture)
-      .then(() => this.uploading = !this.uploading)
-  }
-
-  saveNew(){
-    let novel = this.novelForm.value;
-    this.uploading = this.uploading;
-    this.novelService.create(this.genre , novel, this.picture)
-    .then(res => {
-      console.log(res);
-    })
-    .catch(error => {
-
-    })
-    .finally(() => {
-      this.uploading = !this.uploading;
+  
+  setNovelForm() {
+    this.novelForm = this.formbuilder.group({
+      title : ["", [Validators.required]],
+      description : ["", [Validators.required]],
+      author: ["", [Validators.required]],
+      translator: [{value: "", disabled: true}, [Validators.required]],
+      status : [{value : "", disabled: true}, [Validators.required]]
     })
   }
 
-  cancel() {
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
-
-  initializeForm() {
-    this.novelForm = this.fb.group({
-      title: [""],
-      description: [""],
-      author: [""],
-      translators: this.fb.array([])
+  setNovelTranslator() {
+    this.userService.user$.subscribe(user => {
+      this.novelForm.controls['translator'].setValue(user.username);
     })
   }
 
-  addTranslator() {
-    let translator: FormGroup = this.fb.group({
-      uid: [""]
-    })
-
-    this.translators.push(translator);
+  uploadCover($event : any){
+    this.cover = $event.target.files[0];
+    let fr = new FileReader();
+    fr.readAsDataURL(this.cover);
+    fr.onload = () => { this.visualization = fr.result }
   }
 
-  removeTranlator(i: number) {
-    this.translators.removeAt(i);
+  submit(){
+    this.uploading = true;
+    if(this.novel == "new")
+      this.saveNew();
+    else
+      this.editCurrent();
   }
 
-  // getters to ease the use of the form
-  get title() {
-    return this.novelForm.get('title');
-  }
+    private async saveNew() {
+      let novel = this.novelForm.getRawValue();      
+      this.novelService.create(this.genre, novel, this.cover)
+      .then(res => this.accepted(res))
+      .catch(error => this.rejected(error))
+      .finally(() => this.finally());
+    }
 
-  get description() {
-    return this.novelForm.get('description');
-  }
+      private accepted(response : any) {
+        this.router.navigate([`/admin/${this.genre}`])
+      }
 
-  get Author() {
-    return this.novelForm.get('author');
-  }
+      private rejected(error : string) {
+        this.errorMessage = error;
+      }
 
-  get translators() {
-    return this.novelForm.get('translators') as FormArray;
-  }
+      private finally() {
+        this.uploading = !this.uploading;
+      }
 
-  get cover() {
-    return this.novelForm.get('cover')
+    private async editCurrent() {
+      let novel = this.novelForm.getRawValue();
+      this.novelService.editNovel(novel, this.genre, this.novel,  this.cover)
+      .then(res => this.accepted(res))
+      .catch(error => this.rejected(error));
+      //if(this.cover)
+        // save for new cover
+      //save without changing the cover
+    }
+
+  navigate(){
+    this.router.navigate([`/admin/${this.genre}`]);
   }
 }

@@ -1,5 +1,78 @@
 <div class="container">
     <div class="card">
+        <form [formGroup]="novelForm" (submit)="submit()">
+            <div class="card_header">
+                <h1>
+                    {{novelForm.value.title? novelForm.value.title : "Nueva novela"}}
+                </h1>
+            </div>
+            <div class="card_body">
+                <div class="img_container">
+                    <img src="{{visualization? visualization : ''}}">
+                </div>
+                <div class="form_container">
+                    <div class="form_group">
+                        <label class="form_label">
+                            Nombre de la novela
+                        </label>
+                        <input type="text" class="form_control" formControlName="title">
+                    </div>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Descripción de la novela
+                        </label>
+                        <textarea class="form_control" formControlName="description"></textarea>
+                    </div>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Autor de la novela
+                        </label>
+                        <input type="text" class="form_control" formControlName="author">
+                    </div>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Traductor
+                        </label>
+                        <input type="text" class="form_control" formControlName="translator">
+                    </div>
+                    <div class="form_group">
+                        <label class="form_label">
+                            Foto de portada
+                        </label>
+                        <input type="file" (change)="uploadCover($event)">
+                    </div>
+                    <div class="form_group" *ngIf="novel != 'new'">
+                        <label class="form_label">
+                            Estatus
+                        </label>
+                        <input type="text" class="form_control" formControlName="status">
+                    </div>
+                    <div *ngIf="errorMessage">
+                        <span class="error">{{errorMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card_body">
+
+            </div>
+            <div class="card_footer">
+                <button type="button" class="button_primary" (click)="navigate()">
+                    Cancelar
+                </button>
+                <button class="button_primary" style="margin-left: 1em;" [disabled]="!novelForm.valid || uploading">
+                    <div *ngIf="uploading" >
+                        <i class="fa fa-spin fa-circle-notch"></i>
+                    </div>
+                    <span *ngIf="!uploading" >
+                        Guardar
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- <div class="container">
+    <div class="card">
         <form [formGroup]="novelForm" (submit)="save()">
             <div class="card_header">
                 <h1>
@@ -92,4 +165,4 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
