@@ -52,8 +52,19 @@
                     </div>
                 </div>
             </div>
-            <div class="card_body">
-
+            <div class="card_body table_container" *ngIf="title">
+                <div style="display: flex; justify-content: center;">
+                    <h1>
+                        Capítulos
+                    </h1>    
+                </div>
+                <div class="table_controller">
+                    <button class="button_primary" (click)="navigate()">
+                        Añadir Capítulo
+                    </button>
+                </div>
+                <app-table [title]="title" [collection]="collection" [headers]="headers" [model]="model">
+                </app-table>
             </div>
             <div class="card_footer">
                 <button type="button" class="button_primary" (click)="navigate()">

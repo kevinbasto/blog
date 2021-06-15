@@ -40,3 +40,14 @@
         margin-bottom: 1em;
     }
 }
+
+.table_container{
+    display: block;
+}
+
+.table_controller{
+    background-color: var(--bg-terciary);
+    padding: 1em;
+    display: flex;
+    justify-content: flex-end;
+}

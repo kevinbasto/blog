@@ -54,7 +54,8 @@ export class NovelComponent implements OnInit {
 
     loadNovelData(){
       this.novelService.getNovel(this.genre, this.novel)
-      .then(novel => { 
+      .then(novel => {
+        this.title = novel.title; 
         this.novelForm.controls["title"].setValue(novel.title);
         this.novelForm.controls["description"].setValue(novel.description);
         this.novelForm.controls["author"].setValue(novel.author);
